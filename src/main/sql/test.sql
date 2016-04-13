@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `user_t`;
 create database society default charset utf8 collate utf8_unicode_ci;
+DROP TABLE IF EXISTS `user_t`;
 CREATE TABLE `user_t` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(40) NOT NULL,
