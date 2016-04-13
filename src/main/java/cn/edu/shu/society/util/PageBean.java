@@ -9,7 +9,7 @@ public class PageBean {
     private int pageSize; // 每页记录数
     private int start;  // 起始页
 
-    public PageBean(int page, int pagSize) {
+    public PageBean(int page, int pageSize) {
         super();
         this.page = page;
         this.pageSize = pageSize;
