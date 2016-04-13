@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.shu.society.dao.UserDao">
+    <!--缓存-->
+    <cache eviction="LRU" flushInterval="60000" size="500" readOnly="true"/>
+    <!-- 先定义一个Interface，UserMapper，然后Mapper文件的namespace指向的就是这个Interface， UserInterface里定义的方法和UserMapper.xml文件中的一样,
+      然后代码里直接使用接口 -->
+    <resultMap type="User" id="UserResult">
+        <result property="id" column="id"/>
+        <result property="user_name" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="age" column="age"/>
+    </resultMap>
+    <!-- 所谓的动态SQL语句 -->
+    <select id="findById" parameterType="User" resultMap="UserResult">
+        select * from user_t where id = #{id}
+    </select>
+    <select id="login" parameterType="User" resultMap="UserResult">
+        select * from user_t where user_name = #{user_name} and password = #{password}
+    </select>
+    <!-- 用户查询 -->
+    <select id="find" parameterType="Map" resultMap="UserResult">
+        select * from user_t
+        <where>
+            <if test="user_name!=null and user_name!='' ">
+                and user_name like '${username}%'
+            </if>
+        </where>
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    <select id="getTotal" parameterType="Map" resultType="Long">
+        select count(*) from user_t
+        <where>
+            <if test="user_name!=null and user_name!='' ">
+                and user_name like '${username}%'
+            </if>
+        </where>
+    </select>
+    <!-- 用户添加 -->
+    <insert id="add" parameterType="User">
+        insert into user_t values(null,#{user_name},#{password},#{age})
+    </insert>
+    <!-- 用户修改 -->
+    <update id="update" parameterType="User">
+        update user_t
+        <set>
+            <if test="user_name != null and user_name != ''">user_name = #{user_name},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="age != null and age != ''">age = #{age},</if>
+        </set>
+        where id = #{id}
+    </update>
+    <!-- 用户删除 -->
+    <delete id="delete" parameterType="Integer">
+        delete from user_t where id = #{id}
+    </delete>
+</mapper>
