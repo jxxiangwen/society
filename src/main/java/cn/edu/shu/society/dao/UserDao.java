@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by jxxia on 2016/4/12 0012.
  */
 @Component
-@Repository(value="UserMapper")
+@Repository(value="UserDao")
 public interface UserDao {
 
     /**
