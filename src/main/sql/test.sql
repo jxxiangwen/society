@@ -1,4 +1,5 @@
 SELECT NOW();
+DROP DATABASE IF EXISTS society;
 CREATE DATABASE society DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;                         #collate建议使用utf8-bin
 SELECT NOW();
 SHOW WARNINGS;
@@ -23,22 +24,129 @@ SHOW WARNINGS;
 #   KEY `idx_sVar1` (`sVar1`)                                                                       #请加必要的业务相关索引，命名规则为idx_field1_field2
 # ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='comment';
 # SELECT NOW();
+USE society;
+
 SELECT NOW();
-DROP TABLE IF EXISTS example_db.example;
-CREATE TABLE example_db.example(
-  `iAutoID` int(10) UNSIGNED NOT NULL COMMENT 'comment' AUTO_INCREMENT,
-  `iIntID` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'comment',
-  `sVar0` varchar(5) NOT NULL DEFAULT '' COMMENT 'comment',
-  `sVar2` varchar(50) NOT NULL DEFAULT '' COMMENT 'comment',
-  `sVar3` varchar(100) NOT NULL DEFAULT '' COMMENT 'comment',
-  `sVar4` varchar(255) NOT NULL DEFAULT '' COMMENT 'comment',
-  `sVar5` varchar(500) NOT NULL DEFAULT '' COMMENT 'comment',
-  `sVar6` varchar(1000) NOT NULL DEFAULT '' COMMENT 'comment',
-  `sVar7` varchar(5000) NOT NULL DEFAULT '' COMMENT 'comment',
-  `sDesc` text NOT NULL COMMENT 'comment',
-  `iStatus` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'comment',
-  `iCreateTime` int(10) UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `iUpdateTime` int(10) UNSIGNED  NOT NULL DEFAULT 0 COMMENT '更新时间',
-  PRIMARY KEY `idx_iAutoID` (`iAutoID`),
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='comment';
+DROP TABLE IF EXISTS vote_type;
+CREATE TABLE vote_type(
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `type_name` varchar(255) NOT NULL DEFAULT '' COMMENT '类别名',
+  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='投票类别表';
+SELECT NOW();
+
+INSERT INTO vote_type(type_name, create_time, update_time) VALUE ('记名投票',now(),now());
+INSERT INTO vote_type(type_name, create_time, update_time) VALUE ('不记名投票',now(),now());
+
+SELECT NOW();
+DROP TABLE IF EXISTS vote_topic;
+CREATE TABLE vote_topic(
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建者学号',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '投票主题',
+  `start_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '开始时间',
+  `end_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '结束时间',
+  `vote_type_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票类别表ID',
+  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='投票主题表';
+SELECT NOW();
+
+SELECT NOW();
+DROP TABLE IF EXISTS vote_subject_type;
+CREATE TABLE vote_subject_type(
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `type_name` varchar(255) NOT NULL DEFAULT '' COMMENT '类别名',
+  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='投票项目类别表';
+SELECT NOW();
+
+INSERT INTO vote_subject_type(type_name, create_time, update_time) VALUE ('单选',now(),now());
+INSERT INTO vote_subject_type(type_name, create_time, update_time) VALUE ('多选',now(),now());
+INSERT INTO vote_subject_type(type_name, create_time, update_time) VALUE ('主观题',now(),now());
+
+SELECT NOW();
+DROP TABLE IF EXISTS vote_subject;
+CREATE TABLE vote_subject(
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '项目主题',
+  `vote_subject_type_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票项目类别表ID',
+  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='投票项目表';
+SELECT NOW();
+
+SELECT NOW();
+DROP TABLE IF EXISTS vote_item;
+CREATE TABLE vote_item(
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `content` varchar(255) NOT NULL DEFAULT '' COMMENT '项目内容',
+  `vote_subject_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票项目表ID',
+  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='项目选项表';
+SELECT NOW();
+
+SELECT NOW();
+DROP TABLE IF EXISTS vote_subject_result;
+CREATE TABLE vote_subject_result(
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '投票者学号',
+  `select_result` tinyint(1) UNSIGNED NOT NULL DEFAULT 1  COMMENT '客观题结果',
+  `content_result` varchar(1000) NOT NULL DEFAULT '' COMMENT '主观题结果',
+  `vote_subject_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票项目表ID',
+  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='项目结果表';
+SELECT NOW();
+
+# 暂时缺少event表
+
+SELECT NOW();
+DROP TABLE IF EXISTS message_type;
+CREATE TABLE message_type(
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '消息接受者学号',
+  `type_name` varchar(255) NOT NULL DEFAULT '' COMMENT '消息类别名',
+  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='留言类别表';
+SELECT NOW();
+
+SELECT NOW();
+DROP TABLE IF EXISTS message;
+CREATE TABLE message(
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '消息发送者学号',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '消息标题',
+  `content` varchar(1000) NOT NULL DEFAULT '' COMMENT '消息内容',
+  `is_passed` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否通过',
+  `message_type_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '留言类别表ID',
+  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='留言表';
+SELECT NOW();
+
+SELECT NOW();
+DROP TABLE IF EXISTS response;
+CREATE TABLE response(
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '回复发送者学号',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '回复标题',
+  `content` varchar(1000) NOT NULL DEFAULT '' COMMENT '回复内容',
+  `message_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '留言表ID',
+  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='回复表';
 SELECT NOW();
