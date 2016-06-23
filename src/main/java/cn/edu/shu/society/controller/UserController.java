@@ -26,7 +26,7 @@ public class UserController {
     @RequestMapping("/findAllUser")
     public String findAllUser(@RequestParam("id") Integer id, Model model) {
         System.out.println(id);
-        Map<String, Object> userMap = new HashMap<>();
+        Map<String, NodeCursor.Object> userMap = new HashMap<>();
         userMap.put("user_name", "邹祥文");
         System.out.println(userService);
         List<User> listUser = userService.find(userMap);
