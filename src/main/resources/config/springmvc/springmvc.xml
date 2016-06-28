@@ -66,6 +66,15 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/user/login"/>
+            <mvc:exclude-mapping path="/user/logout"/><!--注销-->
+            <bean id="loginInterceptor" class="cn.edu.shu.society.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="5242880"/>
         <property name="resolveLazily" value="true"/>
@@ -99,10 +108,6 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
-    <mvc:resources mapping="/images/**" location="/image/"
-                   cache-period="31556926" />
-    <mvc:resources mapping="/js/**" location="/js/"
-                   cache-period="31556926" />
-    <mvc:resources mapping="/css/**" location="/css/"
+    <mvc:resources mapping="/fonts/**" location="/fonts/"
                    cache-period="31556926" />
 </beans>

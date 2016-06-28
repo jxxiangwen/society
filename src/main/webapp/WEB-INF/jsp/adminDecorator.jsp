@@ -1,3 +1,4 @@
+<%@page contentType="text/html; charset=utf-8" language="java" errorPage="" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +23,8 @@
     <sitemesh:write property='head'/>
 </head>
 <body>
-<jsp:include page="WEB-INF/head.jsp"/>
+<jsp:include page="../adminHead.jsp"/>
 <sitemesh:write property='body'/>
-<jsp:include page="WEB-INF/foot.jsp"/>
+<jsp:include page="../adminFoot.jsp"/>
 </body>
 </html>

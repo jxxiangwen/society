@@ -5,19 +5,19 @@ SELECT NOW();
 SHOW WARNINGS;
 # SELECT NOW();
 # DROP TABLE IF EXISTS example_db.example;
-# CREATE TABLE example_db.example(                                                                #常规字段为 int,bigint,varchar,text,tinyint,timestamp
+# CREATE TABLE example_db.example(                                                                #常规字段为 int,BIGINT,VARCHAR,text,TINYINT,timestamp
 #   `iAutoID` int(10) UNSIGNED NOT NULL COMMENT 'comment' AUTO_INCREMENT,
-#   `iIntID` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'comment',                              #财务相关字段，建议使用bigint
-#   `sVar0` varchar(5) NOT NULL DEFAULT '' COMMENT 'comment',                                       #varchar字段，建议使用长度5,30,50,100,255,500,1000,5000
-#   `sVar1` varchar(30) NOT NULL DEFAULT '' COMMENT 'comment',
-#   `sVar2` varchar(50) NOT NULL DEFAULT '' COMMENT 'comment',
-#   `sVar3` varchar(100) NOT NULL DEFAULT '' COMMENT 'comment',
-#   `sVar4` varchar(255) NOT NULL DEFAULT '' COMMENT 'comment',
-#   `sVar5` varchar(500) NOT NULL DEFAULT '' COMMENT 'comment',
-#   `sVar6` varchar(1000) NOT NULL DEFAULT '' COMMENT 'comment',
-#   `sVar7` varchar(5000) NOT NULL DEFAULT '' COMMENT 'comment',                                    #使用该长度时，建议分表
+#   `iIntID` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'comment',                              #财务相关字段，建议使用BIGINT
+#   `sVar0` VARCHAR(5) NOT NULL DEFAULT '' COMMENT 'comment',                                       #VARCHAR字段，建议使用长度5,30,50,100,255,500,1000,5000
+#   `sVar1` VARCHAR(30) NOT NULL DEFAULT '' COMMENT 'comment',
+#   `sVar2` VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'comment',
+#   `sVar3` VARCHAR(100) NOT NULL DEFAULT '' COMMENT 'comment',
+#   `sVar4` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'comment',
+#   `sVar5` VARCHAR(500) NOT NULL DEFAULT '' COMMENT 'comment',
+#   `sVar6` VARCHAR(1000) NOT NULL DEFAULT '' COMMENT 'comment',
+#   `sVar7` VARCHAR(5000) NOT NULL DEFAULT '' COMMENT 'comment',                                    #使用该长度时，建议分表
 #   `sDesc` text NOT NULL COMMENT 'comment',                                                        #存储json格式字段
-#   `iStatus` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'comment',                             #系统字段，业务请勿使用
+#   `iStatus` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'comment',                             #系统字段，业务请勿使用
 #   `iCreateTime` int(10) UNSIGNED  NOT NULL DEFAULT 0 COMMENT '创建时间',                                             #系统字段，业务请勿使用
 #   `iUpdateTime` int(10) UNSIGNED  NOT NULL DEFAULT 0 COMMENT '更新时间',                                              #系统字段，业务请勿使用
 #   PRIMARY KEY `idx_iAutoID` (`iAutoID`),                                                          #主键，请合理选择
@@ -29,10 +29,10 @@ USE society;
 SELECT NOW();
 DROP TABLE IF EXISTS vote_type;
 CREATE TABLE vote_type(
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
-  `type_name` varchar(255) NOT NULL DEFAULT '' COMMENT '类别名',
-  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  `id` BIGINT(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `type_name` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '类别名',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY `idx_iAutoID` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='投票类别表';
 SELECT NOW();
@@ -43,14 +43,14 @@ INSERT INTO vote_type(type_name, create_time, update_time) VALUE ('不记名投�
 SELECT NOW();
 DROP TABLE IF EXISTS vote_topic;
 CREATE TABLE vote_topic(
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建者学号',
-  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '投票主题',
-  `start_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '开始时间',
-  `end_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '结束时间',
-  `vote_type_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票类别表ID',
-  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  `id` BIGINT(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建者学号',
+  `title` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '投票主题',
+  `start_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '开始时间',
+  `end_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '结束时间',
+  `vote_type_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票类别表ID',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY `idx_iAutoID` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='投票主题表';
 SELECT NOW();
@@ -58,10 +58,10 @@ SELECT NOW();
 SELECT NOW();
 DROP TABLE IF EXISTS vote_subject_type;
 CREATE TABLE vote_subject_type(
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
-  `type_name` varchar(255) NOT NULL DEFAULT '' COMMENT '类别名',
-  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  `id` BIGINT(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `type_name` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '类别名',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY `idx_iAutoID` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='投票项目类别表';
 SELECT NOW();
@@ -73,11 +73,11 @@ INSERT INTO vote_subject_type(type_name, create_time, update_time) VALUE ('主�
 SELECT NOW();
 DROP TABLE IF EXISTS vote_subject;
 CREATE TABLE vote_subject(
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '项目主题',
-  `vote_subject_type_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票项目类别表ID',
-  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  `id` BIGINT(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '项目主题',
+  `vote_subject_type_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票项目类别表ID',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY `idx_iAutoID` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='投票项目表';
 SELECT NOW();
@@ -85,11 +85,11 @@ SELECT NOW();
 SELECT NOW();
 DROP TABLE IF EXISTS vote_item;
 CREATE TABLE vote_item(
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
-  `content` varchar(255) NOT NULL DEFAULT '' COMMENT '项目内容',
-  `vote_subject_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票项目表ID',
-  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  `id` BIGINT(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `content` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '项目内容',
+  `vote_subject_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票项目表ID',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY `idx_iAutoID` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='项目选项表';
 SELECT NOW();
@@ -97,13 +97,13 @@ SELECT NOW();
 SELECT NOW();
 DROP TABLE IF EXISTS vote_subject_result;
 CREATE TABLE vote_subject_result(
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '投票者学号',
-  `select_result` tinyint(1) UNSIGNED NOT NULL DEFAULT 1  COMMENT '客观题结果',
-  `content_result` varchar(1000) NOT NULL DEFAULT '' COMMENT '主观题结果',
-  `vote_subject_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票项目表ID',
-  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  `id` BIGINT(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` BIGINT(20) UNSIGNED DEFAULT 0 COMMENT '投票者学号',
+  `select_result` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1  COMMENT '客观题结果',
+  `content_result` VARCHAR(1000) NOT NULL DEFAULT '' COMMENT '主观题结果',
+  `vote_subject_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '投票项目表ID',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY `idx_iAutoID` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='项目结果表';
 SELECT NOW();
@@ -113,11 +113,11 @@ SELECT NOW();
 SELECT NOW();
 DROP TABLE IF EXISTS message_type;
 CREATE TABLE message_type(
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '消息接受者学号',
-  `type_name` varchar(255) NOT NULL DEFAULT '' COMMENT '消息类别名',
-  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  `id` BIGINT(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` BIGINT(20) UNSIGNED DEFAULT 0 COMMENT '消息接受者学号',
+  `type_name` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '消息类别名',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY `idx_iAutoID` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='留言类别表';
 SELECT NOW();
@@ -125,14 +125,14 @@ SELECT NOW();
 SELECT NOW();
 DROP TABLE IF EXISTS message;
 CREATE TABLE message(
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '消息发送者学号',
-  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '消息标题',
-  `content` varchar(1000) NOT NULL DEFAULT '' COMMENT '消息内容',
-  `is_passed` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否通过',
-  `message_type_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '留言类别表ID',
-  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  `id` BIGINT(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` BIGINT(20) UNSIGNED DEFAULT 0 COMMENT '消息发送者学号',
+  `title` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '消息标题',
+  `content` VARCHAR(1000) NOT NULL DEFAULT '' COMMENT '消息内容',
+  `is_passed` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否通过',
+  `message_type_id` BIGINT(20) UNSIGNED DEFAULT 0 COMMENT '留言类别表ID',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY `idx_iAutoID` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='留言表';
 SELECT NOW();
@@ -140,13 +140,13 @@ SELECT NOW();
 SELECT NOW();
 DROP TABLE IF EXISTS response;
 CREATE TABLE response(
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '回复发送者学号',
-  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '回复标题',
-  `content` varchar(1000) NOT NULL DEFAULT '' COMMENT '回复内容',
-  `message_id` bigint(20) UNSIGNED DEFAULT 0 COMMENT '留言表ID',
-  `create_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
-  `update_time` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
+  `id` BIGINT(20) UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT,
+  `user_id` BIGINT(20) UNSIGNED DEFAULT 0 COMMENT '回复发送者学号',
+  `title` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '回复标题',
+  `content` VARCHAR(1000) NOT NULL DEFAULT '' COMMENT '回复内容',
+  `message_id` BIGINT(20) UNSIGNED DEFAULT 0 COMMENT '留言表ID',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY `idx_iAutoID` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='回复表';
 SELECT NOW();
