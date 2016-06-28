@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Created by jxxia on 2016/4/12 0012.
  */
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/vote")
+public class VoteController {
     @RequestMapping("/findAllUser")
     public String findAllUser(@RequestParam("id") Integer id, Model model) {
         return "/allUser";
