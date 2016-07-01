@@ -100,6 +100,7 @@
           <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.3.1" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
+          <element id="library" level="project" name="sitemesh-3.0.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
