@@ -8,15 +8,18 @@ import cn.edu.shu.society.util.BeanUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class VoteTypeServiceImpl implements VoteTypeService{
+@Service
+public class VoteTypeServiceImpl implements VoteTypeService {
     private static Logger logger = LoggerFactory.getLogger(VoteTypeServiceImpl.class);
     @Autowired
     VoteTypeMapper voteTypeMapper;
+
     /**
      * @param id
      * @return
@@ -37,14 +40,14 @@ public class VoteTypeServiceImpl implements VoteTypeService{
      * @param id
      * @return
      */
-    public VoteTypeDTO selectByPrimaryKey(Long id){
+    public VoteTypeDTO selectByPrimaryKey(Long id) {
         return BeanUtility.beanCopy(voteTypeMapper.selectByPrimaryKey(id), VoteTypeDTO.class);
     }
 
     /**
      * @return
      */
-    public List<VoteTypeDTO> selectAll(){
+    public List<VoteTypeDTO> selectAll() {
         List<VoteType> voteTypeList = voteTypeMapper.selectAll();
         Iterator<VoteType> iterator = voteTypeList.iterator();
         List<VoteTypeDTO> voteTypeDTOLinkedList = new LinkedList<>();
@@ -58,7 +61,7 @@ public class VoteTypeServiceImpl implements VoteTypeService{
      * @param record
      * @return
      */
-    public int updateByPrimaryKey(VoteTypeDTO record){
+    public int updateByPrimaryKey(VoteTypeDTO record) {
         return voteTypeMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, VoteType.class));
     }
 }

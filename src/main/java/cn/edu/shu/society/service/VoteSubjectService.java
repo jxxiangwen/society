@@ -1,11 +1,9 @@
 package cn.edu.shu.society.service;
 
 import cn.edu.shu.society.dto.VoteSubjectDTO;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface VoteSubjectService {
     /**
      * @param id

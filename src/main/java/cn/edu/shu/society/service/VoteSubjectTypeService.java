@@ -1,6 +1,8 @@
 package cn.edu.shu.society.service;
 
 import cn.edu.shu.society.dto.VoteSubjectTypeDTO;
+import cn.edu.shu.society.entity.VoteSubjectType;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,11 @@ public interface VoteSubjectTypeService {
      * @return
      */
     List<VoteSubjectTypeDTO> selectAll();
+
+    /**
+     * @return
+     */
+    PageInfo<VoteSubjectType> selectByPage(int pageNum, int pageSize);
 
     /**
      * @param record

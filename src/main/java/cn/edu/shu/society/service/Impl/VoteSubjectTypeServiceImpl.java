@@ -5,14 +5,18 @@ import cn.edu.shu.society.entity.VoteSubjectType;
 import cn.edu.shu.society.repository.VoteSubjectTypeMapper;
 import cn.edu.shu.society.service.VoteSubjectTypeService;
 import cn.edu.shu.society.util.BeanUtility;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+@Service
 public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
     private static Logger logger = LoggerFactory.getLogger(VoteSubjectTypeServiceImpl.class);
 
@@ -54,6 +58,21 @@ public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
             voteSubjectTypeDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteSubjectTypeDTO.class));
         }
         return voteSubjectTypeDTOLinkedList;
+    }
+
+    @Override
+    public PageInfo<VoteSubjectType> selectByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<VoteSubjectType> voteSubjectTypeList = voteSubjectTypeMapper.selectAll();
+        PageInfo<VoteSubjectType> page = new PageInfo(voteSubjectTypeList);
+        Iterator<VoteSubjectType> iterator = voteSubjectTypeList.iterator();
+        List<VoteSubjectTypeDTO> voteSubjectTypeDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            voteSubjectTypeDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteSubjectTypeDTO.class));
+        }
+        //用PageInfo对结果进行包装
+//        PageInfo<VoteSubjectTypeDTO> page = new PageInfo(voteSubjectTypeDTOLinkedList);
+        return page;
     }
 
     /**

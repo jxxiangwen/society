@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
@@ -9,10 +9,13 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
        ">
+    <!-- 注解方式 -->
+    <context:annotation-config/>
     <!-- 自动扫描 -->
-    <context:component-scan base-package="cn.edu.shu.society"/>
+    <!--<context:component-scan base-package="cn.edu.shu.society.controller"/>-->
+    <context:component-scan base-package="cn.edu.shu.society.repository"/>
+    <context:component-scan base-package="cn.edu.shu.society.service.Impl"/>
     <!--&lt;!&ndash;service&ndash;&gt;-->
     <!--<context:component-scan base-package="cn.edu.shu.society.service"/>-->
     <!--&lt;!&ndash;controller&ndash;&gt;-->
@@ -22,20 +25,17 @@
     <!--&lt;!&ndash;util&ndash;&gt;-->
     <!--<context:component-scan base-package="cn.edu.shu.society.util"/>-->
     <!-- 引入配置文件 -->
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:jdbc.properties"/>
-    </bean>
+    <!--<bean id="propertyConfigurer"-->
+          <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="location" value="classpath:jdbc.properties"/>-->
+    <!--</bean>-->
     <!-- 打开aop 注解 -->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
-    <!-- 开启mvc 注解 -->
-    <mvc:annotation-driven/>
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
     <!--开启定时器注解-->
     <task:annotation-driven/>
-    <context:annotation-config/>
     <!--default-autowire="byName"-->
     <!--加载配置文件-->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
     <!--&lt;!&ndash; 切入点 &ndash;&gt;-->
     <!--<aop:config>-->
     <!--<aop:aspect id="logAop" ref="myLog">-->
@@ -50,20 +50,20 @@
     <!-- 配置系统的数据源 -->
     <!-- 配置c3p0数据源 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="${jdbc.url}"/>
-        <property name="driverClass" value="${jdbc.driverClassName}"/>
-        <property name="user" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost/society"/>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="user" value="root"/>
+        <property name="password" value="wenwen1991"/>
         <!--连接池中保留的最大连接数。Default: 15 -->
-        <property name="maxPoolSize" value="${jdbc.maxActive}"/>
+        <property name="maxPoolSize" value="100"/>
         <!--连接池中保留的最小连接数。-->
-        <property name="minPoolSize" value="${jdbc.minActive}"/>
+        <property name="minPoolSize" value="1"/>
         <!--初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
-        <property name="initialPoolSize" value="${jdbc.initActive}"/>
+        <property name="initialPoolSize" value="3"/>
         <!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
-        <property name="maxIdleTime" value="${jdbc.maxIdle}"/>
+        <property name="maxIdleTime" value="30"/>
         <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
-        <property name="acquireIncrement" value="${jdbc.minIdle}"/>
+        <property name="acquireIncrement" value="5"/>
         <!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements
           属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。
           如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0-->
@@ -83,28 +83,28 @@
     </bean>
 
     <!-- 配置dbcp数据源 -->
-    <bean id="dataSource2" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="${jdbc.driverClassName}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-        <!-- 池启动时创建的连接数量 -->
-        <property name="initialSize" value="${jdbc.initActive}"/>
-        <!-- 同一时间可以从池分配的最多连接数量。设置为0时表示无限制。 -->
-        <property name="maxActive" value="${jdbc.maxActive}"/>
-        <!-- 池里不会被释放的最多空闲连接数量。设置为0时表示无限制。 -->
-        <property name="maxIdle" value="${jdbc.maxIdle}"/>
-        <!-- 在不新建连接的条件下，池中保持空闲的最少连接数。 -->
-        <property name="minIdle" value="${jdbc.minIdle}"/>
-        <!-- 设置自动回收超时连接 -->
-        <property name="removeAbandoned" value="true"/>
-        <!-- 自动回收超时时间(以秒数为单位) -->
-        <property name="removeAbandonedTimeout" value="200"/>
-        <!-- 设置在自动回收超时连接的时候打印连接的超时错误  -->
-        <property name="logAbandoned" value="true"/>
-        <!-- 等待超时以毫秒为单位，在抛出异常之前，池等待连接被回收的最长时间（当没有可用连接时）。设置为-1表示无限等待。  -->
-        <property name="maxWait" value="${jdbc.maxWait}"/>
-    </bean>
+    <!--<bean id="dataSource2" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">-->
+        <!--<property name="driverClassName" value="${jdbc.driverClassName}"/>-->
+        <!--<property name="url" value="${jdbc.url}"/>-->
+        <!--<property name="username" value="${jdbc.username}"/>-->
+        <!--<property name="password" value="${jdbc.password}"/>-->
+        <!--&lt;!&ndash; 池启动时创建的连接数量 &ndash;&gt;-->
+        <!--<property name="initialSize" value="${jdbc.initActive}"/>-->
+        <!--&lt;!&ndash; 同一时间可以从池分配的最多连接数量。设置为0时表示无限制。 &ndash;&gt;-->
+        <!--<property name="maxActive" value="${jdbc.maxActive}"/>-->
+        <!--&lt;!&ndash; 池里不会被释放的最多空闲连接数量。设置为0时表示无限制。 &ndash;&gt;-->
+        <!--<property name="maxIdle" value="${jdbc.maxIdle}"/>-->
+        <!--&lt;!&ndash; 在不新建连接的条件下，池中保持空闲的最少连接数。 &ndash;&gt;-->
+        <!--<property name="minIdle" value="${jdbc.minIdle}"/>-->
+        <!--&lt;!&ndash; 设置自动回收超时连接 &ndash;&gt;-->
+        <!--<property name="removeAbandoned" value="true"/>-->
+        <!--&lt;!&ndash; 自动回收超时时间(以秒数为单位) &ndash;&gt;-->
+        <!--<property name="removeAbandonedTimeout" value="200"/>-->
+        <!--&lt;!&ndash; 设置在自动回收超时连接的时候打印连接的超时错误  &ndash;&gt;-->
+        <!--<property name="logAbandoned" value="true"/>-->
+        <!--&lt;!&ndash; 等待超时以毫秒为单位，在抛出异常之前，池等待连接被回收的最长时间（当没有可用连接时）。设置为-1表示无限等待。  &ndash;&gt;-->
+        <!--<property name="maxWait" value="${jdbc.maxWait}"/>-->
+    <!--</bean>-->
 
     <!--sessionFactory配置-->
     <!-- sessionFactory 将spring和mybatis整合 -->
@@ -113,21 +113,10 @@
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations" value="classpath*:/config/mybatis/**/*Mapper.xml" />
         <property name="configLocation" value="classpath:/config/mybatis/config/mybatis-config.xml" />
-        <property name="plugins">
-            <list>
-                <bean class="com.github.pagehelper.PageHelper">
-                    <property name="properties">
-                        <value>
-                            dialect=hsqldb
-                        </value>
-                    </property>
-                </bean>
-            </list>
-        </property>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.ymm.authenticate.biz" />
+        <property name="basePackage" value="cn.edu.shu.society.repository" />
         <property name="annotationClass" value="org.springframework.stereotype.Repository" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
@@ -157,7 +146,7 @@
         </tx:attributes>
     </tx:advice>
     <aop:config>
-        <aop:pointcut expression="execution(* cn.edu.shu.society.service.*.*(..))"
+        <aop:pointcut expression="execution(* cn.edu.shu.society.service.Impl.*.*(..)) or execution(* cn.edu.shu.society.repository.*.*(..))"
                       id="serviceOperation"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
     </aop:config>
