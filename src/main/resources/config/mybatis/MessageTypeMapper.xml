@@ -31,7 +31,7 @@
     insert into message_type (id, user_id, type_name, 
       create_time, update_time)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{typeName,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
+      now(), now())
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.edu.shu.society.entity.MessageType">
     <!--
@@ -42,8 +42,7 @@
     update message_type
     set user_id = #{userId,jdbcType=BIGINT},
       type_name = #{typeName,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT}
+      update_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -64,5 +63,15 @@
     -->
     select id, user_id, type_name, create_time, update_time
     from message_type
+  </select>
+  <select id="findByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, user_id, type_name, create_time, update_time
+    from message
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="findByTypeName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, user_id, type_name, create_time, update_time
+    from message
+    where type_name = #{typeName,jdbcType=VARCHAR}
   </select>
 </mapper>

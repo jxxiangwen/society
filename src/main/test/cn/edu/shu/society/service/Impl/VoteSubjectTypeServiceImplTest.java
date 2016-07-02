@@ -1,5 +1,7 @@
 package cn.edu.shu.society.service.Impl;
 
+import cn.edu.shu.society.service.MessageService;
+import cn.edu.shu.society.service.MessageTypeService;
 import cn.edu.shu.society.service.VoteSubjectTypeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +20,17 @@ public class VoteSubjectTypeServiceImplTest {
 
     @Autowired
     VoteSubjectTypeService voteSubjectTypeService;
+    @Autowired
+    MessageService messageService;
 
     @Test
     public void selectByPage() throws Exception {
         System.out.println(voteSubjectTypeService.selectByPage(1,1));
+    }
+
+    @Test
+    public void testMessageService() throws Exception {
+        messageService.findByMsgId(1,2,1L);
     }
 
 }

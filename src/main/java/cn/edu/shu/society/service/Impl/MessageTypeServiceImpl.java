@@ -1,7 +1,9 @@
 package cn.edu.shu.society.service.Impl;
 
 import cn.edu.shu.society.dto.MessageTypeDTO;
+import cn.edu.shu.society.entity.Message;
 import cn.edu.shu.society.entity.MessageType;
+import cn.edu.shu.society.repository.MessageMapper;
 import cn.edu.shu.society.repository.MessageTypeMapper;
 import cn.edu.shu.society.service.MessageTypeService;
 import cn.edu.shu.society.util.BeanUtility;
@@ -52,12 +54,7 @@ public class MessageTypeServiceImpl implements MessageTypeService {
      */
     public List<MessageTypeDTO> selectAll() {
         List<MessageType> messageTypeList = messageTypeMapper.selectAll();
-        Iterator<MessageType> iterator = messageTypeList.iterator();
-        List<MessageTypeDTO> messageTypeDTOLinkedList = new LinkedList<>();
-        while (iterator.hasNext()) {
-            messageTypeDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), MessageTypeDTO.class));
-        }
-        return messageTypeDTOLinkedList;
+        return BeanUtility.convertOtherBeanList(messageTypeList,MessageTypeDTO.class);
     }
 
     /**
@@ -80,11 +77,18 @@ public class MessageTypeServiceImpl implements MessageTypeService {
         return page1;
     }
 
-    /**
-     * @param record
-     * @return
-     */
+    @Override
     public int updateByPrimaryKey(MessageTypeDTO record) {
         return messageTypeMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, MessageType.class));
+    }
+
+    @Override
+    public List<MessageTypeDTO> findByUserId(Long userId) {
+        return BeanUtility.convertOtherBeanList(messageTypeMapper.findByUserId(userId),MessageTypeDTO.class);
+    }
+
+    @Override
+    public List<MessageTypeDTO> findByTypeName(String typeName) {
+        return BeanUtility.convertOtherBeanList(messageTypeMapper.findByTypeName(typeName),MessageTypeDTO.class);
     }
 }

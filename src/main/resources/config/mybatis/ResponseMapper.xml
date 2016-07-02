@@ -34,8 +34,8 @@
       content, message_id, create_time, 
       update_time)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{messageId,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, 
-      #{updateTime,jdbcType=BIGINT})
+      #{content,jdbcType=VARCHAR}, #{messageId,jdbcType=BIGINT}, now(),
+      now())
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.edu.shu.society.entity.Response">
     <!--
@@ -48,8 +48,7 @@
       title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       message_id = #{messageId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT}
+      update_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

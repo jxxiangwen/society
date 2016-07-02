@@ -1,6 +1,7 @@
 package cn.edu.shu.society.service;
 
 import cn.edu.shu.society.dto.MessageTypeDTO;
+import cn.edu.shu.society.entity.MessageType;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -42,4 +43,13 @@ public interface MessageTypeService {
      * @return
      */
     int updateByPrimaryKey(MessageTypeDTO record);
+
+    /**
+     * 根据留言类别ID查找回答接受者ID
+     * @param userId
+     * @return
+     */
+    List<MessageTypeDTO> findByUserId(Long userId);
+
+    List<MessageTypeDTO> findByTypeName(String typeName);
 }

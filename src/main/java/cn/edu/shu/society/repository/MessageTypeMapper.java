@@ -46,4 +46,8 @@ public interface MessageTypeMapper {
      * @mbggenerated Thu Jun 23 22:16:17 CST 2016
      */
     int updateByPrimaryKey(MessageType record);
+
+    List<MessageType> findByUserId(Long userId);
+
+    List<MessageType> findByTypeName(String typeName);
 }

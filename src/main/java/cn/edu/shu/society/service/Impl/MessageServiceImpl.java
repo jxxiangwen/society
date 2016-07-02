@@ -47,6 +47,8 @@ public class MessageServiceImpl implements MessageService {
         return BeanUtility.beanCopy(messageMapper.selectByPrimaryKey(id), MessageDTO.class);
     }
 
+
+
     /**
      * @return
      */
@@ -88,4 +90,36 @@ public class MessageServiceImpl implements MessageService {
     public int updateByPrimaryKey(MessageDTO record) {
         return messageMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, Message.class));
     }
+
+    @Override
+    public PageInfo<MessageDTO> findByMsgIdAndPassStatus(int pageNum, int pageSize, Long msgTypeId, boolean passStatus) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Message> messageList = messageMapper.findByMsgIdAndPassStatus(msgTypeId,passStatus);
+        PageInfo<Message> page = new PageInfo(messageList);
+        Iterator<Message> iterator = messageList.iterator();
+        List<MessageDTO> messageDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            messageDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), MessageDTO.class));
+        }
+        PageInfo<MessageDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(messageDTOLinkedList);
+        return page1;
+    }
+
+    @Override
+    public PageInfo<MessageDTO> findByMsgId(int pageNum, int pageSize, Long msgTypeId) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Message> messageList = messageMapper.findByMsgId(msgTypeId);
+        PageInfo<Message> page = new PageInfo(messageList);
+        Iterator<Message> iterator = messageList.iterator();
+        List<MessageDTO> messageDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            messageDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), MessageDTO.class));
+        }
+        PageInfo<MessageDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(messageDTOLinkedList);
+        return page1;
+    }
+
+
 }

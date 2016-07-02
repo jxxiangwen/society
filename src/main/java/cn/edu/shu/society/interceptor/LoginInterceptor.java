@@ -1,5 +1,6 @@
 package cn.edu.shu.society.interceptor;
 
+import cn.edu.shu.society.dto.UserDTO;
 import cn.edu.shu.society.enums.LoginEnums;
 import cn.edu.shu.society.util.RequestUtil;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         if ("GET".equalsIgnoreCase(request.getMethod())) {
             RequestUtil.saveRequest(request);
         }
-        String username = (String) request.getSession().getAttribute("user");
+        UserDTO username = (UserDTO) request.getSession().getAttribute("user");
         if (username == null) {
             request.getRequestDispatcher(LoginEnums.LOGIN_HOME.getMsg()).forward(request, response);
             return false;
