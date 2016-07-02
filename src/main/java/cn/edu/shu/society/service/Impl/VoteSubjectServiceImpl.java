@@ -27,6 +27,7 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
      * @param id
      * @return
      */
+    @Override
     public int deleteByPrimaryKey(Long id) {
         return voteSubjectMapper.deleteByPrimaryKey(id);
     }
@@ -35,6 +36,7 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
      * @param record
      * @return
      */
+    @Override
     public int insert(VoteSubjectDTO record) {
         return voteSubjectMapper.insert(BeanUtility.beanCopy(record, VoteSubject.class));
     }
@@ -43,6 +45,7 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
      * @param id
      * @return
      */
+    @Override
     public VoteSubjectDTO selectByPrimaryKey(Long id) {
         return BeanUtility.beanCopy(voteSubjectMapper.selectByPrimaryKey(id), VoteSubjectDTO.class);
     }
@@ -50,8 +53,20 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
     /**
      * @return
      */
+    @Override
     public List<VoteSubjectDTO> selectAll() {
         List<VoteSubject> voteSubjectList = voteSubjectMapper.selectAll();
+        Iterator<VoteSubject> iterator = voteSubjectList.iterator();
+        List<VoteSubjectDTO> voteSubjectDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            voteSubjectDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteSubjectDTO.class));
+        }
+        return voteSubjectDTOLinkedList;
+    }
+
+    @Override
+    public List<VoteSubjectDTO> selectAllByVoteTopicId(Long VoteTopicId) {
+        List<VoteSubject> voteSubjectList = voteSubjectMapper.selectAllByVoteTopicId(VoteTopicId);
         Iterator<VoteSubject> iterator = voteSubjectList.iterator();
         List<VoteSubjectDTO> voteSubjectDTOLinkedList = new LinkedList<>();
         while (iterator.hasNext()) {
@@ -84,6 +99,7 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
      * @param record
      * @return
      */
+    @Override
     public int updateByPrimaryKey(VoteSubjectDTO record) {
         return voteSubjectMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, VoteSubject.class));
     }

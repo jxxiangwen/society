@@ -27,6 +27,7 @@ public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
      * @param id
      * @return
      */
+    @Override
     public int deleteByPrimaryKey(Long id) {
         return voteSubjectTypeMapper.deleteByPrimaryKey(id);
     }
@@ -35,6 +36,7 @@ public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
      * @param record
      * @return
      */
+    @Override
     public int insert(VoteSubjectTypeDTO record) {
         return voteSubjectTypeMapper.insert(BeanUtility.beanCopy(record, VoteSubjectType.class));
     }
@@ -43,6 +45,7 @@ public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
      * @param id
      * @return
      */
+    @Override
     public VoteSubjectTypeDTO selectByPrimaryKey(Long id) {
         return BeanUtility.beanCopy(voteSubjectTypeMapper.selectByPrimaryKey(id), VoteSubjectTypeDTO.class);
     }
@@ -50,6 +53,7 @@ public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
     /**
      * @return
      */
+    @Override
     public List<VoteSubjectTypeDTO> selectAll() {
         List<VoteSubjectType> voteSubjectTypeList = voteSubjectTypeMapper.selectAll();
         Iterator<VoteSubjectType> iterator = voteSubjectTypeList.iterator();
@@ -85,6 +89,7 @@ public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
      * @param record
      * @return
      */
+    @Override
     public int updateByPrimaryKey(VoteSubjectTypeDTO record) {
         return voteSubjectTypeMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, VoteSubjectType.class));
     }

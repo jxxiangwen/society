@@ -9,7 +9,7 @@ public enum LoginEnums {
     REDIRECT_HOME("/");
     private String msg;
 
-    private LoginEnums(String msg) {
+    LoginEnums(String msg) {
         this.msg = msg;
     }
 

@@ -2,6 +2,9 @@ package cn.edu.shu.society.service.Impl;
 
 import cn.edu.shu.society.dto.VoteTypeDTO;
 import cn.edu.shu.society.entity.VoteType;
+import cn.edu.shu.society.enums.VoteCode;
+import cn.edu.shu.society.exception.AppException;
+import cn.edu.shu.society.repository.VoteTopicMapper;
 import cn.edu.shu.society.repository.VoteTypeMapper;
 import cn.edu.shu.society.service.VoteTypeService;
 import cn.edu.shu.society.util.BeanUtility;
@@ -22,18 +25,29 @@ public class VoteTypeServiceImpl implements VoteTypeService {
     @Autowired
     VoteTypeMapper voteTypeMapper;
 
+    @Autowired
+    VoteTopicMapper voteTopicMapper;
+
     /**
-     * @param id
+     * 删除前要判断是否能删除，该类别下有内容就不能被删除
+     * @param id 要删除的id
      * @return
      */
+    @Override
     public int deleteByPrimaryKey(Long id) {
-        return voteTypeMapper.deleteByPrimaryKey(id);
+        Long countNumber = voteTopicMapper.countByVoteTypeId(id);
+        if(countNumber == null || 0 == countNumber){
+            return voteTypeMapper.deleteByPrimaryKey(id);
+        }else {
+            throw new AppException(VoteCode.VOTE_HAVE_OBJECT.getMsg(),VoteCode.VOTE_HAVE_OBJECT.getCode());
+        }
     }
 
     /**
      * @param record
      * @return
      */
+    @Override
     public int insert(VoteTypeDTO record) {
         return voteTypeMapper.insert(BeanUtility.beanCopy(record, VoteType.class));
     }
@@ -42,6 +56,7 @@ public class VoteTypeServiceImpl implements VoteTypeService {
      * @param id
      * @return
      */
+    @Override
     public VoteTypeDTO selectByPrimaryKey(Long id) {
         return BeanUtility.beanCopy(voteTypeMapper.selectByPrimaryKey(id), VoteTypeDTO.class);
     }
@@ -49,6 +64,7 @@ public class VoteTypeServiceImpl implements VoteTypeService {
     /**
      * @return
      */
+    @Override
     public List<VoteTypeDTO> selectAll() {
         List<VoteType> voteTypeList = voteTypeMapper.selectAll();
         Iterator<VoteType> iterator = voteTypeList.iterator();
@@ -83,6 +99,7 @@ public class VoteTypeServiceImpl implements VoteTypeService {
      * @param record
      * @return
      */
+    @Override
     public int updateByPrimaryKey(VoteTypeDTO record) {
         return voteTypeMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, VoteType.class));
     }

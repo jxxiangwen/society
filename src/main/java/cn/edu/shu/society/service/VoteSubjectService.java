@@ -30,6 +30,11 @@ public interface VoteSubjectService {
     List<VoteSubjectDTO> selectAll();
 
     /**
+     * @return
+     */
+    List<VoteSubjectDTO> selectAllByVoteTopicId(Long VoteTopicId);
+
+    /**
      *
      * @param pageNum
      * @param pageSize

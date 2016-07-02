@@ -5,10 +5,10 @@ import ocean.exception.ExceptionInfoGetter;
 import org.springframework.core.NestedRuntimeException;
 
 /**
- * 用于json返回的错误
+ * 用于view返回的错误
  * Created by chewenjie on 2015/8/17.
  */
-public class AppException extends NestedRuntimeException implements ExceptionInfoGetter {
+public class AppViewException extends NestedRuntimeException implements ExceptionInfoGetter {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,17 +16,17 @@ public class AppException extends NestedRuntimeException implements ExceptionInf
 
     private Integer code;
 
-    public AppException(String message) {
+    public AppViewException(String message) {
         super(message);
     }
 
-    public AppException(String message, Integer code) {
+    public AppViewException(String message, Integer code) {
         super(message);
         this.code = code;
         this.message=message;
     }
 
-    public AppException(String message, Throwable cause) {
+    public AppViewException(String message, Throwable cause) {
         super(message, cause);
     }
 

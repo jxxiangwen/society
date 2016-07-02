@@ -1,11 +1,14 @@
 package cn.edu.shu.society.service.Impl;
 
+import cn.edu.shu.society.dto.VoteSubjectTypeDTO;
 import cn.edu.shu.society.service.VoteSubjectTypeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +24,15 @@ public class VoteSubjectTypeServiceImplTest {
 
     @Test
     public void selectByPage() throws Exception {
-        System.out.println(voteSubjectTypeService.selectByPage(1,1));
+        System.out.println(voteSubjectTypeService.selectByPage(1, 1));
+    }
+
+    @Test
+    public void update() throws Exception {
+        VoteSubjectTypeDTO voteSubjectTypeDTO = voteSubjectTypeService.selectByPrimaryKey(1L);
+        voteSubjectTypeDTO.setId(5L);
+        voteSubjectTypeDTO.setTypeName("test");
+        System.out.println(voteSubjectTypeService.updateByPrimaryKey(voteSubjectTypeDTO));
     }
 
 }

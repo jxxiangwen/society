@@ -26,6 +26,7 @@ public class VoteSubjectResultServiceImpl implements VoteSubjectResultService{
      * @param id
      * @return
      */
+    @Override
     public int deleteByPrimaryKey(Long id){
         return voteSubjectResultMapper.deleteByPrimaryKey(id);
     }
@@ -34,6 +35,7 @@ public class VoteSubjectResultServiceImpl implements VoteSubjectResultService{
      * @param record
      * @return
      */
+    @Override
     public int insert(VoteSubjectResultDTO record){
         return voteSubjectResultMapper.insert(BeanUtility.beanCopy(record, VoteSubjectResult.class));
     }
@@ -42,6 +44,7 @@ public class VoteSubjectResultServiceImpl implements VoteSubjectResultService{
      * @param id
      * @return
      */
+    @Override
     public VoteSubjectResultDTO selectByPrimaryKey(Long id){
         return BeanUtility.beanCopy(voteSubjectResultMapper.selectByPrimaryKey(id), VoteSubjectResultDTO.class);
     }
@@ -49,8 +52,42 @@ public class VoteSubjectResultServiceImpl implements VoteSubjectResultService{
     /**
      * @return
      */
+    @Override
     public List<VoteSubjectResultDTO> selectAll(){
         List<VoteSubjectResult> voteSubjectResultList = voteSubjectResultMapper.selectAll();
+        Iterator<VoteSubjectResult> iterator = voteSubjectResultList.iterator();
+        List<VoteSubjectResultDTO> voteSubjectResultDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            voteSubjectResultDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteSubjectResultDTO.class));
+        }
+        return voteSubjectResultDTOLinkedList;
+    }
+
+    /**
+     * 根据项目ID和用户ID查询投票结果
+     * @param voteSubjectId
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<VoteSubjectResultDTO> selectBySubjectIdAndUserId(Long voteSubjectId, Long userId) {
+        List<VoteSubjectResult> voteSubjectResultList = voteSubjectResultMapper.selectBySubjectIdAndUserId(voteSubjectId,userId);
+        Iterator<VoteSubjectResult> iterator = voteSubjectResultList.iterator();
+        List<VoteSubjectResultDTO> voteSubjectResultDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            voteSubjectResultDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteSubjectResultDTO.class));
+        }
+        return voteSubjectResultDTOLinkedList;
+    }
+
+    /**
+     *
+     * @param voteSubjectId
+     * @return
+     */
+    @Override
+    public List<VoteSubjectResultDTO> selectBySubjectId(Long voteSubjectId) {
+        List<VoteSubjectResult> voteSubjectResultList = voteSubjectResultMapper.selectBySubjectId(voteSubjectId);
         Iterator<VoteSubjectResult> iterator = voteSubjectResultList.iterator();
         List<VoteSubjectResultDTO> voteSubjectResultDTOLinkedList = new LinkedList<>();
         while (iterator.hasNext()) {
@@ -83,6 +120,7 @@ public class VoteSubjectResultServiceImpl implements VoteSubjectResultService{
      * @param record
      * @return
      */
+    @Override
     public int updateByPrimaryKey(VoteSubjectResultDTO record){
         return voteSubjectResultMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, VoteSubjectResult.class));
     }

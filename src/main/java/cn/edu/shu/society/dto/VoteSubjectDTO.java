@@ -11,6 +11,8 @@ public class VoteSubjectDTO implements Serializable{
 
     private Long voteSubjectTypeId;
 
+    private Long voteTopicId;
+
     private Long createTime;
 
     private Long updateTime;
@@ -37,6 +39,14 @@ public class VoteSubjectDTO implements Serializable{
 
     public void setVoteSubjectTypeId(Long voteSubjectTypeId) {
         this.voteSubjectTypeId = voteSubjectTypeId;
+    }
+
+    public Long getVoteTopicId() {
+        return voteTopicId;
+    }
+
+    public void setVoteTopicId(Long voteTopicId) {
+        this.voteTopicId = voteTopicId;
     }
 
     public Long getCreateTime() {

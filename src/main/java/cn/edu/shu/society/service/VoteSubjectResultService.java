@@ -42,4 +42,19 @@ public interface VoteSubjectResultService {
      * @return
      */
     int updateByPrimaryKey(VoteSubjectResultDTO record);
+
+    /**
+     *
+     * @param voteSubjectId
+     * @param userId
+     * @return
+     */
+    List<VoteSubjectResultDTO> selectBySubjectIdAndUserId(Long voteSubjectId,Long userId);
+
+    /**
+     *
+     * @param voteSubjectId
+     * @return
+     */
+    List<VoteSubjectResultDTO> selectBySubjectId(Long voteSubjectId);
 }
