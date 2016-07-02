@@ -1,6 +1,6 @@
 /**
  * Created with IntelliJ IDEA.
- * User: walker
+ * UserDTO: walker
  * Date: 15/8/5
  * Time: 22:40
  * To change this template use File | Settings | File Templates.
