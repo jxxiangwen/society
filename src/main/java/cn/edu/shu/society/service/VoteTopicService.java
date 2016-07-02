@@ -1,6 +1,7 @@
 package cn.edu.shu.society.service;
 
 import cn.edu.shu.society.dto.VoteTopicDTO;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -27,6 +28,14 @@ public interface VoteTopicService {
      * @return
      */
     List<VoteTopicDTO> selectAll();
+
+    /**
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageInfo<VoteTopicDTO> selectByPage(int pageNum, int pageSize);
 
     /**
      * @param record

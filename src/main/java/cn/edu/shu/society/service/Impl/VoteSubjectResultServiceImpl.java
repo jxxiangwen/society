@@ -5,6 +5,8 @@ import cn.edu.shu.society.entity.VoteSubjectResult;
 import cn.edu.shu.society.repository.VoteSubjectResultMapper;
 import cn.edu.shu.society.service.VoteSubjectResultService;
 import cn.edu.shu.society.util.BeanUtility;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,26 @@ public class VoteSubjectResultServiceImpl implements VoteSubjectResultService{
             voteSubjectResultDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteSubjectResultDTO.class));
         }
         return voteSubjectResultDTOLinkedList;
+    }
+
+    /**
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo<VoteSubjectResultDTO> selectByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<VoteSubjectResult> voteSubjectResultList = voteSubjectResultMapper.selectAll();
+        PageInfo<VoteSubjectResult> page = new PageInfo(voteSubjectResultList);
+        Iterator<VoteSubjectResult> iterator = voteSubjectResultList.iterator();
+        List<VoteSubjectResultDTO> voteSubjectResultDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            voteSubjectResultDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteSubjectResultDTO.class));
+        }
+        PageInfo<VoteSubjectResultDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(voteSubjectResultDTOLinkedList);
+        return page1;
     }
 
     /**

@@ -5,6 +5,8 @@ import cn.edu.shu.society.entity.VoteItem;
 import cn.edu.shu.society.repository.VoteItemMapper;
 import cn.edu.shu.society.service.VoteItemService;
 import cn.edu.shu.society.util.BeanUtility;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,27 @@ public class VoteItemServiceImpl implements VoteItemService {
             voteItemDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteItemDTO.class));
         }
         return voteItemDTOLinkedList;
+    }
+
+    /**
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo<VoteItemDTO> selectByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<VoteItem> voteItemList = voteItemMapper.selectAll();
+        PageInfo<VoteItem> page = new PageInfo(voteItemList);
+        Iterator<VoteItem> iterator = voteItemList.iterator();
+        List<VoteItemDTO> voteItemDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            voteItemDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteItemDTO.class));
+        }
+        PageInfo<VoteItemDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(voteItemDTOLinkedList);
+        return page1;
     }
 
     /**

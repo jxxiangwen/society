@@ -5,6 +5,8 @@ import cn.edu.shu.society.entity.Response;
 import cn.edu.shu.society.repository.ResponseMapper;
 import cn.edu.shu.society.service.ResponseService;
 import cn.edu.shu.society.util.BeanUtility;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,26 @@ public class ResponseServiceImpl implements ResponseService {
             responseDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), ResponseDTO.class));
         }
         return responseDTOLinkedList;
+    }
+
+    /**
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo<ResponseDTO> selectByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Response> responseList = responseMapper.selectAll();
+        PageInfo<Response> page = new PageInfo(responseList);
+        Iterator<Response> iterator = responseList.iterator();
+        List<ResponseDTO> responseDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            responseDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), ResponseDTO.class));
+        }
+        PageInfo<ResponseDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(responseDTOLinkedList);
+        return page1;
     }
 
     /**

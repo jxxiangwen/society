@@ -5,6 +5,8 @@ import cn.edu.shu.society.entity.VoteType;
 import cn.edu.shu.society.repository.VoteTypeMapper;
 import cn.edu.shu.society.service.VoteTypeService;
 import cn.edu.shu.society.util.BeanUtility;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +57,26 @@ public class VoteTypeServiceImpl implements VoteTypeService {
             voteTypeDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteTypeDTO.class));
         }
         return voteTypeDTOLinkedList;
+    }
+
+    /**
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo<VoteTypeDTO> selectByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<VoteType> voteTypeList = voteTypeMapper.selectAll();
+        PageInfo<VoteType> page = new PageInfo(voteTypeList);
+        Iterator<VoteType> iterator = voteTypeList.iterator();
+        List<VoteTypeDTO> voteTypeDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            voteTypeDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteTypeDTO.class));
+        }
+        PageInfo<VoteTypeDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(voteTypeDTOLinkedList);
+        return page1;
     }
 
     /**

@@ -35,7 +35,7 @@ public interface VoteSubjectTypeService {
     /**
      * @return
      */
-    PageInfo<VoteSubjectType> selectByPage(int pageNum, int pageSize);
+    PageInfo<VoteSubjectTypeDTO> selectByPage(int pageNum, int pageSize);
 
     /**
      * @param record

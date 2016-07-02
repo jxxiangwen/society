@@ -5,6 +5,8 @@ import cn.edu.shu.society.entity.MessageType;
 import cn.edu.shu.society.repository.MessageTypeMapper;
 import cn.edu.shu.society.service.MessageTypeService;
 import cn.edu.shu.society.util.BeanUtility;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,26 @@ public class MessageTypeServiceImpl implements MessageTypeService {
             messageTypeDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), MessageTypeDTO.class));
         }
         return messageTypeDTOLinkedList;
+    }
+
+    /**
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo<MessageTypeDTO> selectByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<MessageType> messageTypeList = messageTypeMapper.selectAll();
+        PageInfo<MessageType> page = new PageInfo(messageTypeList);
+        Iterator<MessageType> iterator = messageTypeList.iterator();
+        List<MessageTypeDTO> messageTypeDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            messageTypeDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), MessageTypeDTO.class));
+        }
+        PageInfo<MessageTypeDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(messageTypeDTOLinkedList);
+        return page1;
     }
 
     /**

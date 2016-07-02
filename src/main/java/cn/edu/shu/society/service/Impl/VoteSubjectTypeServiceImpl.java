@@ -60,8 +60,14 @@ public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
         return voteSubjectTypeDTOLinkedList;
     }
 
+    /**
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
-    public PageInfo<VoteSubjectType> selectByPage(int pageNum, int pageSize) {
+    public PageInfo<VoteSubjectTypeDTO> selectByPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<VoteSubjectType> voteSubjectTypeList = voteSubjectTypeMapper.selectAll();
         PageInfo<VoteSubjectType> page = new PageInfo(voteSubjectTypeList);
@@ -70,9 +76,9 @@ public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
         while (iterator.hasNext()) {
             voteSubjectTypeDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteSubjectTypeDTO.class));
         }
-        //用PageInfo对结果进行包装
-//        PageInfo<VoteSubjectTypeDTO> page = new PageInfo(voteSubjectTypeDTOLinkedList);
-        return page;
+        PageInfo<VoteSubjectTypeDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(voteSubjectTypeDTOLinkedList);
+        return page1;
     }
 
     /**
