@@ -6,7 +6,7 @@ import cn.edu.shu.society.entity.VoteSubject;
 import cn.edu.shu.society.entity.VoteSubjectResult;
 import cn.edu.shu.society.entity.VoteSubjectType;
 import cn.edu.shu.society.entity.VoteTopic;
-import cn.edu.shu.society.enums.VoteCode;
+import cn.edu.shu.society.enums.VoteError;
 import cn.edu.shu.society.exception.AppException;
 import cn.edu.shu.society.repository.*;
 import cn.edu.shu.society.service.VoteTopicService;
@@ -45,7 +45,7 @@ public class VoteTopicServiceImpl implements VoteTopicService {
     public void setSubjectTypeNameMap(List<VoteSubjectType> voteSubjectTypeList) {
         subjectTypeNameMap.clear();
         if (CollectionUtils.isEmpty(voteSubjectTypeList)) {
-            throw new AppException(VoteCode.VOTE_TYPE_NOT_EXIST.getMsg(), VoteCode.VOTE_TYPE_NOT_EXIST.getCode());
+            throw new AppException(VoteError.VOTE_TYPE_NOT_EXIST.getMsg(), VoteError.VOTE_TYPE_NOT_EXIST.getCode());
         }
         for (VoteSubjectType voteSubjectType : voteSubjectTypeList) {
             subjectTypeNameMap.put(voteSubjectType.getId(), voteSubjectType.getTypeName());
@@ -176,12 +176,12 @@ public class VoteTopicServiceImpl implements VoteTopicService {
         //先查出投票主题
         VoteTopic voteTopic = voteTopicMapper.selectByPrimaryKey(voteTopicId);
         if (null == voteTopic) {
-            throw new AppException(VoteCode.VOTE_NOT_EXIST.getMsg(), VoteCode.VOTE_NOT_EXIST.getCode());
+            throw new AppException(VoteError.VOTE_NOT_EXIST.getMsg(), VoteError.VOTE_NOT_EXIST.getCode());
         }
         //根据投票主题查出投票项目
         List<VoteSubject> voteSubjectList = voteSubjectMapper.selectAllByVoteTopicId(voteTopicId);
         if (null == voteSubjectList || 0 == voteSubjectList.size()) {
-            throw new AppException(VoteCode.VOTE_SUBJECT_NOT_EXIST.getMsg(), VoteCode.VOTE_SUBJECT_NOT_EXIST.getCode());
+            throw new AppException(VoteError.VOTE_SUBJECT_NOT_EXIST.getMsg(), VoteError.VOTE_SUBJECT_NOT_EXIST.getCode());
         }
         //查询有多少人投票类别
         List<VoteSubjectType> voteSubjectTypeList = voteSubjectTypeMapper.selectAll();

@@ -8,7 +8,7 @@
 
 package cn.edu.shu.society.enums;
 
-public enum VoteCode {
+public enum VoteError {
     VOTE_HAVE_OBJECT(2000,"该类别下有投票，不允许删除"),
     HAVE_VOTED(2001,"请勿重复投票"),
     VOTE_NOT_BEGIN(2002,"该投票还未开始"),
@@ -22,7 +22,7 @@ public enum VoteCode {
 
     private String msg;
 
-    private VoteCode(int code, String msg) {
+    private VoteError(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }

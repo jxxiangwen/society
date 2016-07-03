@@ -2,7 +2,7 @@ package cn.edu.shu.society.service.Impl;
 
 import cn.edu.shu.society.dto.VoteTypeDTO;
 import cn.edu.shu.society.entity.VoteType;
-import cn.edu.shu.society.enums.VoteCode;
+import cn.edu.shu.society.enums.VoteError;
 import cn.edu.shu.society.exception.AppException;
 import cn.edu.shu.society.repository.VoteTopicMapper;
 import cn.edu.shu.society.repository.VoteTypeMapper;
@@ -39,7 +39,7 @@ public class VoteTypeServiceImpl implements VoteTypeService {
         if(countNumber == null || 0 == countNumber){
             return voteTypeMapper.deleteByPrimaryKey(id);
         }else {
-            throw new AppException(VoteCode.VOTE_HAVE_OBJECT.getMsg(),VoteCode.VOTE_HAVE_OBJECT.getCode());
+            throw new AppException(VoteError.VOTE_HAVE_OBJECT.getMsg(), VoteError.VOTE_HAVE_OBJECT.getCode());
         }
     }
 

@@ -1,6 +1,6 @@
 package cn.edu.shu.society.handler;
 
-import cn.edu.shu.society.enums.ClientCode;
+import cn.edu.shu.society.enums.ClientError;
 import cn.edu.shu.society.enums.DefaultPage;
 import cn.edu.shu.society.exception.AppViewException;
 import cn.edu.shu.society.response.ResultResponse;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.lang.reflect.UndeclaredThrowableException;
@@ -39,6 +40,19 @@ public class ExceptionAdvice {
         return exceptionData;
     }
 
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public ResultResponse handleMaxUploadSizeExceededException(MaxUploadSizeExceededException ex) {
+        ResultResponse exceptionData = new ResultResponse();
+        exceptionData.setErrorMsg(ClientError.FILE_SIZE_EXCEED_ERROR.getMsg());
+        exceptionData.setResult(ClientError.FILE_SIZE_EXCEED_ERROR.getCode());
+        logger.error("exception code:" + exceptionData.getResult() + ",exception message:" + exceptionData.getErrorMsg(),
+                ex);
+
+        return exceptionData;
+    }
+
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.OK)
@@ -48,15 +62,15 @@ public class ExceptionAdvice {
         Throwable exception = getHasInfoException(ex);
         if (exception == null) {
             exceptionData = new ResultResponse();
-            exceptionData.setResult(ClientCode.SYSTEM_WRONG.getCode());
-            exceptionData.setErrorMsg(ClientCode.SYSTEM_WRONG.getMsg());
+            exceptionData.setResult(ClientError.SYSTEM_WRONG.getCode());
+            exceptionData.setErrorMsg(ClientError.SYSTEM_WRONG.getMsg());
         } else {
             ExceptionInfo exceptionInfo = ((ExceptionInfoGetter) exception).getInfo();
             String message = exceptionInfo.getMessage();
             Integer code = exceptionInfo.getCode();
 
             if (StringUtils.isEmpty(message)) {
-                message = ClientCode.SYSTEM_WRONG.getMsg();
+                message = ClientError.SYSTEM_WRONG.getMsg();
             }
             exceptionData = new ResultResponse();
             exceptionData.setResult(code);
@@ -77,12 +91,12 @@ public class ExceptionAdvice {
         ResultResponse exceptionData = null;
         Throwable exception = getHasInfoException(ex);
         if (exception == null) {
-            modelAndView.addObject("errorMessage", ClientCode.SYSTEM_WRONG.getMsg());
+            modelAndView.addObject("errorMessage", ClientError.SYSTEM_WRONG.getMsg());
         } else {
             ExceptionInfo exceptionInfo = ((ExceptionInfoGetter) exception).getInfo();
             String message = exceptionInfo.getMessage();
             if (StringUtils.isEmpty(message)) {
-                modelAndView.addObject("errorMessage", ClientCode.SYSTEM_WRONG.getMsg());
+                modelAndView.addObject("errorMessage", ClientError.SYSTEM_WRONG.getMsg());
             }
             modelAndView.addObject("errorMessage", message);
         }

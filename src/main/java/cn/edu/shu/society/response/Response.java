@@ -9,13 +9,13 @@
 package cn.edu.shu.society.response;
 
 
-import cn.edu.shu.society.enums.ClientCode;
+import cn.edu.shu.society.enums.ClientError;
 
 public abstract class Response {
 
     private String errorMsg = "";
 
-    private int result = ClientCode.SUCCESS.getCode();
+    private int result = ClientError.SUCCESS.getCode();
 
     public String getErrorMsg() {
         return errorMsg;
