@@ -65,8 +65,8 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
     }
 
     @Override
-    public List<VoteSubjectDTO> selectAllByVoteTopicId(Long VoteTopicId) {
-        List<VoteSubject> voteSubjectList = voteSubjectMapper.selectAllByVoteTopicId(VoteTopicId);
+    public List<VoteSubjectDTO> selectAllByVoteTopicId(Long voteTopicId) {
+        List<VoteSubject> voteSubjectList = voteSubjectMapper.selectAllByVoteTopicId(voteTopicId);
         Iterator<VoteSubject> iterator = voteSubjectList.iterator();
         List<VoteSubjectDTO> voteSubjectDTOLinkedList = new LinkedList<>();
         while (iterator.hasNext()) {

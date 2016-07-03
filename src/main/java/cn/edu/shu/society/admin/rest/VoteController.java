@@ -1,8 +1,7 @@
-package cn.edu.shu.society.rest;
+package cn.edu.shu.society.admin.rest;
 
 
 import cn.edu.shu.society.service.VoteTopicService;
-import cn.edu.shu.society.util.ConstantUtil;
 import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Api(value = "vote", description = "投票操作相关API")
 @RestController
-@RequestMapping(value = "/vote")
+@RequestMapping(value = "/admin/vote")
 public class VoteController {
 
     private static final Logger logger = LoggerFactory.getLogger(VoteController.class);
@@ -23,27 +22,14 @@ public class VoteController {
     @Autowired
     VoteTopicService voteTopicService;
 
-    /**
-     * 记名投票处理方法
-     * @param pageNum
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "/name/{pageNum}", method = RequestMethod.GET)
-    public ModelAndView nameVote(@PathVariable("pageNum") Integer pageNum)
+    @RequestMapping(value = "/name/{number}", method = RequestMethod.GET)
+    public ModelAndView uploadOffice(@PathVariable("number") String number)
             throws Exception {
-        voteTopicService.selectByPage(pageNum, ConstantUtil.PAGE_SIZE);
         return new ModelAndView("vote/nameVote");
     }
 
-    /**
-     * 匿名投票处理方法
-     * @param pageNum
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "/anony/{pageNum}", method = RequestMethod.GET)
-    public ModelAndView anonyVote(@PathVariable("pageNum") Integer pageNum)
+    @RequestMapping(value = "/anony/{number}", method = RequestMethod.GET)
+    public ModelAndView downloadOffice(@PathVariable("number") String number)
             throws Exception {
         return new ModelAndView("vote/anonyVote");
     }

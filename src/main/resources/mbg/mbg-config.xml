@@ -342,7 +342,7 @@
             <property name="modelOnly" value="false"/>
             <property name="useActualColumnNames" value="false"/>
         </table>
-        <table tableName="vote_tpoic_number" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" >
+        <table tableName="vote_topic_number" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" >
             <property name="constructorBased" value="false"/>
             <property name="ignoreQualifiersAtRuntime" value="false"/>
             <property name="immutable" value="false"/>

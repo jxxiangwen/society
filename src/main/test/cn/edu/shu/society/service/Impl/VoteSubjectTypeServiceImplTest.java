@@ -2,6 +2,7 @@ package cn.edu.shu.society.service.Impl;
 
 import cn.edu.shu.society.dto.VoteSubjectTypeDTO;
 import cn.edu.shu.society.service.VoteSubjectTypeService;
+import cn.edu.shu.society.service.VoteTopicService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,13 @@ public class VoteSubjectTypeServiceImplTest {
     @Autowired
     VoteSubjectTypeService voteSubjectTypeService;
 
+    @Autowired
+    VoteTopicService voteTopicService;
+
     @Test
     public void selectByPage() throws Exception {
-        System.out.println(voteSubjectTypeService.selectByPage(1, 1));
+//        System.out.println(voteSubjectTypeService.selectByPage(1, 1));
+        System.out.println(voteTopicService.selectAllByVoteTypeId(1L));
     }
 
     @Test

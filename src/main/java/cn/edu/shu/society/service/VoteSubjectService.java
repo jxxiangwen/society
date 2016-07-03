@@ -32,7 +32,7 @@ public interface VoteSubjectService {
     /**
      * @return
      */
-    List<VoteSubjectDTO> selectAllByVoteTopicId(Long VoteTopicId);
+    List<VoteSubjectDTO> selectAllByVoteTopicId(Long voteTopicId);
 
     /**
      *

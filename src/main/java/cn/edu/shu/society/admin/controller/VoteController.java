@@ -1,4 +1,4 @@
-package cn.edu.shu.society.controller;
+package cn.edu.shu.society.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Created by jxxia on 2016/4/12 0012.
  */
 @Controller
-@RequestMapping("/vote")
+@RequestMapping("/admin/vote")
 public class VoteController {
     @RequestMapping("/findAllUser")
     public String findAllUser(@RequestParam("id") Integer id, Model model) {
