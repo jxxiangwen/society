@@ -1,7 +1,10 @@
 package cn.edu.shu.society.admin.rest;
 
 
+import cn.edu.shu.society.dto.VoteTopicDTO;
 import cn.edu.shu.society.service.VoteTopicService;
+import cn.edu.shu.society.util.ConstantUtil;
+import com.github.pagehelper.PageInfo;
 import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,15 +25,19 @@ public class VoteController {
     @Autowired
     VoteTopicService voteTopicService;
 
-    @RequestMapping(value = "/name/{number}", method = RequestMethod.GET)
-    public ModelAndView uploadOffice(@PathVariable("number") String number)
+    /**
+     * 投票处理方法
+     *
+     * @param pageNum
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/vote/{voteTypeId}/name/{pageNum}", method = RequestMethod.GET)
+    public ModelAndView vote(@PathVariable("voteTypeId") Long voteTypeId,@PathVariable("pageNum") Integer pageNum)
             throws Exception {
-        return new ModelAndView("vote/nameVote");
-    }
-
-    @RequestMapping(value = "/anony/{number}", method = RequestMethod.GET)
-    public ModelAndView downloadOffice(@PathVariable("number") String number)
-            throws Exception {
-        return new ModelAndView("vote/anonyVote");
+        ModelAndView modelAndView = new ModelAndView("vote/nameVote");
+        PageInfo<VoteTopicDTO> voteTopicDTOPageInfo = voteTopicService.selectByVoteTypeIdAndPage(voteTypeId, pageNum, ConstantUtil.PAGE_SIZE);
+        modelAndView.addObject("voteTopicList", voteTopicDTOPageInfo);
+        return modelAndView;
     }
 }

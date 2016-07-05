@@ -14,7 +14,7 @@
                         <ul class="list-group">
                             <c:forEach var="list" items="${voteList}">
                                 <li class="list-group-item">
-                                    <a href="vote/name/<c:out value="${list.id}"/>"><c:out value="${list.title}"/></a>
+                                    <a href="vote/unName/<c:out value="${list.id}"/>"><c:out value="${list.title}"/></a>
                                 </li>
                             </c:forEach>
                         </ul>

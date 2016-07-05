@@ -1,1 +1,12 @@
 # Created by .ignore support plugin (hsz.mobi)
+target
+.project
+.settings
+.classpath
+.idea
+*.iml
+.idea/dataSources.local.xml
+.idea/workspace.xml
+lib/
+src/main/webapp/image/
+target/

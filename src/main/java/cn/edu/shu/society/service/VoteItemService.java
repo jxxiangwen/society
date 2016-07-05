@@ -30,12 +30,11 @@ public interface VoteItemService {
     List<VoteItemDTO> selectAll();
 
     /**
-     *
      * @param pageNum
      * @param pageSize
      * @return
      */
-    public PageInfo<VoteItemDTO> selectByPage(int pageNum, int pageSize);
+    PageInfo<VoteItemDTO> selectByPage(int pageNum, int pageSize);
 
     /**
      * @param record

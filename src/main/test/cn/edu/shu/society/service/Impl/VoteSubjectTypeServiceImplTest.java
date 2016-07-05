@@ -1,6 +1,7 @@
 package cn.edu.shu.society.service.Impl;
 
 import cn.edu.shu.society.dto.VoteSubjectTypeDTO;
+import cn.edu.shu.society.service.VoteSubjectService;
 import cn.edu.shu.society.service.VoteSubjectTypeService;
 import cn.edu.shu.society.service.VoteTopicService;
 import org.junit.Test;
@@ -26,10 +27,14 @@ public class VoteSubjectTypeServiceImplTest {
     @Autowired
     VoteTopicService voteTopicService;
 
+    @Autowired
+    VoteSubjectService voteSubjectService;
+
     @Test
     public void selectByPage() throws Exception {
 //        System.out.println(voteSubjectTypeService.selectByPage(1, 1));
-        System.out.println(voteTopicService.selectAllByVoteTypeId(1L));
+//        System.out.println(voteTopicService.selectByPage(1,1).getList().size());
+        System.out.println(null == voteSubjectService.selectByPrimaryKey(1L));
     }
 
     @Test
