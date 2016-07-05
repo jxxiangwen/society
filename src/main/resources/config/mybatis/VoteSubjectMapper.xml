@@ -14,6 +14,17 @@
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
         <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
     </resultMap>
+    <resultMap id="BaseListResultMap" type="cn.edu.shu.society.entity.VoteSubject">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="vote_subject_type_id" jdbcType="BIGINT" property="voteSubjectTypeId"/>
+        <result column="vote_topic_id" jdbcType="BIGINT" property="voteTopicId"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <collection property="voteItemList" javaType="java.util.List"
+                    ofType="cn.edu.shu.society.entity.VoteItem"
+                    resultMap="cn.edu.shu.society.repository.VoteItemMapper.BaseResultMap"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         <!--
           WARNING - @mbggenerated

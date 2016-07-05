@@ -205,4 +205,10 @@ public class VoteTopicServiceImpl implements VoteTopicService {
         }
         return null;
     }
+
+    @Override
+    public VoteTopicDTO selectListByPrimaryKey(Long id) {
+        VoteTopic voteTopic = voteTopicMapper.selectListByPrimaryKey(id);
+        return BeanUtility.beanCopy(voteTopicMapper.selectListByPrimaryKey(id), VoteTopicDTO.class);
+    }
 }

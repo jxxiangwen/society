@@ -1,8 +1,9 @@
 package cn.edu.shu.society.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class VoteSubjectDTO implements Serializable{
+public class VoteSubjectDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -16,6 +17,8 @@ public class VoteSubjectDTO implements Serializable{
     private Long createTime;
 
     private Long updateTime;
+
+    private List<VoteItemDTO> voteItemList;
 
     public Long getId() {
         return id;
@@ -65,14 +68,24 @@ public class VoteSubjectDTO implements Serializable{
         this.updateTime = updateTime;
     }
 
+    public List<VoteItemDTO> getVoteItemList() {
+        return voteItemList;
+    }
+
+    public void setVoteItemList(List<VoteItemDTO> voteItemList) {
+        this.voteItemList = voteItemList;
+    }
+
     @Override
     public String toString() {
         return "VoteSubjectDTO{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", voteSubjectTypeId=" + voteSubjectTypeId +
+                ", voteTopicId=" + voteTopicId +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", voteItemDTOList=" + voteItemList +
                 '}';
     }
 }

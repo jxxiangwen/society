@@ -16,6 +16,33 @@
         <result column="create_time" jdbcType="BIGINT" property="createTime"/>
         <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
     </resultMap>
+    <resultMap id="BaseListResultMap" type="cn.edu.shu.society.entity.VoteTopic">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="start_time" jdbcType="BIGINT" property="startTime"/>
+        <result column="end_time" jdbcType="BIGINT" property="endTime"/>
+        <result column="vote_type_id" jdbcType="BIGINT" property="voteTypeId"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <collection property="voteSubjectList" javaType="java.util.List"
+                    ofType="cn.edu.shu.society.entity.VoteSubject">
+            <id column="s_id" jdbcType="BIGINT" property="id"/>
+            <result column="s_title" jdbcType="VARCHAR" property="title"/>
+            <result column="s_vote_subject_type_id" jdbcType="BIGINT" property="voteSubjectTypeId"/>
+            <result column="s_vote_topic_id" jdbcType="BIGINT" property="voteTopicId"/>
+            <result column="s_create_time" jdbcType="BIGINT" property="createTime"/>
+            <result column="s_update_time" jdbcType="BIGINT" property="updateTime"/>
+            <collection property="voteItemList" javaType="java.util.List"
+                        ofType="cn.edu.shu.society.entity.VoteItem">
+                <id column="i_id" jdbcType="BIGINT" property="id"/>
+                <result column="i_content" jdbcType="VARCHAR" property="content"/>
+                <result column="i_vote_subject_id" jdbcType="BIGINT" property="voteSubjectId"/>
+                <result column="i_create_time" jdbcType="BIGINT" property="createTime"/>
+                <result column="i_update_time" jdbcType="BIGINT" property="updateTime"/>
+            </collection>
+        </collection>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         <!--
           WARNING - @mbggenerated
@@ -83,5 +110,12 @@
         -->
         select id, user_id, title, start_time, end_time, vote_type_id, create_time, update_time
         from vote_topic where vote_type_id = #{voteTypeId,jdbcType=BIGINT}
+    </select>
+    <select id="selectListByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseListResultMap">
+        SELECT topic.id, topic.user_id, topic.title, topic.start_time, topic.end_time,topic.vote_type_id, topic.create_time, topic.update_time,
+        subject.id s_id, subject.title s_title, subject.vote_subject_type_id s_vote_subject_type_id, subject.vote_topic_id s_vote_topic_id, subject.create_time s_create_time, subject.update_time s_update_time,
+        item.id i_id, item.content i_content, item.vote_subject_id i_vote_subject_id, item.create_time i_create_time, item.update_time i_update_time
+        FROM vote_topic topic LEFT JOIN vote_subject subject ON topic.id = subject.vote_topic_id
+        LEFT JOIN vote_item item ON subject.id = item.vote_subject_id WHERE topic.id = #{id,jdbcType=BIGINT}
     </select>
 </mapper>

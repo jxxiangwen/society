@@ -45,4 +45,9 @@ public class VoteSubjectTypeServiceImplTest {
         System.out.println(voteSubjectTypeService.updateByPrimaryKey(voteSubjectTypeDTO));
     }
 
+    @Test
+    public void testLeftJoin(){
+        System.out.println(voteTopicService.selectListByPrimaryKey(1L));
+    }
+
 }

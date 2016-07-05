@@ -3,6 +3,9 @@ package cn.edu.shu.society.rest;
 
 import cn.edu.shu.society.dto.VoteSubjectDTO;
 import cn.edu.shu.society.dto.VoteTopicDTO;
+import cn.edu.shu.society.enums.ClientError;
+import cn.edu.shu.society.enums.VoteError;
+import cn.edu.shu.society.exception.AppViewException;
 import cn.edu.shu.society.service.VoteItemService;
 import cn.edu.shu.society.service.VoteSubjectService;
 import cn.edu.shu.society.service.VoteTopicService;
@@ -43,7 +46,7 @@ public class VoteController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/vote/{voteTypeId}/page/{pageNum}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{voteTypeId}/page/{pageNum}", method = RequestMethod.GET)
     public ModelAndView vote(@PathVariable("voteTypeId") Long voteTypeId, @PathVariable("pageNum") Integer pageNum)
             throws Exception {
         ModelAndView modelAndView = new ModelAndView("vote");
@@ -54,20 +57,19 @@ public class VoteController {
 
     /**
      * 获取某一投票
-     * @param voteTypeId
      * @param id
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/vote/{voteTypeId}/topic/{id}", method = RequestMethod.GET)
-    public ModelAndView topic(@PathVariable("voteTypeId") Long voteTypeId, @PathVariable("id") Long id)
+    @RequestMapping(value = "/topic/{id}", method = RequestMethod.GET)
+    public ModelAndView topic(@PathVariable("id") Long id)
             throws Exception {
-        ModelAndView modelAndView = new ModelAndView("subject");
-        VoteSubjectDTO voteSubjectDTO = voteSubjectService.selectByPrimaryKey(id);
-        if(null == voteSubjectDTO){
-            return modelAndView;
+        ModelAndView modelAndView = new ModelAndView("topic");
+        VoteTopicDTO voteTopicDTO = voteTopicService.selectListByPrimaryKey(id);
+        if(null == voteTopicDTO){
+            throw new AppViewException(VoteError.VOTE_NOT_EXIST.getMsg(),VoteError.VOTE_NOT_EXIST.getCode());
         }
-        modelAndView.addObject("voteSubject", voteSubjectDTO);
+        modelAndView.addObject("voteTopic", voteTopicDTO);
         return modelAndView;
     }
 }

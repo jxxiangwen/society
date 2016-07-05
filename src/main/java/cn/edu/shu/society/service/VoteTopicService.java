@@ -69,4 +69,11 @@ public interface VoteTopicService {
      * @return
      */
     List<VoteResultOutDTO> exportTopicResult(Long voteTopicId);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    VoteTopicDTO selectListByPrimaryKey(Long id);
 }

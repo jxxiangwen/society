@@ -60,4 +60,11 @@ public interface VoteTopicMapper {
      * @return
      */
     Long countByVoteTypeId(Long voteTypeId);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    VoteTopic selectListByPrimaryKey(Long id);
 }
