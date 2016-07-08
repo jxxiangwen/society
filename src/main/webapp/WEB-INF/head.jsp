@@ -30,7 +30,6 @@
                             </li>
                             <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35642">院徽院训</a>
                             </li>
-                            <li class="navbar-brand"><a href="/vote/topic/1/page/1">投票</a></li>
                         </ul>
                     </li>
                     <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35644">组织架构</a></li>
@@ -66,6 +65,21 @@
                         </ul>
                     </li>
                     <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35648">相关下载</a></li>
+                    <c:choose>
+                        <c:when test="${null ne session.user}">
+                            <li class="dropdownc navbar-brand">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                                    欢迎您，${sesson.user.userName} <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="navbar-brand"><a href="/user/logout">注销</a></li>
+                                </ul>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="navbar-brand"><a href="/user/login">请登录</a></li>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
         </div>

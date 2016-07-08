@@ -2,11 +2,8 @@ package cn.edu.shu.society.admin;
 
 
 import cn.edu.shu.society.dto.AdminUserDTO;
-import cn.edu.shu.society.dto.UserDTO;
 import cn.edu.shu.society.enums.LoginEnums;
 import cn.edu.shu.society.service.AdminUserService;
-import cn.edu.shu.society.service.UserService;
-import cn.edu.shu.society.util.RequestUtil;
 import cn.edu.shu.society.util.StringUtil;
 import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -61,7 +58,7 @@ public class AdminLoginController {
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpServletRequest request)
             throws Exception {
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView(LoginEnums.ADMIN_LOGIN_HOME.getMsg());
         request.getSession().setAttribute("user",null);
         return modelAndView;
     }

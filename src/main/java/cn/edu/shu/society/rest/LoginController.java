@@ -4,9 +4,6 @@ package cn.edu.shu.society.rest;
 import cn.edu.shu.society.dto.UserDTO;
 import cn.edu.shu.society.enums.LoginEnums;
 import cn.edu.shu.society.service.UserService;
-import cn.edu.shu.society.service.VoteItemService;
-import cn.edu.shu.society.service.VoteSubjectService;
-import cn.edu.shu.society.service.VoteTopicService;
 import cn.edu.shu.society.util.RequestUtil;
 import cn.edu.shu.society.util.StringUtil;
 import com.wordnik.swagger.annotations.Api;
@@ -51,6 +48,9 @@ public class LoginController {
         }
         request.getSession().setAttribute("user",userDTO);
         String redirect = "redirect:" + RequestUtil.retrieveSavedRequest(request);
+        if(redirect.contains("login")){
+            redirect = "redirect:" + "http://cms.shu.edu.cn/Default.aspx?tabid=35557";
+        }
         System.out.println(redirect);
         return new ModelAndView(redirect);
     }
@@ -64,7 +64,7 @@ public class LoginController {
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpServletRequest request)
             throws Exception {
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView(LoginEnums.LOGIN_HOME.getMsg());
         request.getSession().setAttribute("user",null);
         return modelAndView;
     }
