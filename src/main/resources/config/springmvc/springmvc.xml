@@ -2,22 +2,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
 	http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd
-	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd ">
     <!-- 注解方式 -->
     <mvc:annotation-driven/>
+    <mvc:default-servlet-handler />
     <!-- 自动扫描Controller -->
-    <context:component-scan base-package="cn.edu.shu.society.controller"/>
+    <context:component-scan base-package="cn.edu.shu.society.admin"/>
     <context:component-scan base-package="cn.edu.shu.society.rest"/>
+    <!--<context:component-scan base-package="cn.edu.shu.society.controll"/>-->
 
 
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
@@ -118,7 +117,4 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
-
-    <mvc:resources mapping="/fonts/**" location="/fonts/"
-                   cache-period="31556926" />
 </beans>

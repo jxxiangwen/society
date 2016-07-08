@@ -41,7 +41,7 @@
 
 <div id="wrapper">
     <!-- 404 graphic -->
-    <div class="graphic"></div>
+    <%--<div class="graphic"></div>--%>
     <!-- 404 graphic -->
     <!-- Not found text -->
     <div class="not-found-text">

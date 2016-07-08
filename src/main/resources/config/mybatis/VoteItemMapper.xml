@@ -31,7 +31,7 @@
         insert into vote_item (id, content, vote_subject_id,
         create_time, update_time)
         values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{voteSubjectId,jdbcType=BIGINT},
-        now(), now())
+        unix_timestamp(now()), unix_timestamp(now()))
     </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.shu.society.entity.VoteItem">
         <!--
@@ -42,7 +42,7 @@
         update vote_item
         set content = #{content,jdbcType=VARCHAR},
         vote_subject_id = #{voteSubjectId,jdbcType=BIGINT},
-        update_time = now()
+        update_time = unix_timestamp(now())
         where id = #{id,jdbcType=BIGINT}
     </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

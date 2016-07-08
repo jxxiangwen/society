@@ -29,6 +29,66 @@ SHOW WARNINGS;
 USE society;
 
 SELECT NOW();
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+  `id`          BIGINT(20) UNSIGNED NOT NULL
+  COMMENT '主键'                               AUTO_INCREMENT,
+  `user_id`     BIGINT(20)          NOT NULL DEFAULT 0
+  COMMENT '学号',
+  `user_name`   VARCHAR(255)        NOT NULL DEFAULT ''
+  COMMENT '姓名',
+  `password`    VARCHAR(255)        NOT NULL DEFAULT ''
+  COMMENT '密码',
+  `college`     VARCHAR(255)        NOT NULL DEFAULT ''
+  COMMENT '学院',
+  `major`       VARCHAR(255)        NOT NULL DEFAULT ''
+  COMMENT '专业',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0
+  COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0
+  COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = utf8
+  COMMENT = '用户表';
+SELECT NOW();
+
+INSERT INTO user (user_id, user_name, password, college, major, create_time, update_time)
+  VALUE (14721198, '邹祥文', 'YmNiMTVmODIxNDc5YjRkNTc3MmJkMGNhODY2YzAwYWQ1ZjkyNmUzNTgwNzIwNjU5Y2M4MGQzOWM5ZDA5ODAyYQ==', '计算机', '计算机', unix_timestamp(now()), unix_timestamp(now()));
+
+SELECT NOW();
+DROP TABLE IF EXISTS admin_user;
+CREATE TABLE admin_user (
+  `id`          BIGINT(20) UNSIGNED NOT NULL
+  COMMENT '主键'                               AUTO_INCREMENT,
+  `user_id`     BIGINT(20)          NOT NULL DEFAULT 0
+  COMMENT '学号',
+  `user_name`   VARCHAR(255)        NOT NULL DEFAULT ''
+  COMMENT '姓名',
+  `password`    VARCHAR(255)        NOT NULL DEFAULT ''
+  COMMENT '密码',
+  `college`     VARCHAR(255)        NOT NULL DEFAULT ''
+  COMMENT '学院',
+  `major`       VARCHAR(255)        NOT NULL DEFAULT ''
+  COMMENT '专业',
+  `create_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0
+  COMMENT '创建时间',
+  `update_time` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0
+  COMMENT '更新时间',
+  PRIMARY KEY `idx_iAutoID` (`id`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = utf8
+  COMMENT = '管理员表';
+SELECT NOW();
+
+INSERT INTO admin_user (user_id, user_name, password, college, major, create_time, update_time)
+  VALUE (14721198, '邹祥文', 'YmNiMTVmODIxNDc5YjRkNTc3MmJkMGNhODY2YzAwYWQ1ZjkyNmUzNTgwNzIwNjU5Y2M4MGQzOWM5ZDA5ODAyYQ==', '计算机', '计算机', unix_timestamp(now()), unix_timestamp(now()));
+
+SELECT NOW();
 DROP TABLE IF EXISTS vote_type;
 CREATE TABLE vote_type (
   `id`          BIGINT(20) UNSIGNED NOT NULL
@@ -47,8 +107,10 @@ CREATE TABLE vote_type (
   COMMENT = '投票类别表';
 SELECT NOW();
 
-INSERT INTO vote_type (type_name, create_time, update_time) VALUE ('记名投票', now(), now());
-INSERT INTO vote_type (type_name, create_time, update_time) VALUE ('不记名投票', now(), now());
+INSERT INTO vote_type (type_name, create_time, update_time)
+  VALUE ('记名投票', unix_timestamp(now()), unix_timestamp(now()));
+INSERT INTO vote_type (type_name, create_time, update_time)
+  VALUE ('不记名投票', unix_timestamp(now()), unix_timestamp(now()));
 
 SELECT NOW();
 DROP TABLE IF EXISTS vote_topic;
@@ -130,9 +192,12 @@ CREATE TABLE vote_subject_type (
   COMMENT = '投票项目类别表';
 SELECT NOW();
 
-INSERT INTO vote_subject_type (type_name, create_time, update_time) VALUE ('单选', now(), now());
-INSERT INTO vote_subject_type (type_name, create_time, update_time) VALUE ('多选', now(), now());
-INSERT INTO vote_subject_type (type_name, create_time, update_time) VALUE ('主观题', now(), now());
+INSERT INTO vote_subject_type (type_name, create_time, update_time)
+  VALUE ('单选', unix_timestamp(now()), unix_timestamp(now()));
+INSERT INTO vote_subject_type (type_name, create_time, update_time)
+  VALUE ('多选', unix_timestamp(now()), unix_timestamp(now()));
+INSERT INTO vote_subject_type (type_name, create_time, update_time)
+  VALUE ('主观题', unix_timestamp(now()), unix_timestamp(now()));
 
 SELECT NOW();
 DROP TABLE IF EXISTS vote_subject;
@@ -163,37 +228,43 @@ INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_tim
                      FROM vote_subject_type
                      WHERE type_name = '单选'), (SELECT id
                                                FROM vote_topic
-                                               WHERE title = '计算机学院调查记名投票'), now(), now());
+                                               WHERE title = '计算机学院调查记名投票'), unix_timestamp(now()),
+   unix_timestamp(now()));
 INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_time, update_time) VALUE
   ('记名投票---喜欢吃什么？', (SELECT id
                      FROM vote_subject_type
                      WHERE type_name = '多选'), (SELECT id
                                                FROM vote_topic
-                                               WHERE title = '计算机学院调查记名投票'), now(), now());
+                                               WHERE title = '计算机学院调查记名投票'), unix_timestamp(now()),
+   unix_timestamp(now()));
 INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_time, update_time) VALUE
   ('记名投票---有什么意见？', (SELECT id
                      FROM vote_subject_type
                      WHERE type_name = '主观题'), (SELECT id
                                                 FROM vote_topic
-                                                WHERE title = '计算机学院调查记名投票'), now(), now());
+                                                WHERE title = '计算机学院调查记名投票'), unix_timestamp(now()),
+   unix_timestamp(now()));
 INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_time, update_time) VALUE
   ('不记名投票---是否是男生？', (SELECT id
                       FROM vote_subject_type
                       WHERE type_name = '单选'), (SELECT id
                                                 FROM vote_topic
-                                                WHERE title = '计算机学院调查不记名投票'), now(), now());
+                                                WHERE title = '计算机学院调查不记名投票'), unix_timestamp(now()),
+   unix_timestamp(now()));
 INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_time, update_time) VALUE
   ('不记名投票---喜欢吃什么？', (SELECT id
                       FROM vote_subject_type
                       WHERE type_name = '多选'), (SELECT id
                                                 FROM vote_topic
-                                                WHERE title = '计算机学院调查不记名投票'), now(), now());
+                                                WHERE title = '计算机学院调查不记名投票'), unix_timestamp(now()),
+   unix_timestamp(now()));
 INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_time, update_time) VALUE
   ('不记名投票---有什么意见？', (SELECT id
                       FROM vote_subject_type
                       WHERE type_name = '主观题'), (SELECT id
                                                  FROM vote_topic
-                                                 WHERE title = '计算机学院调查不记名投票'), now(), now());
+                                                 WHERE title = '计算机学院调查不记名投票'), unix_timestamp(now()),
+   unix_timestamp(now()));
 
 
 SELECT NOW();
@@ -221,62 +292,62 @@ INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('男生', (SELECT id
           FROM vote_subject
           WHERE title =
-                '记名投票---是否是男生？'), now(), now());
+                '记名投票---是否是男生？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('女生', (SELECT id
           FROM vote_subject
           WHERE title =
-                '记名投票---是否是男生？'), now(), now());
+                '记名投票---是否是男生？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('苹果', (SELECT id
           FROM vote_subject
           WHERE title =
-                '记名投票---喜欢吃什么？'), now(), now());
+                '记名投票---喜欢吃什么？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('桃子', (SELECT id
           FROM vote_subject
           WHERE title =
-                '记名投票---喜欢吃什么？'), now(), now());
+                '记名投票---喜欢吃什么？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('草莓', (SELECT id
           FROM vote_subject
           WHERE title =
-                '记名投票---喜欢吃什么？'), now(), now());
+                '记名投票---喜欢吃什么？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('香蕉', (SELECT id
           FROM vote_subject
           WHERE title =
-                '记名投票---喜欢吃什么？'), now(), now());
+                '记名投票---喜欢吃什么？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('男生', (SELECT id
           FROM vote_subject
           WHERE title =
-                '不记名投票---是否是男生？'), now(), now());
+                '不记名投票---是否是男生？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('女生', (SELECT id
           FROM vote_subject
           WHERE title =
-                '不记名投票---是否是男生？'), now(), now());
+                '不记名投票---是否是男生？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('苹果', (SELECT id
           FROM vote_subject
           WHERE title =
-                '不记名投票---喜欢吃什么？'), now(), now());
+                '不记名投票---喜欢吃什么？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('桃子', (SELECT id
           FROM vote_subject
           WHERE title =
-                '不记名投票---喜欢吃什么？'), now(), now());
+                '不记名投票---喜欢吃什么？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('草莓', (SELECT id
           FROM vote_subject
           WHERE title =
-                '不记名投票---喜欢吃什么？'), now(), now());
+                '不记名投票---喜欢吃什么？'), unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_item (content, vote_subject_id, create_time, update_time) VALUE
   ('香蕉', (SELECT id
           FROM vote_subject
           WHERE title =
-                '不记名投票---喜欢吃什么？'), now(), now());
+                '不记名投票---喜欢吃什么？'), unix_timestamp(now()), unix_timestamp(now()));
 
 SELECT NOW();
 DROP TABLE IF EXISTS vote_subject_result;

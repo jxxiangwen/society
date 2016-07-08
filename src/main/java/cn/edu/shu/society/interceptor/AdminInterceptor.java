@@ -1,6 +1,6 @@
 package cn.edu.shu.society.interceptor;
 
-import cn.edu.shu.society.dto.UserDTO;
+import cn.edu.shu.society.dto.AdminUserDTO;
 import cn.edu.shu.society.enums.LoginEnums;
 import cn.edu.shu.society.util.RequestUtil;
 import org.slf4j.Logger;
@@ -34,14 +34,11 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
         if ("GET".equalsIgnoreCase(request.getMethod())) {
             RequestUtil.saveRequest(request);
         }
-        UserDTO userDTO = (UserDTO) request.getSession().getAttribute("user");
-        if (userDTO == null) {
-            request.getRequestDispatcher(LoginEnums.LOGIN_HOME.getMsg()).forward(request, response);
-            return false;
-        } else if (null == userDTO.getAdmin() || !userDTO.getAdmin()){
+        AdminUserDTO adminUserDTO = (AdminUserDTO) request.getSession().getAttribute("adminUser");
+        if (adminUserDTO == null) {
+            request.getRequestDispatcher(LoginEnums.ADMIN_LOGIN_HOME_JSP.getMsg()).forward(request, response);
             return false;
         }else {
-            request.getRequestDispatcher(RequestUtil.retrieveSavedRequest(request)).forward(request, response);
             return true;
         }
     }
@@ -54,9 +51,6 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request,
                            HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-        if (modelAndView != null) {  //加入当前时间
-            modelAndView.addObject("var", "测试postHandle");
-        }
     }
 
     /**

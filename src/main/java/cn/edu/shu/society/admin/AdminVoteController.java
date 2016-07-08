@@ -1,4 +1,4 @@
-package cn.edu.shu.society.admin.rest;
+package cn.edu.shu.society.admin;
 
 
 import cn.edu.shu.society.dto.VoteTopicDTO;
@@ -18,9 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Api(value = "vote", description = "投票操作相关API")
 @RestController
 @RequestMapping(value = "/admin/vote")
-public class VoteController {
+public class AdminVoteController {
 
-    private static final Logger logger = LoggerFactory.getLogger(VoteController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AdminVoteController.class);
 
     @Autowired
     VoteTopicService voteTopicService;

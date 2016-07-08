@@ -43,7 +43,7 @@
         insert into vote_subject (id, title, vote_subject_type_id, vote_topic_id,
         create_time, update_time)
         values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{voteSubjectTypeId,jdbcType=BIGINT},
-        #{voteTopicId,jdbcType=BIGINT}, now(), now())
+        #{voteTopicId,jdbcType=BIGINT}, unix_timestamp(now()), unix_timestamp(now()))
     </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.shu.society.entity.VoteSubject">
         <!--
@@ -55,7 +55,7 @@
         set title = #{title,jdbcType=VARCHAR},
         vote_subject_type_id = #{voteSubjectTypeId,jdbcType=BIGINT},
         vote_topic_id = #{voteTopicId,jdbcType=BIGINT}
-        update_time = now()
+        update_time = unix_timestamp(now())
         where id = #{id,jdbcType=BIGINT}
     </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

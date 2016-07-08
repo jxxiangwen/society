@@ -70,7 +70,7 @@ public class MessageDigestGenerator {
 //                + MessageDigestGenerator.generateSHA256("123456");
 //
 //        a64CookieStr = "Basic " + Base64.encode(a64CookieStr);
-        String sha256 = MessageDigestGenerator.generateSHA256("123456");
+        String sha256 = MessageDigestGenerator.generateSHA256("111111");
         String base64 = Base64.encode(sha256);
         System.out.println(sha256);
         System.out.println(base64);

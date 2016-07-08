@@ -47,4 +47,13 @@ public class StringUtil {
             return null;
         }
     }
+
+    /**
+     * 对密码散列
+     * @param password
+     * @return
+     */
+    public static String getEncryptPassword(String password){
+        return Base64.encode(MessageDigestGenerator.generateSHA256(password));
+    }
 }

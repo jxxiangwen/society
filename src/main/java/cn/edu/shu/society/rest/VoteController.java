@@ -1,9 +1,7 @@
 package cn.edu.shu.society.rest;
 
 
-import cn.edu.shu.society.dto.VoteSubjectDTO;
 import cn.edu.shu.society.dto.VoteTopicDTO;
-import cn.edu.shu.society.enums.ClientError;
 import cn.edu.shu.society.enums.VoteError;
 import cn.edu.shu.society.exception.AppViewException;
 import cn.edu.shu.society.service.VoteItemService;
@@ -46,10 +44,10 @@ public class VoteController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/{voteTypeId}/page/{pageNum}", method = RequestMethod.GET)
+    @RequestMapping(value = "/topic/{voteTypeId}/page/{pageNum}", method = RequestMethod.GET)
     public ModelAndView vote(@PathVariable("voteTypeId") Long voteTypeId, @PathVariable("pageNum") Integer pageNum)
             throws Exception {
-        ModelAndView modelAndView = new ModelAndView("vote");
+        ModelAndView modelAndView = new ModelAndView("vote/vote");
         PageInfo<VoteTopicDTO> voteTopicDTOPageInfo = voteTopicService.selectByVoteTypeIdAndPage(voteTypeId, pageNum, ConstantUtil.PAGE_SIZE);
         modelAndView.addObject("voteTopicList", voteTopicDTOPageInfo);
         return modelAndView;
@@ -64,12 +62,23 @@ public class VoteController {
     @RequestMapping(value = "/topic/{id}", method = RequestMethod.GET)
     public ModelAndView topic(@PathVariable("id") Long id)
             throws Exception {
-        ModelAndView modelAndView = new ModelAndView("topic");
+        ModelAndView modelAndView = new ModelAndView("vote/topic");
         VoteTopicDTO voteTopicDTO = voteTopicService.selectListByPrimaryKey(id);
         if(null == voteTopicDTO){
             throw new AppViewException(VoteError.VOTE_NOT_EXIST.getMsg(),VoteError.VOTE_NOT_EXIST.getCode());
         }
         modelAndView.addObject("voteTopic", voteTopicDTO);
+        return modelAndView;
+    }
+
+    /**
+     * 投票保存
+     * @return
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ModelAndView save(){
+        ModelAndView modelAndView = new ModelAndView("vote/success");
+
         return modelAndView;
     }
 }

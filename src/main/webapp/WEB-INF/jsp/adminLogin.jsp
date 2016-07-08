@@ -28,7 +28,7 @@
                     <c:if test="${null ne errorMsg}">
                         <div cssStyle="color:red"><c:out value="${errorMsg}"/></div>
                     </c:if>
-                    <form id="loginForm" action="/user/login" method="post">
+                    <form id="loginForm" action="/admin/user/login" method="post">
                         <!-- <div style="margin-bottom: 10px"> -->
                         <div class="=form-group">
                             <label for="userId">学号 </label>

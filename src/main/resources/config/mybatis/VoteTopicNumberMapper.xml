@@ -22,7 +22,7 @@
         insert into vote_topic_number (id, vote_topic_id, vote_topic_vote_number,create_time,
         update_time)
         values (#{id,jdbcType=BIGINT}, #{voteTopicId,jdbcType=BIGINT}, #{voteTopicVoteNumber,jdbcType=BIGINT},
-        now(), now())
+        unix_timestamp(now()), unix_timestamp(now()))
     </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.shu.society.entity.VoteTopicNumber">
         <!--
@@ -33,7 +33,7 @@
         update vote_topic_number
         set vote_topic_id = #{voteTopicId,jdbcType=BIGINT},
         vote_topic_vote_number = #{voteTopicVoteNumber,jdbcType=BIGINT},
-        update_time = now()
+        update_time = unix_timestamp(now())
         where id = #{id,jdbcType=BIGINT}
     </update>
     <select id="selectByVoteTopicId" resultType="java.lang.Long" parameterType="java.lang.Long">

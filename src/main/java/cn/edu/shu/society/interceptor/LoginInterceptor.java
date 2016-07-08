@@ -36,10 +36,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         }
         UserDTO userDTO = (UserDTO) request.getSession().getAttribute("user");
         if (userDTO == null) {
-            request.getRequestDispatcher(LoginEnums.LOGIN_HOME.getMsg()).forward(request, response);
+            request.getRequestDispatcher(LoginEnums.LOGIN_HOME_JSP.getMsg()).forward(request, response);
             return false;
         } else {
-            request.getRequestDispatcher(RequestUtil.retrieveSavedRequest(request)).forward(request, response);
+//            request.getRequestDispatcher(RequestUtil.retrieveSavedRequest(request)).forward(request, response);
             return true;
         }
     }
@@ -52,9 +52,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request,
                            HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-        if (modelAndView != null) {  //加入当前时间
-            modelAndView.addObject("var", "测试postHandle");
-        }
     }
 
     /**

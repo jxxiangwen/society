@@ -29,8 +29,8 @@
         -->
         insert into vote_type (id, type_name, create_time,
         update_time)
-        values (#{id,jdbcType=BIGINT}, #{typeName,jdbcType=VARCHAR}, now(),
-        now())
+        values (#{id,jdbcType=BIGINT}, #{typeName,jdbcType=VARCHAR}, unix_timestamp(now()),
+        unix_timestamp(now()))
     </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.shu.society.entity.VoteType">
         <!--
@@ -40,7 +40,7 @@
         -->
         update vote_type
         set type_name = #{typeName,jdbcType=VARCHAR},
-        update_time = now()
+        update_time = unix_timestamp(now())
         where id = #{id,jdbcType=BIGINT}
     </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

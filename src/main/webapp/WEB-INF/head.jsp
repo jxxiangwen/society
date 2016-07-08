@@ -1,7 +1,9 @@
 <%@page contentType="text/html; charset=utf-8" language="java" errorPage="" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="container">
-    <nav class="navbar navbar-inverse" role="navigation">
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <%--<nav class="navbar navbar-inverse" role="navigation">--%>
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target="#example-navbar-collapse">
@@ -10,26 +12,62 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">W3Cschool</a>
+            <img src="/image/logo.jpg">
+            <%--<a class="navbar-brand" href="#">W3Cschool</a>--%>
         </div>
         <div>
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li <c:if test="${0==nav}">class="active"</c:if>><a href="#">课外活动</a></li>
-                    <li <c:if test="${1==nav}">class="active"</c:if>><a href="#">留言板</a></li>
-                    <li class="dropdown <c:if test="${2==nav}">active</c:if>">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            投票 <b class="caret"></b>
+                    <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35557">首页</a></li>
+                    <li class="dropdown navbar-brand">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                            学院概况 <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">记名投票</a></li>
-                            <li><a href="#">不记名投票</a></li>
-                            <%--<li class="divider"></li>--%>
-                            <%--<li><a href="#">分离的链接</a></li>--%>
+                            <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35640">学院简介</a>
+                            </li>
+                            <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35641">学院领导</a>
+                            </li>
+                            <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35642">院徽院训</a>
+                            </li>
+                            <li class="navbar-brand"><a href="/vote/topic/1/page/1">投票</a></li>
                         </ul>
                     </li>
+                    <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35644">组织架构</a></li>
+                    <li class="dropdown navbar-brand">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                            导师团队 <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="navbar-brand"><a
+                                    href="http://cms.shu.edu.cn/Default.aspx?tabid=35710">课外培养中心导师</a></li>
+                            <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35711">科创导师</a>
+                            </li>
+                            <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35712">理工一组导师</a>
+                            </li>
+                            <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35713">理工二组导师</a>
+                            </li>
+                            <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35714">理工三组导师</a>
+                            </li>
+                            <li class="navbar-brand"><a
+                                    href="http://cms.shu.edu.cn/Default.aspx?tabid=35715">人文经管组导师</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdownc navbar-brand">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                            课程导航 <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35702">核心通知课</a>
+                            </li>
+                            <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35703">培养方案</a>
+                            </li>
+                            <li class="navbar-brand"><a href="http://poll.freshman.shu.edu.cn/">评价方案</a></li>
+                        </ul>
+                    </li>
+                    <li class="navbar-brand"><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35648">相关下载</a></li>
                 </ul>
             </div>
         </div>
-    </nav>
-</div>
+    </div>
+</nav>

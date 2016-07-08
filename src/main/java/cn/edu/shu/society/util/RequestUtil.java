@@ -53,12 +53,12 @@ public class RequestUtil {
      */
     public static String retrieveSavedRequest(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session == null) {
+        if (session == null || null == session.getAttribute("user")) {
             return LoginEnums.REDIRECT_HOME.getMsg();
         }
         String HashedlastPage = (String) session.getAttribute(LoginEnums.LAST_PAGE.getMsg());
         if (HashedlastPage == null) {
-            return LoginEnums.LOGIN_HOME.getMsg();
+            return LoginEnums.LOGIN_HOME_JSP.getMsg();
         } else {
             return retrieve(HashedlastPage);
         }
@@ -74,8 +74,8 @@ public class RequestUtil {
         byte[] decode = Base64.decode(targetPage, true);
         try {
             String requestUri = new String(decode, "UTF-8");
-            int i = requestUri.indexOf("/", 1);
-            return requestUri.substring(i);
+//            int i = requestUri.indexOf("/", 1);
+            return requestUri;
         } catch (UnsupportedEncodingException ex) {
             //this does not happen
             return null;

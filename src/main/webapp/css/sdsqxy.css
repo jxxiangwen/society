@@ -1,0 +1,197 @@
+/*@charset "utf-8";*/
+/*!* CSS Document *!*/
+
+/*<style>*/
+/*img*/
+/*{*/
+    /*border:none;*/
+/*}*/
+
+/*!*页面主题背景样式*!*/
+/*body {*/
+    /*background:url(<%= SkinPath %>);*/
+    /*color:;*/
+    /*text-align:center;*/
+    /*margin:0px;*/
+    /*padding:0px;*/
+
+/*}*/
+
+/*body html {*/
+    /*width:100%;*/
+/*}*/
+
+/*#wrapper {*/
+    /*text-align:left;*/
+    /*margin:0 auto;*/
+/*}*/
+
+/*!*套用边框样式*!*/
+/*.side {*/
+    /*border-bottom: #999999 1px solid;*/
+    /*border-left: #999999 1px solid;*/
+    /*border-top: #999999 1px solid;*/
+    /*border-right: #999999 1px solid;*/
+/*}*/
+
+/*.side2 {*/
+    /*border-bottom: #CFD1D2 0px solid;*/
+    /*border-left: #CFD1D2 1px solid;*/
+    /*border-top: #CFD1D2 0px solid;*/
+    /*border-right: #CFD1D2 1px solid;*/
+/*}*/
+
+/*!*页面应用字体样式*!*/
+/*body,td,tr,div,span,p,hr,.Message,TFOOT,label,.Normal,.NormalRed,.NormalBold,A,A:active{*/
+    /*color:#333333;*/
+    /*font-family:微软雅黑, Arial, sans-serif;*/
+    /*font-size: 13.5px;*/
+/*}*/
+
+/*!*页面链接字体样式*!*/
+/*A:link{color:#333333}*/
+
+/*!*页面链接访字体问过样式*!*/
+/*A:visited{color:#333333}*/
+
+/*!*页面链接鼠标移动上去字体样式*!*/
+/*A:hover{color:#333333}*/
+
+
+
+/*!*登录模块字体样式*!*/
+/*.label{*/
+    /*color:#333333;*/
+    /*font-size:12px;*/
+    /*line-height:22px;*/
+/*}*/
+/*!*登录页面显示字体样式*!*/
+/*.LoginTabs,A.LoginTabs:link,A.LoginTabs:active,A.LoginTabs:hover,A.LoginTabs:visited,.skinobject,A.skinobject:link,A.skinobject:active,A.skinobject:hover,A.skinobject:visited{*/
+    /*font-weight: normal;*/
+    /*font-size: 12px;*/
+    /*color: #333333;*/
+    /*font-family:Arial, Helvetica, sans-serif;*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*!*菜单的样式*!*/
+/*TR.MainMenu_MenuBar TD{*/
+    /*color: #707070;*/
+    /*font-family:微软雅黑, Arial, Helvetica, sans-serif ;*/
+    /*font-size:14px;*/
+    /*font-weight: bold;*/
+    /*padding:0px 15px 0px 15px;*/
+    /*height:;*/
+    /*background:url() center right no-repeat;*/
+/*}*/
+
+/*!*下拉菜单的样式*!*/
+/*.MainMenu_MenuItem {*/
+    /*cursor: hand;*/
+    /*color: #707070;*/
+    /*font-family:微软雅黑, Arial, Helvetica, sans-serif ;*/
+    /*font-weight: normal;*/
+    /*font-size: 14px;*/
+    /*border-left: #808080 0px solid;*/
+    /*border-bottom: #808080 0px solid;*/
+    /*border-top: #808080 0px solid;*/
+    /*border-right: #808080 0px solid;*/
+    /*padding:4px 10px;*/
+    /*height:24px;*/
+    /*background:url() center bottom  no-repeat ;*/
+
+/*}*/
+
+/*!*菜单选中项的样式*!*/
+/*TR.MainMenu_MenuItemSel TD{*/
+    /*color: #000000;*/
+    /*font-family:微软雅黑, Arial, Helvetica, sans-serif ;*/
+    /*font-size: 14px; !*must be pixel to match repeat*!*/
+    /*font-weight: bold;*/
+    /*padding:0px 15px 0px 15px;*/
+    /*border-bottom: #6c4721 0px solid;*/
+    /*background: center bottom no-repeat ;*/
+/*}*/
+
+/*!*下拉菜单选中项的样式*!*/
+/*.MainMenu_MenuItemSel{*/
+    /*color: #000000;*/
+    /*font-family:微软雅黑, Arial, Helvetica, sans-serif ;*/
+    /*font-size: 14px; !*must be pixel to match repeat*!*/
+    /*font-weight: normal;*/
+    /*padding:4px 10px;*/
+    /*height:24px;*/
+    /*border-bottom: #2268ad 0px solid;*/
+    /*border-top: #2268ad 0px solid;*/
+    /*background-color:#e5e5e5;*/
+/*}*/
+
+
+/*!*下拉菜单项的背景样式*!*/
+/*.MainMenu_SubMenu {*/
+    /*border-left: #3279af 0px solid;*/
+    /*border-bottom: #3279af 0px solid;*/
+    /*border-top: #3279af 0px solid;*/
+    /*border-right: #3279af 0px solid;*/
+    /*background: url(mbg.png);*/
+/*}*/
+
+/*!*菜单项中的链接间隔样式*!*/
+/*.MainMenu_MenuIcon{ display:none; }*/
+/*.MainMenu_MenuArrow{ display:none; }*/
+/*.MainMenu_RootMenuArrow{ display:none; }*/
+/*.MainMenu_MenuBreak{ display:none; }*/
+
+/*!*皮肤底部内的链接样式*!*/
+/*A.bottom:link,A.bottom:active,A.bottom:hover,A.bottom:visited{*/
+    /*color: #fff;*/
+    /*font-size: 12px;*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*!*皮肤底框内字体的样式*!*/
+/*.bottom {*/
+    /*color:#fff;*/
+    /*font-size: 12px;*/
+    /*line-height:120%;*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*.ModuleTitle_SubMenu*/
+/*{*/
+    /*border:1px solid #C0D6E5;*/
+/*}*/
+
+/*.ModuleTitle_SubMenu td{*/
+    /*background-color:#F8FAFF;*/
+    /*white-space: nowrap;*/
+/*}*/
+
+/*.ModuleTitle_MenuIcon {*/
+    /*background-color:#F8FAFF;*/
+    /*border:none;*/
+    /*padding: 0px 2px;*/
+/*}*/
+
+/*.ModuleTitle_MenuItemSel td, .ModuleTitle_MenuItemSel .ModuleTitle_MenuIcon{*/
+    /*background: #CE0D0D url(../images/submenu_hover.gif) repeat-x top left;*/
+    /*color: #fff;*/
+/*}*/
+
+/*.ModuleTitle_MenuBreak td, .ModuleTitle_MenuBreak .ModuleTitle_MenuIcon*/
+/*{*/
+    /*height: 2px;*/
+    /*background-color: #D5E0FF;*/
+/*}*/
+/*.bottom1 {	color: #000000;*/
+    /*font-size: 12px;*/
+    /*line-height:120%;*/
+/*}*/
+/*.style1 {color: #ffffff}*/
+/*.style2 {color: #ffffff}*/
+/*.style3 {line-height:120%; font-size: 12px;}*/
+/*.STYLE4 {color: #FFFFFF}*/
+/*</style>*/
+
+
+

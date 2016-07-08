@@ -63,7 +63,7 @@
         create_time, update_time)
         values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
         #{startTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, #{voteTypeId,jdbcType=BIGINT},
-        now(), now())
+        unix_timestamp(now()), unix_timestamp(now()))
     </insert>
     <update id="updateByPrimaryKey" parameterType="cn.edu.shu.society.entity.VoteTopic">
         <!--
@@ -77,7 +77,7 @@
         start_time = #{startTime,jdbcType=BIGINT},
         end_time = #{endTime,jdbcType=BIGINT},
         vote_type_id = #{voteTypeId,jdbcType=BIGINT},
-        update_time = now()
+        update_time = unix_timestamp(now())
         where id = #{id,jdbcType=BIGINT}
     </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -48,6 +50,13 @@ public class VoteSubjectTypeServiceImplTest {
     @Test
     public void testLeftJoin(){
         System.out.println(voteTopicService.selectListByPrimaryKey(1L));
+    }
+
+    @Test
+    public void testDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(sdf.format(20160705154223L));
+        System.out.println(sdf.format(new java.sql.Date(20160705154223L)));
     }
 
 }
