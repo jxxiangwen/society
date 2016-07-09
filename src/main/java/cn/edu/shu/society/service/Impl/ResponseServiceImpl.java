@@ -67,7 +67,7 @@ public class ResponseServiceImpl implements ResponseService {
      */
     @Override
     public PageInfo<ResponseDTO> selectByPage(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+        PageHelper.startPage(pageNum, pageSize,"update_time desc");
         List<Response> responseList = responseMapper.selectAll();
         PageInfo<Response> page = new PageInfo(responseList);
         Iterator<Response> iterator = responseList.iterator();
@@ -87,4 +87,11 @@ public class ResponseServiceImpl implements ResponseService {
     public int updateByPrimaryKey(ResponseDTO record) {
         return responseMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, Response.class));
     }
+
+    @Override
+    public List<ResponseDTO> selectByMessageId(Long messageId) {
+        return BeanUtility.convertOtherBeanList(responseMapper.selectByMessageId(messageId),ResponseDTO.class);
+    }
+
+
 }

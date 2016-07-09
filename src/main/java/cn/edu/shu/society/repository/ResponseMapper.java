@@ -46,4 +46,6 @@ public interface ResponseMapper {
      * @mbggenerated Thu Jun 23 22:16:17 CST 2016
      */
     int updateByPrimaryKey(Response record);
+
+    List<Response> selectByMessageId(Long messageId);
 }

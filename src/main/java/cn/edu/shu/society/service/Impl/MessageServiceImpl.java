@@ -20,7 +20,7 @@ import java.util.List;
 public class MessageServiceImpl implements MessageService {
 
     private static Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
-    @Autowired()
+    @Autowired
     MessageMapper messageMapper;
 
     /**
@@ -47,6 +47,8 @@ public class MessageServiceImpl implements MessageService {
         return BeanUtility.beanCopy(messageMapper.selectByPrimaryKey(id), MessageDTO.class);
     }
 
+
+
     /**
      * @return
      */
@@ -68,7 +70,7 @@ public class MessageServiceImpl implements MessageService {
      */
     @Override
     public PageInfo<MessageDTO> selectByPage(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+        PageHelper.startPage(pageNum, pageSize,"update_time desc");
         List<Message> messageList = messageMapper.selectAll();
         PageInfo<Message> page = new PageInfo(messageList);
         Iterator<Message> iterator = messageList.iterator();
@@ -88,4 +90,25 @@ public class MessageServiceImpl implements MessageService {
     public int updateByPrimaryKey(MessageDTO record) {
         return messageMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, Message.class));
     }
+
+    @Override
+    public PageInfo<MessageDTO> selectByMessageTypeIdAndPassStatus(int pageNum, int pageSize, Long messageTypeId, boolean[] passStatusArr) {
+        PageHelper.startPage(pageNum, pageSize,"update_time desc");
+        List<Message> messageList = messageMapper.selectByMessageTypeIdAndPassStatus(messageTypeId,passStatusArr);
+        PageInfo<Message> page = new PageInfo(messageList);
+        Iterator<Message> iterator = messageList.iterator();
+        List<MessageDTO> messageDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            messageDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), MessageDTO.class));
+        }
+        PageInfo<MessageDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(messageDTOLinkedList);
+        return page1;
+    }
+
+    @Override
+    public int updateIsPassed(Long messageId, boolean isPassed) {
+        return messageMapper.updateIsPassed(messageId,true);
+    }
+
 }

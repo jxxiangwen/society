@@ -42,4 +42,7 @@ public interface ResponseService {
      * @return
      */
     int updateByPrimaryKey(ResponseDTO record);
+
+    List<ResponseDTO> selectByMessageId(Long messageId);
+
 }

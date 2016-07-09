@@ -35,11 +35,16 @@ public interface MessageService {
      * @param pageSize
      * @return
      */
-    public PageInfo<MessageDTO> selectByPage(int pageNum, int pageSize);
+    PageInfo<MessageDTO> selectByPage(int pageNum, int pageSize);
 
     /**
      * @param record
      * @return
      */
     int updateByPrimaryKey(MessageDTO record);
+
+    PageInfo<MessageDTO> selectByMessageTypeIdAndPassStatus(int pageNum, int pageSize, Long messageTypeId, boolean[] passStatusArr);
+
+    int updateIsPassed(Long messageId, boolean isPassed);
+
 }

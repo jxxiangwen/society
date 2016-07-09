@@ -46,4 +46,7 @@ public interface MessageMapper {
      * @mbggenerated Thu Jun 23 22:16:17 CST 2016
      */
     int updateByPrimaryKey(Message record);
+
+    List<Message> selectByMessageTypeIdAndPassStatus(Long messageTypeId, boolean[] passStatusArr);
+    int updateIsPassed(Long messageId, boolean isPassed);
 }

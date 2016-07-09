@@ -11,6 +11,8 @@ public class ResponseDTO implements Serializable {
 
     private String title;
 
+    private String respondentName;
+
     private String content;
 
     private Long messageId;
@@ -73,6 +75,14 @@ public class ResponseDTO implements Serializable {
 
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getRespondentName() {
+        return respondentName;
+    }
+
+    public void setRespondentName(String respondent) {
+        this.respondentName = respondent;
     }
 
     @Override
