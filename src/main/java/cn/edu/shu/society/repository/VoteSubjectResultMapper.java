@@ -51,4 +51,8 @@ public interface VoteSubjectResultMapper {
      * @mbggenerated Thu Jun 23 22:16:17 CST 2016
      */
     int updateByPrimaryKey(VoteSubjectResult record);
+
+    Long countVoteNumberByResultVoteItemId(Long resultVoteItemId);
+
+    Long isHaveVoted(Long userId);
 }

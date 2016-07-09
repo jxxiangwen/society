@@ -9,6 +9,8 @@ public class VoteTypeDTO implements Serializable{
 
     private String typeName;
 
+    private String parentTypeName;
+
     private Long createTime;
 
     private Long updateTime;
@@ -45,11 +47,20 @@ public class VoteTypeDTO implements Serializable{
         this.updateTime = updateTime;
     }
 
+    public String getParentTypeName() {
+        return parentTypeName;
+    }
+
+    public void setParentTypeName(String parentTypeName) {
+        this.parentTypeName = parentTypeName;
+    }
+
     @Override
     public String toString() {
         return "VoteTypeDTO{" +
                 "id=" + id +
                 ", typeName='" + typeName + '\'' +
+                ", parentTypeName='" + parentTypeName + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

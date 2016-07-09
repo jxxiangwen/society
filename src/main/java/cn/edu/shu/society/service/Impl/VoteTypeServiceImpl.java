@@ -103,4 +103,9 @@ public class VoteTypeServiceImpl implements VoteTypeService {
     public int updateByPrimaryKey(VoteTypeDTO record) {
         return voteTypeMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, VoteType.class));
     }
+
+    @Override
+    public String getParentTypeNameById(Long id) {
+        return voteTypeMapper.getParentTypeNameById(id);
+    }
 }

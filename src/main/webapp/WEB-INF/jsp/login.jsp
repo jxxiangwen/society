@@ -26,7 +26,7 @@
                         </h1>
                     </div>
                     <c:if test="${null ne errorMsg}">
-                        <div cssStyle="color:red"><c:out value="${errorMsg}"/></div>
+                        <div style="color:red"><c:out value="${errorMsg}"/></div>
                     </c:if>
                     <form id="loginForm" action="/user/login" method="post">
                         <!-- <div style="margin-bottom: 10px"> -->

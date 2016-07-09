@@ -18,13 +18,14 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-switch.min.css" rel="stylesheet">
     <link href="/validation/validationEngine.jquery.css" rel="stylesheet">
-    <script src="/js/jquery-1.11.3.min.js"></script>
+    <link href="/laypage/skin/laypage.css" rel="stylesheet">
     <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/bootstrap-switch.min.js"></script>
     <script src="/js/bootstrap-hover-dropdown.min.js"></script>
     <script src="/validation/jquery.validationEngine.js"></script>
     <script src="/validation/jquery.validationEngine-zh_CN.js"></script>
+    <script src="/laypage/laypage.js"></script>
     <script language="JavaScript"> if (window != top) top.location.href = location.href; </script>
     <link id="_Portals__default_" rel="stylesheet" type="text/css" href="/css/default.css"/>
     <link id="_Portals_718_" rel="stylesheet" type="text/css" href="/css/portal.css"/>

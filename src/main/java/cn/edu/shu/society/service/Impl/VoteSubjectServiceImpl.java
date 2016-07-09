@@ -103,4 +103,9 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
     public int updateByPrimaryKey(VoteSubjectDTO record) {
         return voteSubjectMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, VoteSubject.class));
     }
+
+    @Override
+    public String getSubjectTypeBySubjectId(Long id) {
+        return voteSubjectMapper.getSubjectTypeBySubjectId(id);
+    }
 }

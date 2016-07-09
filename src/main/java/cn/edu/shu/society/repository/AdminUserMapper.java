@@ -46,4 +46,6 @@ public interface AdminUserMapper {
      * @mbggenerated Fri Jul 08 15:10:07 CST 2016
      */
     int updateByPrimaryKey(AdminUser record);
+
+    AdminUser selectByUserId(Long userId);
 }

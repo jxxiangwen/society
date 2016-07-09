@@ -1,11 +1,9 @@
 package cn.edu.shu.society.service.Impl;
 
+import cn.edu.shu.society.dto.VoteResultMap;
 import cn.edu.shu.society.dto.VoteResultOutDTO;
 import cn.edu.shu.society.dto.VoteTopicDTO;
-import cn.edu.shu.society.entity.VoteSubject;
-import cn.edu.shu.society.entity.VoteSubjectResult;
-import cn.edu.shu.society.entity.VoteSubjectType;
-import cn.edu.shu.society.entity.VoteTopic;
+import cn.edu.shu.society.entity.*;
 import cn.edu.shu.society.enums.VoteError;
 import cn.edu.shu.society.exception.AppException;
 import cn.edu.shu.society.repository.*;
@@ -134,7 +132,7 @@ public class VoteTopicServiceImpl implements VoteTopicService {
      */
     @Override
     public PageInfo<VoteTopicDTO> selectByVoteTypeIdAndPage(Long voteTypeId, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+        PageHelper.startPage(pageNum, pageSize, "create_time desc");
         List<VoteTopic> voteTopicList = voteTopicMapper.selectAllByVoteTypeId(voteTypeId);
         PageInfo<VoteTopic> page = new PageInfo(voteTopicList);
         Iterator<VoteTopic> iterator = voteTopicList.iterator();

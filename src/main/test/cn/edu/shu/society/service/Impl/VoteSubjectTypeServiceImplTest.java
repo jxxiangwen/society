@@ -1,6 +1,8 @@
 package cn.edu.shu.society.service.Impl;
 
+import cn.edu.shu.society.dto.UserDTO;
 import cn.edu.shu.society.dto.VoteSubjectTypeDTO;
+import cn.edu.shu.society.service.UserService;
 import cn.edu.shu.society.service.VoteSubjectService;
 import cn.edu.shu.society.service.VoteSubjectTypeService;
 import cn.edu.shu.society.service.VoteTopicService;
@@ -32,6 +34,9 @@ public class VoteSubjectTypeServiceImplTest {
     @Autowired
     VoteSubjectService voteSubjectService;
 
+    @Autowired
+    UserService userService;
+
     @Test
     public void selectByPage() throws Exception {
 //        System.out.println(voteSubjectTypeService.selectByPage(1, 1));
@@ -57,6 +62,12 @@ public class VoteSubjectTypeServiceImplTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(sdf.format(20160705154223L));
         System.out.println(sdf.format(new java.sql.Date(20160705154223L)));
+    }
+
+    @Test
+    public void testUser(){
+        UserDTO userDTO = userService.selectByUserId(14721198L);
+        System.out.println(userDTO);
     }
 
 }

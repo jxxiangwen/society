@@ -87,4 +87,9 @@
         select id, title, vote_subject_type_id, vote_topic_id, create_time, update_time
         from vote_subject
     </select>
+    <select id="getSubjectTypeBySubjectId" parameterType="java.lang.Long" resultMap="java.lang.String">
+        SELECT aType.type_name
+        FROM vote_subject subject LEFT JOIN vote_subject_type aType ON subject.vote_subject_type_id = aType.id
+        WHERE subject.id = #{id,jdbcType=BIGINT}
+    </select>
 </mapper>

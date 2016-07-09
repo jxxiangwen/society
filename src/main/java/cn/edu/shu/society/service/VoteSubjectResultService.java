@@ -1,5 +1,6 @@
 package cn.edu.shu.society.service;
 
+import cn.edu.shu.society.dto.VoteResultMap;
 import cn.edu.shu.society.dto.VoteSubjectResultDTO;
 import com.github.pagehelper.PageInfo;
 
@@ -30,7 +31,6 @@ public interface VoteSubjectResultService {
     List<VoteSubjectResultDTO> selectAll();
 
     /**
-     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -44,17 +44,36 @@ public interface VoteSubjectResultService {
     int updateByPrimaryKey(VoteSubjectResultDTO record);
 
     /**
-     *
      * @param voteSubjectId
      * @param userId
      * @return
      */
-    List<VoteSubjectResultDTO> selectBySubjectIdAndUserId(Long voteSubjectId,Long userId);
+    List<VoteSubjectResultDTO> selectBySubjectIdAndUserId(Long voteSubjectId, Long userId);
 
     /**
-     *
      * @param voteSubjectId
      * @return
      */
     List<VoteSubjectResultDTO> selectBySubjectId(Long voteSubjectId);
+
+    /**
+     * @param resultVoteItemId
+     * @return
+     */
+    Long countVoteNumberByResultVoteItemId(Long resultVoteItemId);
+
+    /**
+     * @param userId
+     * @return
+     */
+    Long isHaveVoted(Long userId);
+
+    /**
+     *
+     * @param userId
+     * @param id
+     * @param voteResultMap
+     * @return
+     */
+    boolean saveVoteResult(Long userId, Long id, VoteResultMap voteResultMap);
 }
