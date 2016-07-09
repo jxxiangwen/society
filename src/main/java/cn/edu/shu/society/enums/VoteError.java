@@ -15,7 +15,9 @@ public enum VoteError {
     VOTE_HAVE_OVERTIME(2003, "该投票已经结束"),
     VOTE_NOT_EXIST(2004, "该投票不存在"),
     VOTE_SUBJECT_NOT_EXIST(2005, "该投票选项不存在"),
-    VOTE_TYPE_NOT_EXIST(2006, "投票类别不存在"),;
+    VOTE_TYPE_NOT_EXIST(2006, "投票类别不存在"),
+    VOTE_NOW_NOT_EXIST(2007, "暂时还未有人投票"),
+    ;
 
     private int code;
 

@@ -41,4 +41,11 @@ public interface VoteItemService {
      * @return
      */
     int updateByPrimaryKey(VoteItemDTO record);
+
+    /**
+     *
+     * @param voteSubjectId
+     * @return
+     */
+    List<Long> selectItemIdBySubject(Long voteSubjectId);
 }

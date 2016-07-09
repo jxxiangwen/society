@@ -258,13 +258,11 @@
       </column>
       <column id="52" parent="7" name="result_vote_item_id">
         <comment>客观题结果</comment>
-        <mandatory>1</mandatory>
         <data-type>bigint(1) unsigned</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
       <column id="53" parent="7" name="content_result">
         <comment>主观题结果</comment>
-        <mandatory>1</mandatory>
         <data-type>varchar(1000)</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>

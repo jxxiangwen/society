@@ -50,7 +50,7 @@
     <!-- 配置系统的数据源 -->
     <!-- 配置c3p0数据源 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="jdbc:mysql://localhost/society"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost/society?useSSL=false"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="user" value="root"/>
         <property name="password" value="wenwen1991"/>

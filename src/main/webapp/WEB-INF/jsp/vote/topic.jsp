@@ -14,7 +14,7 @@
     <div class="container-fluid" id="database">
         <div class="row">
             <jsp:include page="../../left.jsp"/>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <c:choose>
                     <c:when test="${null ne voteTopic}">
                         <div class="page-header">
@@ -29,8 +29,7 @@
                                                varStatus="status">
                                         <div class="form-group">
                                             <label for="voteSubject${status.index + 1}"><span
-                                                    class="text-danger">*</span>${status.index + 1}.<c:out
-                                                    value="${voteSubjectList.title}"/> </label>
+                                                    class="text-danger">*</span>${status.index + 1}.${voteSubjectList.title}</label>
                                                 <%--单选--%>
                                             <c:if test="${1 == voteSubjectList.voteSubjectTypeId}">
                                                 <c:choose>

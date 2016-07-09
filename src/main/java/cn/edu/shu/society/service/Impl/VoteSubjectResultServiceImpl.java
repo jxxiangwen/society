@@ -1,17 +1,14 @@
 package cn.edu.shu.society.service.Impl;
 
-import cn.edu.shu.society.dto.VoteResultMap;
-import cn.edu.shu.society.dto.VoteSubjectResultDTO;
+import cn.edu.shu.society.dto.*;
 import cn.edu.shu.society.entity.VoteSubject;
 import cn.edu.shu.society.entity.VoteSubjectResult;
 import cn.edu.shu.society.entity.VoteTopic;
+import cn.edu.shu.society.entity.VoteTopicNumber;
 import cn.edu.shu.society.enums.ClientError;
 import cn.edu.shu.society.enums.VoteTypeEnums;
 import cn.edu.shu.society.exception.AppViewException;
-import cn.edu.shu.society.repository.VoteSubjectMapper;
-import cn.edu.shu.society.repository.VoteSubjectResultMapper;
-import cn.edu.shu.society.repository.VoteTopicMapper;
-import cn.edu.shu.society.repository.VoteTypeMapper;
+import cn.edu.shu.society.repository.*;
 import cn.edu.shu.society.service.VoteSubjectResultService;
 import cn.edu.shu.society.util.BeanUtility;
 import com.github.pagehelper.PageHelper;
@@ -21,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -42,6 +40,12 @@ public class VoteSubjectResultServiceImpl implements VoteSubjectResultService {
 
     @Autowired
     VoteTypeMapper voteTypeMapper;
+
+    @Autowired
+    VoteTopicNumberMapper voteTopicNumberMapper;
+
+    @Autowired
+    VoteItemMapper voteItemMapper;
 
     /**
      * @param id
@@ -151,8 +155,8 @@ public class VoteSubjectResultServiceImpl implements VoteSubjectResultService {
      * @return
      */
     @Override
-    public Long countVoteNumberByResultVoteItemId(Long resultVoteItemId) {
-        return voteSubjectResultMapper.countVoteNumberByResultVoteItemId(resultVoteItemId);
+    public Long countVoteNumberByVoteItemId(Long resultVoteItemId) {
+        return voteSubjectResultMapper.countVoteNumberByVoteItemId(resultVoteItemId);
     }
 
     /**
@@ -166,58 +170,97 @@ public class VoteSubjectResultServiceImpl implements VoteSubjectResultService {
         return voteSubjectResultMapper.isHaveVoted(userId);
     }
 
+    @Override
+    public Long countVoteNumberByList(List<Long> list) {
+        return voteSubjectResultMapper.countVoteNumberByList(list);
+    }
+
     /**
      * 保存投票结果
+     *
      * @param userId
-     * @param id
+     * @param voteTopicId
      * @param voteResultMap
      * @return
      */
-    public boolean saveVoteResult(Long userId, Long id, VoteResultMap voteResultMap) {
-        VoteTopic voteTopic = voteTopicMapper.selectByPrimaryKey(id);
+    public boolean saveVoteResult(Long userId, Long voteTopicId, VoteResultMap voteResultMap) {
+        VoteTopic voteTopic = voteTopicMapper.selectByPrimaryKey(voteTopicId);
         String typeName = voteTypeMapper.getParentTypeNameById(voteTopic.getVoteTypeId());
         if ("记名投票".equals(typeName)) {
             Long count = voteSubjectResultMapper.isHaveVoted(userId);
             if (null != count && 0 < count) {
                 throw new AppViewException("请勿重复投票");
             }
-        } else {
-            Iterator<Map.Entry<Long, String>> iterator = voteResultMap.getVoteMap().entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Long, String> kv = iterator.next();
-                Long key = kv.getKey();
-                String value = kv.getValue();
-                String subjectType = voteSubjectMapper.getSubjectTypeBySubjectId(key);
-                VoteSubjectResult voteSubjectResult;
-                if (VoteTypeEnums.CHECKBOX.getType().equals(subjectType.trim())) {
-                    //多选题
-                    String[] values = value.split(",");
-                    for (String s : values) {
-                        voteSubjectResult = new VoteSubjectResult();
-                        voteSubjectResult.setVoteSubjectId(key);
-                        voteSubjectResult.setResultVoteItemId(Long.parseLong(s));
-                        voteSubjectResult.setUserId(userId);
-                        voteSubjectResultMapper.insert(voteSubjectResult);
-                    }
-                } else if (VoteTypeEnums.RADIO.getType().equals(subjectType.trim())) {
-                    //单选题
+        }
+        Iterator<Map.Entry<Long, String>> iterator = voteResultMap.getVoteMap().entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Long, String> kv = iterator.next();
+            Long key = kv.getKey();
+            String value = kv.getValue();
+            String subjectType = voteSubjectMapper.getSubjectTypeBySubjectId(key);
+            VoteSubjectResult voteSubjectResult;
+            if (VoteTypeEnums.CHECKBOX.getType().equals(subjectType.trim())) {
+                //多选题
+                String[] values = value.split(",");
+                for (String s : values) {
                     voteSubjectResult = new VoteSubjectResult();
-                    voteSubjectResult.setUserId(userId);
                     voteSubjectResult.setVoteSubjectId(key);
-                    voteSubjectResult.setResultVoteItemId(Long.parseLong(value));
-                    voteSubjectResultMapper.insert(voteSubjectResult);
-                } else if (VoteTypeEnums.OPINION.getType().equals(subjectType.trim())) {
-                    //主观题
-                    voteSubjectResult = new VoteSubjectResult();
+                    voteSubjectResult.setResultVoteItemId(Long.parseLong(s));
                     voteSubjectResult.setUserId(userId);
-                    voteSubjectResult.setVoteSubjectId(key);
-                    voteSubjectResult.setContentResult(value);
                     voteSubjectResultMapper.insert(voteSubjectResult);
-                } else {
-                    throw new AppViewException(ClientError.SYSTEM_WRONG.getMsg());
                 }
+            } else if (VoteTypeEnums.RADIO.getType().equals(subjectType.trim())) {
+                //单选题
+                voteSubjectResult = new VoteSubjectResult();
+                voteSubjectResult.setUserId(userId);
+                voteSubjectResult.setVoteSubjectId(key);
+                voteSubjectResult.setResultVoteItemId(Long.parseLong(value));
+                voteSubjectResultMapper.insert(voteSubjectResult);
+            } else if (VoteTypeEnums.OPINION.getType().equals(subjectType.trim())) {
+                //主观题
+                voteSubjectResult = new VoteSubjectResult();
+                voteSubjectResult.setUserId(userId);
+                voteSubjectResult.setVoteSubjectId(key);
+                voteSubjectResult.setContentResult(value);
+                voteSubjectResultMapper.insert(voteSubjectResult);
+            } else {
+                throw new AppViewException(ClientError.SYSTEM_WRONG.getMsg());
             }
         }
+
+        VoteTopicNumber voteTopicNumber = voteTopicNumberMapper.selectObjectByVoteTopicId(voteTopicId);
+        if (null == voteTopicNumber) {
+            voteTopicNumber = new VoteTopicNumber();
+            voteTopicNumber.setVoteTopicId(voteTopicId);
+            voteTopicNumber.setVoteTopicVoteNumber(1L);
+            voteTopicNumberMapper.insert(voteTopicNumber);
+        } else {
+            voteTopicNumberMapper.addVoteNumber(voteTopicNumber);
+        }
         return true;
+    }
+
+    /**
+     * 获取投票结果
+     *
+     * @param voteTopicId
+     * @return
+     */
+    public VoteTopicDTO getVoteResult(Long voteTopicId) {
+        VoteTopicDTO voteTopicDTO = BeanUtility.convertTopicToDTO(voteTopicMapper.selectListByPrimaryKey(voteTopicId));
+        if (!CollectionUtils.isEmpty(voteTopicDTO.getVoteSubjectList())) {
+            for (VoteSubjectDTO voteSubjectDTO : voteTopicDTO.getVoteSubjectList()) {
+                if (!CollectionUtils.isEmpty(voteSubjectDTO.getVoteItemList())) {
+                    for (VoteItemDTO voteItemDTO : voteSubjectDTO.getVoteItemList()) {
+                        //得到百分比
+//                        Long value = voteSubjectResultMapper.countVoteNumberByVoteItemId(voteItemDTO.getId() /
+//                                voteSubjectResultMapper.countVoteNumberByList(voteItemMapper.selectItemIdBySubject(voteSubjectDTO.getId())));
+                        voteItemDTO.setVoteNum(voteSubjectResultMapper.countVoteNumberByVoteItemId(voteItemDTO.getId()));
+                    }
+                }
+
+            }
+        }
+        return voteTopicDTO;
     }
 }

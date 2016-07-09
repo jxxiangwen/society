@@ -1,5 +1,6 @@
 package cn.edu.shu.society.service;
 
+import cn.edu.shu.society.dto.VoteTopicNumberDTO;
 import cn.edu.shu.society.entity.VoteTopicNumber;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public interface VoteTopicNumberService {
      * @param record
      * @return
      */
-    int insert(VoteTopicNumber record);
+    int insert(VoteTopicNumberDTO record);
 
     /**
      *
@@ -27,5 +28,19 @@ public interface VoteTopicNumberService {
      * @param record
      * @return
      */
-    int updateByPrimaryKey(VoteTopicNumber record);
+    int updateByPrimaryKey(VoteTopicNumberDTO record);
+
+    /**
+     *
+     * @param voteTopicId
+     * @return
+     */
+    VoteTopicNumberDTO selectObjectByVoteTopicId(Long voteTopicId);
+
+    /**
+     *
+     * @param record
+     * @return
+     */
+    int addVoteNumber(VoteTopicNumberDTO record);
 }

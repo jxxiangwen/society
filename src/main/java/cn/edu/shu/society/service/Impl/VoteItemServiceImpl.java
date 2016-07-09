@@ -93,4 +93,9 @@ public class VoteItemServiceImpl implements VoteItemService {
     public int updateByPrimaryKey(VoteItemDTO record) {
         return voteItemMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, VoteItem.class));
     }
+
+    @Override
+    public List<Long> selectItemIdBySubject(Long voteSubjectId) {
+        return voteItemMapper.selectItemIdBySubject(voteSubjectId);
+    }
 }

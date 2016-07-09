@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -80,6 +81,12 @@ public class VoteController {
         if (null == voteTopicDTO) {
             throw new AppViewException(VoteError.VOTE_NOT_EXIST.getMsg(), VoteError.VOTE_NOT_EXIST.getCode());
         }
+        if (new Date().getTime() > voteTopicDTO.getEndTime() * 1000) {
+            throw new AppViewException(VoteError.VOTE_HAVE_OVERTIME.getMsg(), VoteError.VOTE_HAVE_OVERTIME.getCode());
+        }
+        if (new Date().getTime() < voteTopicDTO.getStartTime() * 1000) {
+            throw new AppViewException(VoteError.VOTE_NOT_BEGIN.getMsg(), VoteError.VOTE_NOT_BEGIN.getCode());
+        }
         modelAndView.addObject("voteTopic", voteTopicDTO);
         return modelAndView;
     }
@@ -91,15 +98,30 @@ public class VoteController {
      */
     @Token(remove = true)
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(@RequestParam(value = "id") Long id,
-                             @RequestParam(value = "voteMap") VoteResultMap voteResultMap,
+    public ModelAndView save(VoteResultMap voteResultMap,
                              HttpServletRequest request) {
-        UserDTO userDTO = (UserDTO)request.getSession().getAttribute("user");
-        boolean result = voteSubjectResultService.saveVoteResult(userDTO.getUserId(),id,voteResultMap);
-        if(!result){
+        UserDTO userDTO = (UserDTO) request.getSession().getAttribute("user");
+        Long id = Long.parseLong(request.getParameter("id"));
+        boolean result = voteSubjectResultService.saveVoteResult(userDTO.getUserId(), id, voteResultMap);
+        if (!result) {
             throw new AppViewException(ClientError.SYSTEM_WRONG.getMsg());
         }
+        return new ModelAndView("redirect:/vote/check/topic/" + id);
+    }
+
+    /**
+     * 投票保存
+     *
+     * @return
+     */
+    @RequestMapping(value = "/check/topic/{voteTopicId}", method = RequestMethod.GET)
+    public ModelAndView check(@PathVariable(value = "voteTopicId") Long voteTopicId) {
+        VoteTopicDTO voteTopicDTO = voteSubjectResultService.getVoteResult(voteTopicId);
+        if (null == voteTopicDTO) {
+            throw new AppViewException(VoteError.VOTE_NOW_NOT_EXIST.getMsg(),VoteError.VOTE_NOW_NOT_EXIST.getCode());
+        }
         ModelAndView modelAndView = new ModelAndView("vote/success");
+        modelAndView.addObject("voteTopic", voteTopicDTO);
         return modelAndView;
     }
 }

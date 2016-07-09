@@ -146,17 +146,17 @@ CREATE TABLE vote_topic (
 SELECT NOW();
 
 INSERT INTO vote_topic (user_id, title, start_time, end_time, vote_type_id, create_time, update_time)
-  VALUE (14721198, '计算机学院调查记名投票', NOW(), DATE_ADD(NOW(), INTERVAL 60 DAY),
+  VALUE (14721198, '计算机学院调查记名投票', unix_timestamp(now()), unix_timestamp('2017-4-19 12:00:00'),
          (SELECT id
           FROM vote_type
           WHERE type_name = '记名投票'),
-         NOW(), NOW());
+         unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_topic (user_id, title, start_time, end_time, vote_type_id, create_time, update_time)
-  VALUE (14721198, '计算机学院调查不记名投票', NOW(), DATE_ADD(NOW(), INTERVAL 60 DAY),
+  VALUE (14721198, '计算机学院调查不记名投票', unix_timestamp(now()), unix_timestamp('2017-4-19 12:00:00'),
          (SELECT id
           FROM vote_type
           WHERE type_name = '不记名投票'),
-         NOW(), NOW());
+         unix_timestamp(now()), unix_timestamp(now()));
 
 SELECT NOW();
 DROP TABLE IF EXISTS vote_topic_number;
@@ -233,15 +233,15 @@ INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_tim
   ('记名投票---是否是男生？', (SELECT id
                      FROM vote_subject_type
                      WHERE type_name = '单选题'), (SELECT id
-                                               FROM vote_topic
-                                               WHERE title = '计算机学院调查记名投票'), unix_timestamp(now()),
+                                                FROM vote_topic
+                                                WHERE title = '计算机学院调查记名投票'), unix_timestamp(now()),
    unix_timestamp(now()));
 INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_time, update_time) VALUE
   ('记名投票---喜欢吃什么？', (SELECT id
                      FROM vote_subject_type
                      WHERE type_name = '多选题'), (SELECT id
-                                               FROM vote_topic
-                                               WHERE title = '计算机学院调查记名投票'), unix_timestamp(now()),
+                                                FROM vote_topic
+                                                WHERE title = '计算机学院调查记名投票'), unix_timestamp(now()),
    unix_timestamp(now()));
 INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_time, update_time) VALUE
   ('记名投票---有什么意见？', (SELECT id
@@ -254,15 +254,15 @@ INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_tim
   ('不记名投票---是否是男生？', (SELECT id
                       FROM vote_subject_type
                       WHERE type_name = '单选题'), (SELECT id
-                                                FROM vote_topic
-                                                WHERE title = '计算机学院调查不记名投票'), unix_timestamp(now()),
+                                                 FROM vote_topic
+                                                 WHERE title = '计算机学院调查不记名投票'), unix_timestamp(now()),
    unix_timestamp(now()));
 INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_time, update_time) VALUE
   ('不记名投票---喜欢吃什么？', (SELECT id
                       FROM vote_subject_type
                       WHERE type_name = '多选题'), (SELECT id
-                                                FROM vote_topic
-                                                WHERE title = '计算机学院调查不记名投票'), unix_timestamp(now()),
+                                                 FROM vote_topic
+                                                 WHERE title = '计算机学院调查不记名投票'), unix_timestamp(now()),
    unix_timestamp(now()));
 INSERT INTO vote_subject (title, vote_subject_type_id, vote_topic_id, create_time, update_time) VALUE
   ('不记名投票---有什么意见？', (SELECT id
@@ -362,9 +362,9 @@ CREATE TABLE vote_subject_result (
   COMMENT '主键'                                       AUTO_INCREMENT,
   `user_id`             BIGINT(20) UNSIGNED          DEFAULT 0
   COMMENT '投票者学号',
-  `result_vote_item_id` BIGINT(1) UNSIGNED  NOT NULL DEFAULT 0
+  `result_vote_item_id` BIGINT(1) UNSIGNED           DEFAULT 0
   COMMENT '客观题结果',
-  `content_result`      VARCHAR(1000)       NOT NULL DEFAULT ''
+  `content_result`      VARCHAR(1000)                DEFAULT ''
   COMMENT '主观题结果',
   `vote_subject_id`     BIGINT(20) UNSIGNED NOT NULL DEFAULT 0
   COMMENT '投票项目表ID',

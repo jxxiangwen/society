@@ -1,8 +1,6 @@
 package cn.edu.shu.society.service.Impl;
 
-import cn.edu.shu.society.dto.VoteResultMap;
-import cn.edu.shu.society.dto.VoteResultOutDTO;
-import cn.edu.shu.society.dto.VoteTopicDTO;
+import cn.edu.shu.society.dto.*;
 import cn.edu.shu.society.entity.*;
 import cn.edu.shu.society.enums.VoteError;
 import cn.edu.shu.society.exception.AppException;
@@ -206,6 +204,7 @@ public class VoteTopicServiceImpl implements VoteTopicService {
 
     @Override
     public VoteTopicDTO selectListByPrimaryKey(Long id) {
-        return BeanUtility.beanCopy(voteTopicMapper.selectListByPrimaryKey(id), VoteTopicDTO.class);
+        VoteTopic voteTopic = voteTopicMapper.selectListByPrimaryKey(id);
+        return BeanUtility.convertTopicToDTO(voteTopic);
     }
 }

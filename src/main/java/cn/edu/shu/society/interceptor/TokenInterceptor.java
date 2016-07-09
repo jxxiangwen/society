@@ -1,6 +1,8 @@
 package cn.edu.shu.society.interceptor;
 
 import cn.edu.shu.society.annotation.Token;
+import cn.edu.shu.society.enums.VoteError;
+import cn.edu.shu.society.exception.AppViewException;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -51,6 +53,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         if (!serverToken.equals(clinetToken)) {
             return true;
         }
+//        throw new AppViewException(VoteError.HAVE_VOTED.getMsg(),VoteError.HAVE_VOTED.getCode());
         return false;
     }
 }

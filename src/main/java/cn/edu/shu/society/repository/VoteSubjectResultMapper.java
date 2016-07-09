@@ -52,7 +52,9 @@ public interface VoteSubjectResultMapper {
      */
     int updateByPrimaryKey(VoteSubjectResult record);
 
-    Long countVoteNumberByResultVoteItemId(Long resultVoteItemId);
+    Long countVoteNumberByVoteItemId(Long resultVoteItemId);
 
     Long isHaveVoted(Long userId);
+
+    Long countVoteNumberByList(List<Long> list);
 }

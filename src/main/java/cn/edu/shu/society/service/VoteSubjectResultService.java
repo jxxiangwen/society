@@ -2,6 +2,7 @@ package cn.edu.shu.society.service;
 
 import cn.edu.shu.society.dto.VoteResultMap;
 import cn.edu.shu.society.dto.VoteSubjectResultDTO;
+import cn.edu.shu.society.dto.VoteTopicDTO;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public interface VoteSubjectResultService {
      * @param resultVoteItemId
      * @return
      */
-    Long countVoteNumberByResultVoteItemId(Long resultVoteItemId);
+    Long countVoteNumberByVoteItemId(Long resultVoteItemId);
 
     /**
      * @param userId
@@ -76,4 +77,18 @@ public interface VoteSubjectResultService {
      * @return
      */
     boolean saveVoteResult(Long userId, Long id, VoteResultMap voteResultMap);
+
+    /**
+     *
+     * @param list
+     * @return
+     */
+    Long countVoteNumberByList(List<Long> list);
+
+    /**
+     *
+     * @param voteTopicId
+     * @return
+     */
+    public VoteTopicDTO getVoteResult(Long voteTopicId);
 }
