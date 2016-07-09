@@ -65,6 +65,14 @@ public interface VoteTopicService {
 
     /**
      *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageInfo<VoteTopicDTO> selectAllByPage(int pageNum, int pageSize);
+
+    /**
+     *
      * @param voteTopicId
      * @return
      */

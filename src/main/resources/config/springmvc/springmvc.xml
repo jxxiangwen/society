@@ -76,8 +76,8 @@
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/admin/**"/>
-            <mvc:exclude-mapping path="/user/login"/>
-            <mvc:exclude-mapping path="/user/logout"/><!--注销-->
+            <mvc:exclude-mapping path="/admin/user/login"/>
+            <mvc:exclude-mapping path="/admin/user/logout"/><!--注销-->
             <bean id="adminInterceptor" class="cn.edu.shu.society.interceptor.AdminInterceptor"/>
         </mvc:interceptor>
         <!-- 配置Token拦截器，防止用户重复提交数据 -->

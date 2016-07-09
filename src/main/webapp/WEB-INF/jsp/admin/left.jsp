@@ -17,8 +17,9 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="/admin/vote/type">投票类别管理</a></li>
+                    <li class="list-group-item"><a href="/admin/vote/type/get">投票类别管理</a></li>
                     <li class="list-group-item"><a href="/admin/vote/topic">投票管理</a></li>
+                    <li class="list-group-item"><a href="/admin/vote/result">导出投票结果</a></li>
                 </ul>
             </div>
         </div>

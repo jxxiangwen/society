@@ -55,6 +55,6 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public AdminUserDTO selectByUserId(Long userId) {
-        return BeanUtility.beanCopy(adminUserMapper.selectByPrimaryKey(userId), AdminUserDTO.class);
+        return BeanUtility.beanCopy(adminUserMapper.selectByUserId(userId), AdminUserDTO.class);
     }
 }

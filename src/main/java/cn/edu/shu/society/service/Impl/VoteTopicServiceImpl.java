@@ -144,6 +144,26 @@ public class VoteTopicServiceImpl implements VoteTopicService {
     }
 
     /**
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public PageInfo<VoteTopicDTO> selectAllByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize, "create_time desc");
+        List<VoteTopic> voteTopicList = voteTopicMapper.selectAll();
+        PageInfo<VoteTopic> page = new PageInfo(voteTopicList);
+        Iterator<VoteTopic> iterator = voteTopicList.iterator();
+        List<VoteTopicDTO> voteTopicDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            voteTopicDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), VoteTopicDTO.class));
+        }
+        PageInfo<VoteTopicDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(voteTopicDTOLinkedList);
+        return page1;
+    }
+
+    /**
      * @param record
      * @return
      */

@@ -7,7 +7,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <body>
 <div class="container">
-    <div class="container-fluid" id="database">
+    <jsp:include page="left.jsp"/>
+    <div class="container-fluid" >
         <div class="row">
             <div class="col-xs-6">
             </div>

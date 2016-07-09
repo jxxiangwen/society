@@ -53,11 +53,9 @@ public class VoteController {
      * @param voteTypeId
      * @param pageNum
      * @return
-     * @throws Exception
      */
     @RequestMapping(value = "/topic/{voteTypeId}/page/{pageNum}", method = RequestMethod.GET)
-    public ModelAndView vote(@PathVariable("voteTypeId") Long voteTypeId, @PathVariable("pageNum") Integer pageNum)
-            throws Exception {
+    public ModelAndView vote(@PathVariable("voteTypeId") Long voteTypeId, @PathVariable("pageNum") Integer pageNum){
         ModelAndView modelAndView = new ModelAndView("vote/vote");
         PageInfo<VoteTopicDTO> voteTopicDTOPageInfo = voteTopicService.selectByVoteTypeIdAndPage(voteTypeId, pageNum, ConstantUtil.PAGE_SIZE);
         modelAndView.addObject("pageInfo", voteTopicDTOPageInfo);
@@ -70,12 +68,10 @@ public class VoteController {
      *
      * @param id
      * @return
-     * @throws Exception
      */
     @Token(save = true)
     @RequestMapping(value = "/topic/{id}", method = RequestMethod.GET)
-    public ModelAndView topic(@PathVariable("id") Long id)
-            throws Exception {
+    public ModelAndView topic(@PathVariable("id") Long id){
         ModelAndView modelAndView = new ModelAndView("vote/topic");
         VoteTopicDTO voteTopicDTO = voteTopicService.selectListByPrimaryKey(id);
         if (null == voteTopicDTO) {

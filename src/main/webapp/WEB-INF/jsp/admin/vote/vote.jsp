@@ -9,7 +9,7 @@
 <div class="container">
     <div class="container-fluid" >
         <div class="row">
-            <jsp:include page="../../left.jsp"/>
+            <jsp:include page="../left.jsp"/>
             <div class="col-md-9">
                 <table class="table">
                     <thead>

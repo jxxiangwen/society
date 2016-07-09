@@ -36,11 +36,9 @@ public class LoginController {
      * @param request
      * @param response
      * @return
-     * @throws Exception
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam(value="userId") Long userId, @RequestParam(value="password") String password, HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+    public ModelAndView login(@RequestParam(value="userId") Long userId, @RequestParam(value="password") String password, HttpServletRequest request, HttpServletResponse response) {
         UserDTO userDTO = userService.selectByUserId(userId);
         if(null == userDTO || !StringUtil.getEncryptPassword(password).equals(userDTO.getPassword())){
             request.setAttribute("errorMsg","用户名或密码错误");
@@ -58,11 +56,9 @@ public class LoginController {
     /**
      * 登录
      * @return
-     * @throws Exception
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login()
-            throws Exception {
+    public ModelAndView login(){
         return new ModelAndView(LoginEnums.LOGIN_HOME.getMsg());
     }
 
@@ -70,11 +66,9 @@ public class LoginController {
      * 退出登录
      * @param request
      * @return
-     * @throws Exception
      */
     @RequestMapping(value = "/logout")
-    public ModelAndView logout(HttpServletRequest request)
-            throws Exception {
+    public ModelAndView logout(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView(LoginEnums.LOGIN_HOME.getMsg());
         request.getSession().setAttribute("user",null);
         return modelAndView;

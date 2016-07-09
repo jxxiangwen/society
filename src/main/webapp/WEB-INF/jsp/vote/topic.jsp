@@ -11,7 +11,7 @@
             $("#voteForm").validationEngine('attach');
         });
     </script>
-    <div class="container-fluid" id="database">
+    <div class="container-fluid" >
         <div class="row">
             <jsp:include page="../../left.jsp"/>
             <div class="col-md-9">

@@ -52,11 +52,9 @@ public class AdminLoginController {
     /**
      * 登录
      * @return
-     * @throws Exception
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login()
-            throws Exception {
+    public ModelAndView login() {
         return new ModelAndView(LoginEnums.ADMIN_LOGIN_HOME.getMsg());
     }
 
@@ -64,13 +62,11 @@ public class AdminLoginController {
      * 退出登录
      * @param request
      * @return
-     * @throws Exception
      */
     @RequestMapping(value = "/logout")
-    public ModelAndView logout(HttpServletRequest request)
-            throws Exception {
+    public ModelAndView logout(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView(LoginEnums.ADMIN_LOGIN_HOME.getMsg());
-        request.getSession().setAttribute("user",null);
+        request.getSession().setAttribute("adminUser",null);
         return modelAndView;
     }
 

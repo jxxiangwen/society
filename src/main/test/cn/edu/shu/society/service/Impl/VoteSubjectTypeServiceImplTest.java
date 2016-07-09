@@ -2,10 +2,7 @@ package cn.edu.shu.society.service.Impl;
 
 import cn.edu.shu.society.dto.UserDTO;
 import cn.edu.shu.society.dto.VoteSubjectTypeDTO;
-import cn.edu.shu.society.service.UserService;
-import cn.edu.shu.society.service.VoteSubjectService;
-import cn.edu.shu.society.service.VoteSubjectTypeService;
-import cn.edu.shu.society.service.VoteTopicService;
+import cn.edu.shu.society.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,9 @@ public class VoteSubjectTypeServiceImplTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    AdminUserService adminUserService;
 
     @Test
     public void selectByPage() throws Exception {
