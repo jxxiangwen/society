@@ -8,5 +8,4 @@ target
 .idea/dataSources.local.xml
 .idea/workspace.xml
 lib/
-src/main/webapp/image/
 target/
