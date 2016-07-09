@@ -9,7 +9,7 @@ public class VoteSubjectResultDTO implements Serializable{
 
     private Long userId;
 
-    private Boolean selectResult;
+    private Long resultVoteItemId;
 
     private String contentResult;
 
@@ -35,12 +35,12 @@ public class VoteSubjectResultDTO implements Serializable{
         this.userId = userId;
     }
 
-    public Boolean getSelectResult() {
-        return selectResult;
+    public Long getResultVoteItemId() {
+        return resultVoteItemId;
     }
 
-    public void setSelectResult(Boolean selectResult) {
-        this.selectResult = selectResult;
+    public void setResultVoteItemId(Long resultVoteItemId) {
+        this.resultVoteItemId = resultVoteItemId;
     }
 
     public String getContentResult() {
@@ -80,7 +80,7 @@ public class VoteSubjectResultDTO implements Serializable{
         return "VoteSubjectResultDTO{" +
                 "id=" + id +
                 ", userId=" + userId +
-                ", selectResult=" + selectResult +
+                ", resultVoteItemId=" + resultVoteItemId +
                 ", contentResult='" + contentResult + '\'' +
                 ", voteSubjectId=" + voteSubjectId +
                 ", createTime=" + createTime +

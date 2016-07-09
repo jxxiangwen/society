@@ -1,10 +1,15 @@
 package cn.edu.shu.society.rest;
 
 
+import cn.edu.shu.society.annotation.Token;
+import cn.edu.shu.society.dto.UserDTO;
+import cn.edu.shu.society.dto.VoteResultMap;
 import cn.edu.shu.society.dto.VoteTopicDTO;
+import cn.edu.shu.society.enums.ClientError;
 import cn.edu.shu.society.enums.VoteError;
 import cn.edu.shu.society.exception.AppViewException;
 import cn.edu.shu.society.service.VoteItemService;
+import cn.edu.shu.society.service.VoteSubjectResultService;
 import cn.edu.shu.society.service.VoteSubjectService;
 import cn.edu.shu.society.service.VoteTopicService;
 import cn.edu.shu.society.util.ConstantUtil;
@@ -13,11 +18,14 @@ import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 
 @Api(value = "vote", description = "投票操作相关API")
@@ -36,6 +44,9 @@ public class VoteController {
     @Autowired
     VoteItemService voteItemService;
 
+    @Autowired
+    VoteSubjectResultService voteSubjectResultService;
+
     /**
      * 投票处理方法
      *
@@ -49,23 +60,32 @@ public class VoteController {
             throws Exception {
         ModelAndView modelAndView = new ModelAndView("vote/vote");
         PageInfo<VoteTopicDTO> voteTopicDTOPageInfo = voteTopicService.selectByVoteTypeIdAndPage(voteTypeId, pageNum, ConstantUtil.PAGE_SIZE);
-        modelAndView.addObject("voteTopicList", voteTopicDTOPageInfo);
+        modelAndView.addObject("pageInfo", voteTopicDTOPageInfo);
+        modelAndView.addObject("voteTypeId", voteTypeId);
         return modelAndView;
     }
 
     /**
      * 获取某一投票
+     *
      * @param id
      * @return
      * @throws Exception
      */
+    @Token(save = true)
     @RequestMapping(value = "/topic/{id}", method = RequestMethod.GET)
     public ModelAndView topic(@PathVariable("id") Long id)
             throws Exception {
         ModelAndView modelAndView = new ModelAndView("vote/topic");
         VoteTopicDTO voteTopicDTO = voteTopicService.selectListByPrimaryKey(id);
-        if(null == voteTopicDTO){
-            throw new AppViewException(VoteError.VOTE_NOT_EXIST.getMsg(),VoteError.VOTE_NOT_EXIST.getCode());
+        if (null == voteTopicDTO) {
+            throw new AppViewException(VoteError.VOTE_NOT_EXIST.getMsg(), VoteError.VOTE_NOT_EXIST.getCode());
+        }
+        if (new Date().getTime() > voteTopicDTO.getEndTime() * 1000) {
+            throw new AppViewException(VoteError.VOTE_HAVE_OVERTIME.getMsg(), VoteError.VOTE_HAVE_OVERTIME.getCode());
+        }
+        if (new Date().getTime() < voteTopicDTO.getStartTime() * 1000) {
+            throw new AppViewException(VoteError.VOTE_NOT_BEGIN.getMsg(), VoteError.VOTE_NOT_BEGIN.getCode());
         }
         modelAndView.addObject("voteTopic", voteTopicDTO);
         return modelAndView;
@@ -73,12 +93,35 @@ public class VoteController {
 
     /**
      * 投票保存
+     *
      * @return
      */
+    @Token(remove = true)
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(){
-        ModelAndView modelAndView = new ModelAndView("vote/success");
+    public ModelAndView save(VoteResultMap voteResultMap,
+                             HttpServletRequest request) {
+        UserDTO userDTO = (UserDTO) request.getSession().getAttribute("user");
+        Long id = Long.parseLong(request.getParameter("id"));
+        boolean result = voteSubjectResultService.saveVoteResult(userDTO.getUserId(), id, voteResultMap);
+        if (!result) {
+            throw new AppViewException(ClientError.SYSTEM_WRONG.getMsg());
+        }
+        return new ModelAndView("redirect:/vote/check/topic/" + id);
+    }
 
+    /**
+     * 投票保存
+     *
+     * @return
+     */
+    @RequestMapping(value = "/check/topic/{voteTopicId}", method = RequestMethod.GET)
+    public ModelAndView check(@PathVariable(value = "voteTopicId") Long voteTopicId) {
+        VoteTopicDTO voteTopicDTO = voteSubjectResultService.getVoteResult(voteTopicId);
+        if (null == voteTopicDTO) {
+            throw new AppViewException(VoteError.VOTE_NOW_NOT_EXIST.getMsg(),VoteError.VOTE_NOW_NOT_EXIST.getCode());
+        }
+        ModelAndView modelAndView = new ModelAndView("vote/success");
+        modelAndView.addObject("voteTopic", voteTopicDTO);
         return modelAndView;
     }
 }

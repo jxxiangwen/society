@@ -54,4 +54,11 @@ public interface VoteSubjectMapper {
      * @mbggenerated Thu Jun 23 22:16:17 CST 2016
      */
     int updateByPrimaryKey(VoteSubject record);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    String getSubjectTypeBySubjectId(Long id);
 }

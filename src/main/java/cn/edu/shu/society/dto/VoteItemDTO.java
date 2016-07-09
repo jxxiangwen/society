@@ -15,6 +15,8 @@ public class VoteItemDTO implements Serializable{
 
     private Long updateTime;
 
+    private Long voteNum;
+
     public Long getId() {
         return id;
     }
@@ -55,12 +57,21 @@ public class VoteItemDTO implements Serializable{
         this.updateTime = updateTime;
     }
 
+    public Long getVoteNum() {
+        return voteNum;
+    }
+
+    public void setVoteNum(Long voteNum) {
+        this.voteNum = voteNum;
+    }
+
     @Override
     public String toString() {
         return "VoteItemDTO{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
                 ", voteSubjectId=" + voteSubjectId +
+                ", voteNum=" + voteNum +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

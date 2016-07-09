@@ -10,9 +10,11 @@ public interface VoteTopicNumberMapper {
 
     int insert(VoteTopicNumber record);
 
-
     Long selectByVoteTopicId(Long voteTopicId);
 
-
     int updateByPrimaryKey(VoteTopicNumber record);
+
+    int addVoteNumber(VoteTopicNumber record);
+
+    VoteTopicNumber selectObjectByVoteTopicId(Long voteTopicId);
 }

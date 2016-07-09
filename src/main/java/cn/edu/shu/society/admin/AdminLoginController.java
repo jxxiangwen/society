@@ -50,6 +50,17 @@ public class AdminLoginController {
     }
 
     /**
+     * 登录
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login()
+            throws Exception {
+        return new ModelAndView(LoginEnums.ADMIN_LOGIN_HOME.getMsg());
+    }
+
+    /**
      * 退出登录
      * @param request
      * @return

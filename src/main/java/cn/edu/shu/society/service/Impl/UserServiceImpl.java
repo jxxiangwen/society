@@ -54,6 +54,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO selectByUserId(Long userId) {
-        return BeanUtility.beanCopy(userMapper.selectByPrimaryKey(userId), UserDTO.class);
+        return BeanUtility.beanCopy(userMapper.selectByUserId(userId), UserDTO.class);
     }
 }

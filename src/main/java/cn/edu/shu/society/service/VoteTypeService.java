@@ -42,4 +42,11 @@ public interface VoteTypeService {
      * @return
      */
     int updateByPrimaryKey(VoteTypeDTO record);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    String getParentTypeNameById(Long id);
 }

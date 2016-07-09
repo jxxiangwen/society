@@ -47,4 +47,11 @@ public interface VoteSubjectService {
      * @return
      */
     int updateByPrimaryKey(VoteSubjectDTO record);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    String getSubjectTypeBySubjectId(Long id);
 }

@@ -3,14 +3,16 @@ package cn.edu.shu.society.dto;
 import cn.edu.shu.society.entity.VoteSubject;
 import cn.edu.shu.society.entity.VoteTopic;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 用于导出投票结果
  * Created by jxxia on 2016/7/2 0002.
  */
-public class VoteResultOutDTO {
+public class VoteResultOutDTO implements Serializable{
     private static final long serialVersionUID = 1L;
     //投票编号
     private Long id;

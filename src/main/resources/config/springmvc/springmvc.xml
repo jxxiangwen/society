@@ -12,7 +12,7 @@
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd ">
     <!-- 注解方式 -->
     <mvc:annotation-driven/>
-    <mvc:default-servlet-handler />
+    <mvc:default-servlet-handler/>
     <!-- 自动扫描Controller -->
     <context:component-scan base-package="cn.edu.shu.society.admin"/>
     <context:component-scan base-package="cn.edu.shu.society.rest"/>
@@ -40,27 +40,27 @@
 
     <!--&lt;!&ndash;配置拦截器, 多个拦截器,顺序执行 &ndash;&gt;-->
     <!--<mvc:interceptors>-->
-        <!--<mvc:interceptor>-->
-            <!--&lt;!&ndash; 匹配的是url路径  &ndash;&gt;-->
-            <!--<mvc:mapping path="/" />-->
-            <!--<mvc:mapping path="/user/**" />-->
-            <!--<mvc:mapping path="/test/**" />-->
+    <!--<mvc:interceptor>-->
+    <!--&lt;!&ndash; 匹配的是url路径  &ndash;&gt;-->
+    <!--<mvc:mapping path="/" />-->
+    <!--<mvc:mapping path="/user/**" />-->
+    <!--<mvc:mapping path="/test/**" />-->
 
-            <!--<bean class="com.alibaba.interceptor.CommonInterceptor"></bean>-->
-        <!--</mvc:interceptor>-->
-        <!--&lt;!&ndash; 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 &ndash;&gt;-->
+    <!--<bean class="com.alibaba.interceptor.CommonInterceptor"></bean>-->
+    <!--</mvc:interceptor>-->
+    <!--&lt;!&ndash; 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 &ndash;&gt;-->
     <!--</mvc:interceptors>-->
 
     <mvc:annotation-driven content-negotiation-manager="contentManager" conversion-service="conversionService">
         <mvc:argument-resolvers>
-            <bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver" />
-            <bean class="org.springframework.data.web.SortHandlerMethodArgumentResolver" />
-            <bean class="ocean.security.annotation.resolver.AccountArgumentResolver" />
-        </mvc:argument-resolvers >
+            <bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver"/>
+            <bean class="org.springframework.data.web.SortHandlerMethodArgumentResolver"/>
+            <bean class="ocean.security.annotation.resolver.AccountArgumentResolver"/>
+        </mvc:argument-resolvers>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper">
-                    <bean class="ocean.mvc.ExObjectMapper" />
+                    <bean class="ocean.mvc.ExObjectMapper"/>
                 </property>
             </bean>
         </mvc:message-converters>
@@ -74,16 +74,19 @@
             <mvc:exclude-mapping path="/admin/**"/><!--管理员-->
             <bean id="loginInterceptor" class="cn.edu.shu.society.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
-
-    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/admin/**"/>
             <mvc:exclude-mapping path="/user/login"/>
             <mvc:exclude-mapping path="/user/logout"/><!--注销-->
             <bean id="adminInterceptor" class="cn.edu.shu.society.interceptor.AdminInterceptor"/>
         </mvc:interceptor>
+        <!-- 配置Token拦截器，防止用户重复提交数据 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="cn.edu.shu.society.interceptor.TokenInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
+
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="5242880"/>
@@ -93,14 +96,14 @@
 
     <bean id="contentManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="favorPathExtension" value="true"/>
-        <property name="ignoreAcceptHeader" value="true" />
-        <property name="defaultContentType" value="application/json" />
+        <property name="ignoreAcceptHeader" value="true"/>
+        <property name="defaultContentType" value="application/json"/>
         <property name="useJaf" value="false"/>
         <property name="mediaTypes">
             <map>
-                <entry key="json" value="application/json" />
-                <entry key="html" value="text/html" />
-                <entry key="xml" value="application/xml" />
+                <entry key="json" value="application/json"/>
+                <entry key="html" value="text/html"/>
+                <entry key="xml" value="application/xml"/>
             </map>
         </property>
     </bean>
@@ -114,7 +117,7 @@
     </bean>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/" />
-        <property name="suffix" value=".jsp" />
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 </beans>

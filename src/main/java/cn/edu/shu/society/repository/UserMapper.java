@@ -46,4 +46,6 @@ public interface UserMapper {
      * @mbggenerated Fri Jul 08 15:10:07 CST 2016
      */
     int updateByPrimaryKey(User record);
+
+    User selectByUserId(Long userId);
 }
