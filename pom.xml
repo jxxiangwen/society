@@ -327,7 +327,6 @@
             <url>${snapshot_root_repository}</url>
         </snapshotRepository>
     </distributionManagement>
-
     <repositories>
         <repository>
             <id>snapshots</id>
@@ -339,6 +338,11 @@
             </snapshots>
         </repository>
     </repositories>
+
+
+
+
+
     <build>
         <resources>
             <resource>

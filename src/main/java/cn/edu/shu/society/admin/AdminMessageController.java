@@ -33,19 +33,20 @@ public class AdminMessageController {
     @Autowired
     ResponseService responseService;
 
-    @RequestMapping("/list/{messageTypeId}")
-    public ModelAndView list(@PathVariable("messageTypeId") Long messageTypeId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam(value = "isPassed", defaultValue = "false") Boolean isPassed,HttpSession httpSession) {
+    @RequestMapping("/list/{messageTypeId}/page/{pageNum}")
+    public ModelAndView list(@PathVariable("messageTypeId") Long messageTypeId, @PathVariable("pageNum") Integer pageNum, @RequestParam(value = "isPassed", defaultValue = "false") Boolean isPassed,HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView();
         PageInfo<MessageDTO> messageDTOPageInfo = messageService.selectByMessageTypeIdAndPassStatus(pageNum, ConstantUtil.MESSAGELIST_PAGE_SIZE, messageTypeId, isPassed?new boolean[]{true}:new boolean[]{false});
         List<MessageDTO> messageDTOList = messageDTOPageInfo.getList();
+        modelAndView.addObject("pageInfo",messageDTOPageInfo);
         if (null != messageDTOList && messageDTOList.size() > 0) {
             for (MessageDTO messageDTO : messageDTOList) {
                 messageDTO.setResponseDTOList(responseService.selectByMessageId(messageDTO.getId()));
             }
-            modelAndView.addObject("pages", messageDTOPageInfo.getPages());
-            modelAndView.addObject("currPageNum", pageNum);
             modelAndView.addObject("messageList", messageDTOList);
         }
+        modelAndView.addObject("pages", messageDTOPageInfo.getPages());
+        modelAndView.addObject("currPageNum", pageNum);
         List<MessageTypeDTO> messageTypeDTOList = messageTypeService.selectAll();
         if (null != messageTypeDTOList && messageTypeDTOList.size() > 0) {
             modelAndView.addObject("messageTypeList", messageTypeDTOList);
@@ -61,8 +62,8 @@ public class AdminMessageController {
     }
 
 
-    @RequestMapping("/delete/{currMessageTypeId}/{messageId}")
-    public String delete(@PathVariable("currMessageTypeId") Long currMessageTypeId,@PathVariable("messageId") Long messageId, Model model, HttpSession httpSession) {
+    @RequestMapping("/delete/{currMessageTypeId}/{messageId}/page/{pageNum}")
+    public String delete(@PathVariable("currMessageTypeId") Long currMessageTypeId,@PathVariable("messageId") Long messageId,@PathVariable("pageNum") Integer pageNum,Model model, HttpSession httpSession) {
         MessageDTO messageDTO = messageService.selectByPrimaryKey(messageId);
         if (null!=messageDTO) {
             messageTypeService.deleteByPrimaryKey(messageId);
@@ -70,18 +71,18 @@ public class AdminMessageController {
         } else {
             model.addAttribute("isMsgDelSucc", false);
         }
-        return "forword:/admin/message/list/"+currMessageTypeId;
+        return "forword:/admin/message/list/"+currMessageTypeId+"/page/"+pageNum;
     }
 
 
-    @RequestMapping("changetype/{messageId}/${messageTypeId}")
-    public String changeType(Long messageId, Long messageTypeId) {
+    @RequestMapping("changetype/{messageId}/${messageTypeId}/page/{pageNum}")
+    public String changeType(@PathVariable("messageId") Long messageId, @PathVariable("messageTypeId")Long messageTypeId,@PathVariable("pageNum") Integer pageNum) {
         MessageDTO messageDTO = messageService.selectByPrimaryKey(messageId);
         Long oldMessageTypeId=messageDTO.getMessageTypeId();
         if(messageTypeId!=oldMessageTypeId) {
             messageDTO.setMessageTypeId(messageTypeId);
             messageService.updateByPrimaryKey(messageDTO);
         }
-        return "forword:/admin/message/list"+messageTypeId;
+        return "forword:/admin/message/list"+messageTypeId+"/page/"+pageNum;
     }
 }

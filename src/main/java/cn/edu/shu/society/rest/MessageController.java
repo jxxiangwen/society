@@ -3,7 +3,11 @@ package cn.edu.shu.society.rest;
 
 import cn.edu.shu.society.dto.MessageDTO;
 import cn.edu.shu.society.dto.MessageTypeDTO;
+import cn.edu.shu.society.dto.ResponseDTO;
+import cn.edu.shu.society.dto.UserDTO;
 import cn.edu.shu.society.entity.Message;
+import cn.edu.shu.society.enums.ClientError;
+import cn.edu.shu.society.exception.AppViewException;
 import cn.edu.shu.society.service.MessageService;
 import cn.edu.shu.society.service.MessageTypeService;
 import cn.edu.shu.society.service.ResponseService;
@@ -33,31 +37,34 @@ public class MessageController {
     @Autowired
     ResponseService responseService;
 
-    @RequestMapping("/list/{messageTypeId}")
-    public ModelAndView list(@PathVariable("messageTypeId") Long messageTypeId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, HttpSession httpSession) {
+    @RequestMapping("/list/{messageTypeId}/page/{pageNum}")
+    public ModelAndView list(@PathVariable("messageTypeId") Long messageTypeId, @PathVariable("pageNum") Integer pageNum, HttpSession httpSession) {
         ModelAndView modelAndView=new ModelAndView();
-        PageInfo<MessageDTO> messageDTOPageInfo=messageService.selectByMessageTypeIdAndPassStatus(pageNum, ConstantUtil.MESSAGELIST_PAGE_SIZE, messageTypeId, new boolean[]{true});
+        PageInfo<MessageDTO> messageDTOPageInfo=messageService.selectByMessageTypeIdAndPassStatus(pageNum<=0?1:pageNum, ConstantUtil.MESSAGELIST_PAGE_SIZE, messageTypeId, new boolean[]{true});
         List<MessageDTO> messageDTOList = messageDTOPageInfo.getList();
+        modelAndView.addObject("pageInfo",messageDTOPageInfo);
         if (null != messageDTOList && messageDTOList.size() > 0) {
             for (MessageDTO messageDTO : messageDTOList) {
                 messageDTO.setResponseDTOList(responseService.selectByMessageId(messageDTO.getId()));
             }
-            modelAndView.addObject("pages",messageDTOPageInfo.getPages());
-            modelAndView.addObject("currPageNum",pageNum);
-            modelAndView.addObject("messageList", messageDTOList);
-        }
-        List<MessageTypeDTO> messageTypeDTOList=messageTypeService.selectAll();
-        if(null != messageTypeDTOList && messageTypeDTOList.size() > 0){
-            modelAndView.addObject("messageTypeList", messageTypeDTOList);
         }
         modelAndView.addObject("currMessageTypeId",messageTypeId);
         modelAndView.setViewName("message/downstageList");
         return modelAndView;
     }
 
-    @RequestMapping("/add/{messageTypeId}")
-    public String add(@PathVariable("messageTypeId") Long messageTypeId, MessageDTO messageDTO) {
-        messageService.insert(messageDTO);
-        return "forword:/message/list/"+messageTypeId;
+    @RequestMapping("/add/{messageTypeId}/page/{pageNum}")
+    public ModelAndView add(@PathVariable("pageNum") Integer pageNum,@PathVariable("messageTypeId") Long messageTypeId, MessageDTO messageDTO,HttpSession httpSession) {
+        UserDTO userDTO=(UserDTO) httpSession.getAttribute("user");
+        if(null==userDTO){
+            throw new AppViewException(ClientError.USER_NOT_LOGIN.getMsg(),ClientError.USER_NOT_LOGIN.getCode());
+        }else {
+            ModelAndView modelAndView=new ModelAndView();
+            modelAndView.setViewName("redirect:/message/list/" + messageTypeId + "/page/" + pageNum);
+            messageDTO.setUserId(userDTO.getUserId());
+            messageDTO.setIsPassed(false);
+            messageService.insert(messageDTO);
+            return modelAndView;
+        }
     }
 }

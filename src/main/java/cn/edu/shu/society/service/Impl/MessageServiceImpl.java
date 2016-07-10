@@ -107,6 +107,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public Long selectCountByMessageTypeIdAndPassStatus(Long messageTypeId, boolean[] passStatusArr) {
+        return messageMapper.selectCountByMessageTypeIdAndPassStatus(messageTypeId,passStatusArr);
+    }
+
+    @Override
     public int updateIsPassed(Long messageId, boolean isPassed) {
         return messageMapper.updateIsPassed(messageId,true);
     }

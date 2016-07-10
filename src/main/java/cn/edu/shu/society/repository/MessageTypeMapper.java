@@ -1,6 +1,7 @@
 package cn.edu.shu.society.repository;
 
 import cn.edu.shu.society.entity.MessageType;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public interface MessageTypeMapper {
      */
     int updateByPrimaryKey(MessageType record);
 
-    List<MessageType> selectByUserId(Long userId);
+    List<MessageType> selectByUserId(@Param("userId") Long userId);
 
-    List<MessageType> selectByMessageTypeName(String typeName);
+    List<MessageType> selectByMessageTypeName(@Param("typeName") String typeName);
 }

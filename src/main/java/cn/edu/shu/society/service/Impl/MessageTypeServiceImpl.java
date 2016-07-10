@@ -86,7 +86,7 @@ public class MessageTypeServiceImpl implements MessageTypeService {
     }
 
     @Override
-    public List<MessageTypeDTO> selctByMessageTypeName(String typeName) {
+    public List<MessageTypeDTO> selectByMessageTypeName(String typeName) {
         return BeanUtility.convertOtherBeanList(messageTypeMapper.selectByMessageTypeName(typeName),MessageTypeDTO.class);
     }
 }

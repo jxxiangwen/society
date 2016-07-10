@@ -50,10 +50,10 @@
     <!-- 配置系统的数据源 -->
     <!-- 配置c3p0数据源 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="jdbcUrl" value="jdbc:mysql://localhost/society?useSSL=false"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost/society?useSSL=false&amp;?useUnicode=true&amp;characterEncoding=utf8"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="user" value="root"/>
-        <property name="password" value="wenwen1991"/>
+        <property name="password" value="100906czj"/>
         <!--连接池中保留的最大连接数。Default: 15 -->
         <property name="maxPoolSize" value="100"/>
         <!--连接池中保留的最小连接数。-->

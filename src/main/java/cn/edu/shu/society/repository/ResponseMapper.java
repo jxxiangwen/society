@@ -1,6 +1,7 @@
 package cn.edu.shu.society.repository;
 
 import cn.edu.shu.society.entity.Response;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,5 +48,5 @@ public interface ResponseMapper {
      */
     int updateByPrimaryKey(Response record);
 
-    List<Response> selectByMessageId(Long messageId);
+    List<Response> selectByMessageId(@Param("messageId") Long messageId);
 }

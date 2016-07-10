@@ -58,6 +58,7 @@
         from message
         where id = #{id,jdbcType=BIGINT}
     </select>
+
     <select id="selectAll" resultMap="BaseResultMap">
         <!--
           WARNING - @mbggenerated
@@ -67,6 +68,8 @@
         select id, user_id, title, content, is_passed, message_type_id, create_time, update_time
         from message
     </select>
+
+
     <select id="selectByMessageTypeIdAndPassStatus" parameterType="java.util.Map" resultMap="BaseResultMap">
         select id, user_id, title, content, is_passed, message_type_id, create_time, update_time
         from message
@@ -75,6 +78,17 @@
                 <foreach collection="passStatusArr" open="And (" close=")" separator="or" item="passStatus">
                     is_passed=#{passStatus,jdbcType=BIT}
                 </foreach>
+        </if>
+    </select>
+
+    <select id="selectCountByMessageTypeIdAndPassStatus" parameterType="java.util.Map" resultType="java.lang.Long">
+        select count(*)
+        from message
+        where message_type_id = #{messageTypeId,jdbcType=BIGINT}
+        <if test="passStatusArr!=null">
+            <foreach collection="passStatusArr" open="And (" close=")" separator="or" item="passStatus">
+                is_passed=#{passStatus,jdbcType=BIT}
+            </foreach>
         </if>
     </select>
 

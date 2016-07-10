@@ -21,12 +21,12 @@ public class AdminResponseController {
     ResponseService responseService;
     @Autowired
     MessageService messageService;
-    @RequestMapping("/add/{currMessageTypeId}")
-    public void response(@PathVariable("currMessageTypeId") Long currMessageTypeId,@PathVariable("messageId") Long messageId, ResponseDTO responseDTO, HttpSession httpSession){
+    @RequestMapping("/add/{currMessageTypeId}/page/{pageNum}")
+    public void response(@PathVariable("pageNum") Integer pageNum,@PathVariable("currMessageTypeId") Long currMessageTypeId,@PathVariable("messageId") Long messageId, ResponseDTO responseDTO, HttpSession httpSession){
         UserDTO userDTO=(UserDTO) httpSession.getAttribute("user");
         responseDTO.setUserId(userDTO.getUserId());
         messageService.updateIsPassed(messageId,true);
         responseService.insert(responseDTO);
-        String url="/admin/message/list/"+currMessageTypeId;
+        String url="/admin/message/list/"+currMessageTypeId+"/page/"+pageNum;
     }
 }

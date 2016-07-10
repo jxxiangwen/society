@@ -11,6 +11,8 @@ public class MessageTypeDTO implements Serializable{
 
     private String typeName;
 
+    private Long count;
+
     private Long createTime;
 
     private Long updateTime;
@@ -37,6 +39,14 @@ public class MessageTypeDTO implements Serializable{
 
     public void setTypeName(String typeName) {
         this.typeName = typeName == null ? null : typeName.trim();
+    }
+
+    public Long getCount() {
+        return count;
+    }
+
+    public void setCount(Long count) {
+        this.count = count;
     }
 
     public Long getCreateTime() {

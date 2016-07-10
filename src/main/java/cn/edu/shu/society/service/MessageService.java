@@ -2,6 +2,7 @@ package cn.edu.shu.society.service;
 
 import cn.edu.shu.society.dto.MessageDTO;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -44,6 +45,8 @@ public interface MessageService {
     int updateByPrimaryKey(MessageDTO record);
 
     PageInfo<MessageDTO> selectByMessageTypeIdAndPassStatus(int pageNum, int pageSize, Long messageTypeId, boolean[] passStatusArr);
+
+    Long selectCountByMessageTypeIdAndPassStatus (Long messageTypeId,boolean[] passStatusArr);
 
     int updateIsPassed(Long messageId, boolean isPassed);
 
