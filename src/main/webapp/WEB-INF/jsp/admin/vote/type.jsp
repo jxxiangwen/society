@@ -32,7 +32,8 @@
 
                                             </c:when>
                                             <c:otherwise>
-                                                <a href="javascript:void(0);" class="btn btn-default btn-sm" onclick="deleteType(${list.id})">
+                                                <a href="javascript:void(0);" class="btn btn-default btn-sm"
+                                                   onclick="deleteType(${list.id})">
                                                     删除
                                                 </a>
                                             </c:otherwise>
@@ -78,7 +79,7 @@
         function deleteType(id) {
             layer.confirm('确认删除吗？',
                     function () {
-                        window.location='<%=basePath %>admin/vote/type/delete/' + id;
+                        window.location = '<%=basePath %>admin/vote/type/delete/' + id;
                     });
         }
         function addType() {

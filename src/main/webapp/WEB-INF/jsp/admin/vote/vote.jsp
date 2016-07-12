@@ -46,7 +46,7 @@
                     </tbody>
                 </table>
                 <div id="addPlace" style="text-align:center">
-                    <a href=/admin/topic/add" class="btn btn-default">
+                    <a href="/admin/topic/add" class="btn btn-default">
                         增加
                     </a>
                 </div>

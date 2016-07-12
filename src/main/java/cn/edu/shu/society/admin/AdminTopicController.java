@@ -2,6 +2,9 @@ package cn.edu.shu.society.admin;
 
 
 import cn.edu.shu.society.dto.VoteTopicDTO;
+import cn.edu.shu.society.dto.VoteTypeDTO;
+import cn.edu.shu.society.enums.VoteError;
+import cn.edu.shu.society.exception.AppViewException;
 import cn.edu.shu.society.service.VoteTopicService;
 import cn.edu.shu.society.service.VoteTypeService;
 import cn.edu.shu.society.util.ConstantUtil;
@@ -10,9 +13,11 @@ import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Api(value = "vote", description = "投票操作相关API")
 @RestController
@@ -46,9 +51,11 @@ public class AdminTopicController {
      *
      * @return
      */
-    @RequestMapping(value = "/add/{voteTopicId}", method = RequestMethod.GET)
-    public ModelAndView add(@PathVariable(value = "voteTopicId") Long voteTopicId) {
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView add(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/admin/vote/add");
+        List<VoteTypeDTO> voteTypeDTOList = voteTypeService.selectAll();
+        request.setAttribute("voteTypeList",voteTypeDTOList);
         return modelAndView;
     }
 
@@ -71,8 +78,13 @@ public class AdminTopicController {
      * @return
      */
     @RequestMapping(value = "/add/{voteTopicId}", method = RequestMethod.GET)
-    public ModelAndView update(@PathVariable(value = "voteTopicId") Long voteTopicId) {
+    public ModelAndView update(@PathVariable(value = "voteTopicId") Long voteTopicId,HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/admin/vote/update");
+        VoteTopicDTO voteTopicDTO = voteTopicService.selectListByPrimaryKey(voteTopicId);
+        if (null == voteTopicDTO) {
+            throw new AppViewException(VoteError.VOTE_NOT_EXIST.getMsg(), VoteError.VOTE_NOT_EXIST.getCode());
+        }
+        modelAndView.addObject("voteTopic", voteTopicDTO);
         return modelAndView;
     }
 
