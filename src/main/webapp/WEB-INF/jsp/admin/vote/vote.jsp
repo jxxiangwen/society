@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="container">
-    <div class="container-fluid" >
+    <div class="container-fluid">
         <div class="row">
             <jsp:include page="../left.jsp"/>
             <div class="col-md-9">
@@ -29,11 +29,11 @@
                                 <tr>
                                     <td><a href="/vote/topic/<c:out value="${list.id}"/>"><c:out
                                             value="${list.title}"/></a></td>
-                                    <%--<td><fmt:formatNumber value="${list.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>--%>
-                                    <%--<td><%=sdf.format(list.createTime)%></td>--%>
-                                    <td><a href="/admin/topic/update/${list.id}" class="form-control" type="button">
+                                        <%--<td><fmt:formatNumber value="${list.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>--%>
+                                        <%--<td><%=sdf.format(list.createTime)%></td>--%>
+                                    <td><a href="/admin/topic/update/${list.id}" class="btn btn-default btn-sm">
                                         修改
-                                    </a><a href="/admin/topic/delete/${list.id}" class="form-control" type="button">
+                                    </a><a href="javascript:void(0);" class="btn btn-default btn-sm" onclick="deleteTopic(${list.id})">
                                         删除
                                     </a></td>
                                 </tr>
@@ -45,8 +45,8 @@
                     </c:choose>
                     </tbody>
                 </table>
-                <div id="addPlace">
-                    <a href="/admin/topic/add" class="form-control" type="button">
+                <div id="addPlace" style="text-align:center">
+                    <a href=/admin/topic/add" class="btn btn-default">
                         增加
                     </a>
                 </div>
@@ -54,14 +54,20 @@
 
                 </div>
                 <script>
+                    function deleteTopic(id) {
+                        layer.confirm('确认删除吗？',
+                                function () {
+                                    window.location='<%=basePath %>admin/topic/delete/' + id;
+                                });
+                    }
                     //好像很实用的样子，后端的同学再也不用写分页逻辑了。
                     laypage({
                         cont: $('#page'),
                         pages: ${pageInfo.pages}, //可以叫服务端把总页数放在某一个隐藏域，再获取。假设我们获取到的是18
                         curr: ${pageInfo.pageNum},
-                        jump: function(e, first){ //触发分页后的回调
-                            if(!first){ //一定要加此判断，否则初始时会无限刷新
-                                location.href = 'vote/topic/${voteTypeId}/page/'+e.curr;
+                        jump: function (e, first) { //触发分页后的回调
+                            if (!first) { //一定要加此判断，否则初始时会无限刷新
+                                location.href = 'vote/topic/${voteTypeId}/page/' + e.curr;
                             }
                         },
                         skin: 'molv', //皮肤

@@ -74,4 +74,12 @@
             </div>
         </div>
     </div>
+    <script>
+        window.problemNum = 0;
+        function formSubmit() {
+            if(1 > window.problemNum){
+                layer.alert('问题数不能为0');
+            }
+        }
+    </script>
 </div>

@@ -32,7 +32,7 @@
 
                                             </c:when>
                                             <c:otherwise>
-                                                <a href="/admin/vote/type/delete/${list.id}" class="form-control" type="button">
+                                                <a href="javascript:void(0);" class="btn btn-default btn-sm" onclick="deleteType(${list.id})">
                                                     删除
                                                 </a>
                                             </c:otherwise>
@@ -47,8 +47,8 @@
                     </c:choose>
                     </tbody>
                 </table>
-                <div id="addPlace">
-                    <button class="form-control" type="button" onclick="addType()">增加</button>
+                <div id="addPlace" style="text-align:center">
+                    <a class="btn btn-default" onclick="addType()">增加</a>
                 </div>
             </div>
         </div>
@@ -75,6 +75,12 @@
         </form>
     </script>
     <script>
+        function deleteType(id) {
+            layer.confirm('确认删除吗？',
+                    function () {
+                        window.location='<%=basePath %>admin/vote/type/delete/' + id;
+                    });
+        }
         function addType() {
             $('#addPlace').html('');
             var template = $('#typeTemplate').html();
