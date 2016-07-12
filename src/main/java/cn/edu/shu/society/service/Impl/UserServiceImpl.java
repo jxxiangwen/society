@@ -5,6 +5,8 @@ import cn.edu.shu.society.entity.User;
 import cn.edu.shu.society.repository.UserMapper;
 import cn.edu.shu.society.service.UserService;
 import cn.edu.shu.society.util.BeanUtility;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,21 @@ public class UserServiceImpl implements UserService {
             userDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), UserDTO.class));
         }
         return userDTOLinkedList;
+    }
+
+    @Override
+    public PageInfo<UserDTO> selectAllByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize, "create_time desc");
+        List<User> userList = userMapper.selectAll();
+        PageInfo<User> page = new PageInfo(userList);
+        Iterator<User> iterator = userList.iterator();
+        List<UserDTO> userDTOLinkedList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            userDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), UserDTO.class));
+        }
+        PageInfo<UserDTO> page1 = BeanUtility.beanCopy(page, PageInfo.class, "list");
+        page1.setList(userDTOLinkedList);
+        return page1;
     }
 
     @Override

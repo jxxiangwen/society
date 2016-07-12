@@ -53,5 +53,21 @@
                 </ul>
             </div>
         </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseFour">
+                        用户管理<b class="caret"></b>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="/admin/user/upload">导入用户</a></li>
+                    <li class="list-group-item"><a href="/admin/user/page/1">查看用户</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

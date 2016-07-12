@@ -1,6 +1,7 @@
 package cn.edu.shu.society.service;
 
 import cn.edu.shu.society.dto.UserDTO;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -46,4 +47,6 @@ public interface UserService {
     int updateByPrimaryKey(UserDTO record);
 
     UserDTO selectByUserId(Long userId);
+
+    PageInfo<UserDTO> selectAllByPage(int pageNum, int pageSize);
 }

@@ -14,28 +14,21 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>投票名称</th>
-                        <th>发布时间</th>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>学院</th>
+                        <th>专业</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <%
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        request.setAttribute("sdf", sdf); //request域
-                    %>
                     <c:choose>
                         <c:when test="${null ne pageInfo.list and 0 ne pageInfo.list.size()}">
                             <c:forEach var="list" items="${pageInfo.list}">
                                 <tr>
-                                    <td><a href="/vote/topic/<c:out value="${list.id}"/>"><c:out
-                                            value="${list.title}"/></a></td>
-                                        <%--<td><fmt:formatNumber value="${list.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>--%>
-                                        <%--<td><%=sdf.format(list.createTime)%></td>--%>
-                                    <td><a href="/admin/topic/update/${list.id}" class="btn btn-default btn-sm">
-                                        修改
-                                    </a><a href="javascript:void(0);" class="btn btn-default btn-sm" onclick="deleteTopic(${list.id})">
-                                        删除
-                                    </a></td>
+                                    <td>${list.userId}</td>
+                                    <td>${list.userName}</td>
+                                    <td>${list.college}</td>
+                                    <td>${list.major}</td>
                                 </tr>
                             </c:forEach>
                         </c:when>
@@ -45,21 +38,10 @@
                     </c:choose>
                     </tbody>
                 </table>
-                <div id="addPlace" style="text-align:center">
-                    <a href="/admin/topic/add" class="btn btn-default">
-                        增加
-                    </a>
-                </div>
                 <div id="page" style="text-align:center">
 
                 </div>
                 <script>
-                    function deleteTopic(id) {
-                        layer.confirm('确认删除吗？',
-                                function () {
-                                    window.location='<%=basePath %>admin/topic/delete/' + id;
-                                });
-                    }
                     //好像很实用的样子，后端的同学再也不用写分页逻辑了。
                     laypage({
                         cont: $('#page'),
@@ -67,7 +49,7 @@
                         curr: ${pageInfo.pageNum},
                         jump: function (e, first) { //触发分页后的回调
                             if (!first) { //一定要加此判断，否则初始时会无限刷新
-                                location.href = '<%=basePath %>admin/topic/check/page/' + e.curr;
+                                location.href = '<%=basePath %>admin/user/page/' + e.curr;
                             }
                         },
                         skin: 'molv', //皮肤
