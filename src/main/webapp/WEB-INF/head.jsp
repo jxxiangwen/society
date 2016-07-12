@@ -30,8 +30,6 @@
                             </li>
                             <li><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35642">院徽院训</a>
                             </li>
-                            <li><a href="/vote/topic/1/page/1">投票</a>
-                            </li>
                         </ul>
                     </li>
                     <li><a href="http://cms.shu.edu.cn/Default.aspx?tabid=35644">组织架构</a></li>
@@ -74,7 +72,6 @@
                                     欢迎您，${sessionScope.user.userName} <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/user/logout">注销</a></li>
                                     <li><a href="/user/logout">注销</a></li>
                                 </ul>
                             </li>

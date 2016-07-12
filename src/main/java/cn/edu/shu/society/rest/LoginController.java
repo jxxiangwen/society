@@ -47,7 +47,7 @@ public class LoginController {
         request.getSession().setAttribute("user",userDTO);
         String redirect = "redirect:" + LoginEnums.REDIRECT_HOME.getMsg();
         if(redirect.contains("login")){
-            redirect = "redirect:" + "http://cms.shu.edu.cn/Default.aspx?tabid=35557";
+            redirect = "redirect:/vote/topic/1/page/1";
         }
         System.out.println(redirect);
         return new ModelAndView(redirect);
