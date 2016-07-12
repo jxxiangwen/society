@@ -93,4 +93,9 @@ public class VoteSubjectTypeServiceImpl implements VoteSubjectTypeService {
     public int updateByPrimaryKey(VoteSubjectTypeDTO record) {
         return voteSubjectTypeMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, VoteSubjectType.class));
     }
+
+    @Override
+    public Long selectIdByTypeName(String typeName) {
+        return voteSubjectTypeMapper.selectIdByTypeName(typeName);
+    }
 }

@@ -1,5 +1,6 @@
 package cn.edu.shu.society.service;
 
+import cn.edu.shu.society.dto.TopicDTO;
 import cn.edu.shu.society.dto.VoteResultOutDTO;
 import cn.edu.shu.society.dto.VoteTopicDTO;
 import com.github.pagehelper.PageInfo;
@@ -64,7 +65,6 @@ public interface VoteTopicService {
     PageInfo<VoteTopicDTO> selectByVoteTypeIdAndPage(Long voteTypeId, int pageNum, int pageSize);
 
     /**
-     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -72,16 +72,19 @@ public interface VoteTopicService {
     public PageInfo<VoteTopicDTO> selectAllByPage(int pageNum, int pageSize);
 
     /**
-     *
      * @param voteTopicId
      * @return
      */
     List<VoteResultOutDTO> exportTopicResult(Long voteTopicId);
 
     /**
-     *
      * @param id
      * @return
      */
     VoteTopicDTO selectListByPrimaryKey(Long id);
+
+    /**
+     * @param topicDTO
+     */
+    void saveTopic(TopicDTO topicDTO, Long userId);
 }

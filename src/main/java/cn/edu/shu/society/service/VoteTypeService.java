@@ -49,4 +49,6 @@ public interface VoteTypeService {
      * @return
      */
     String getParentTypeNameById(Long id);
+
+    Long getTypeIdByTypeName(String typeName);
 }

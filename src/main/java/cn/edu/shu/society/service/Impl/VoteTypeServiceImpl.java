@@ -108,4 +108,9 @@ public class VoteTypeServiceImpl implements VoteTypeService {
     public String getParentTypeNameById(Long id) {
         return voteTypeMapper.getParentTypeNameById(id);
     }
+
+    @Override
+    public Long getTypeIdByTypeName(String typeName) {
+        return voteTypeMapper.getTypeIdByTypeName(typeName);
+    }
 }

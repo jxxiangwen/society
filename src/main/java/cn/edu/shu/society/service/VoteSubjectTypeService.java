@@ -42,4 +42,11 @@ public interface VoteSubjectTypeService {
      * @return
      */
     int updateByPrimaryKey(VoteSubjectTypeDTO record);
+
+    /**
+     *
+     * @param typeName
+     * @return
+     */
+    Long selectIdByTypeName(String typeName);
 }

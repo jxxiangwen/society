@@ -47,5 +47,5 @@ public interface VoteSubjectTypeMapper {
      */
     int updateByPrimaryKey(VoteSubjectType record);
 
-    Long selectByPrimaryKey(String typeName);
+    Long selectIdByTypeName(String typeName);
 }

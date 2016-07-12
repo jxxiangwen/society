@@ -75,6 +75,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user/logout">注销</a></li>
+                                    <li><a href="/user/logout">注销</a></li>
                                 </ul>
                             </li>
                         </c:when>

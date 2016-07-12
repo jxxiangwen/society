@@ -48,4 +48,6 @@ public interface VoteTypeMapper {
      * @mbggenerated Thu Jun 23 22:16:17 CST 2016
      */
     int updateByPrimaryKey(VoteType record);
+
+    Long getTypeIdByTypeName(String typeName);
 }

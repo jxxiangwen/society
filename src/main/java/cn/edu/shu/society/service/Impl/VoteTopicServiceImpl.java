@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -35,6 +36,12 @@ public class VoteTopicServiceImpl implements VoteTopicService {
 
     @Autowired
     VoteTopicNumberMapper voteTopicNumberMapper;
+
+    @Autowired
+    VoteTypeMapper voteTypeMapper;
+
+    @Autowired
+    VoteItemMapper voteItemMapper;
 
     private Map<Long, String> subjectTypeNameMap = new HashMap<>();
 
@@ -219,12 +226,55 @@ public class VoteTopicServiceImpl implements VoteTopicService {
             }
             voteResultOutDTOList.add(voteResultOutDTO);
         }
-        return null;
+        return voteResultOutDTOList;
     }
 
     @Override
     public VoteTopicDTO selectListByPrimaryKey(Long id) {
         VoteTopic voteTopic = voteTopicMapper.selectListByPrimaryKey(id);
         return BeanUtility.convertTopicToDTO(voteTopic);
+    }
+
+    /**
+     * 保存结果
+     * @param topicDTO
+     * @param userId
+     */
+    @Override
+    public void saveTopic(TopicDTO topicDTO,Long userId){
+        VoteTopic voteTopic = new VoteTopic();
+        voteTopic.setUserId(userId);
+        voteTopic.setVoteTypeId(voteTypeMapper.getTypeIdByTypeName(topicDTO.getTopicTypeName()));
+        voteTopic.setStartTime(topicDTO.getTopicStartTime().getTime());
+        voteTopic.setEndTime(topicDTO.getTopicEndTime().getTime());
+        voteTopic.setTitle(topicDTO.getTopicTitle());
+        voteTopicMapper.insert(voteTopic);
+        if (null == topicDTO.getSubject() || 0 == topicDTO.getSubject().size()) {
+            throw new AppException(VoteError.VOTE_SUBJECT_NOT_EXIST.getMsg(), VoteError.VOTE_SUBJECT_NOT_EXIST.getCode());
+        }
+        for(SubjectDTO subjectDTO : topicDTO.getSubject()){
+            //跳过空索引导致的null
+            if(StringUtils.isEmpty(subjectDTO.getSubjectTitle())){
+                continue;
+            }
+            VoteSubject voteSubject = new VoteSubject();
+            voteSubject.setTitle(subjectDTO.getSubjectTitle());
+            voteSubject.setVoteTopicId(voteTopic.getId());
+            voteSubject.setVoteSubjectTypeId(voteSubjectTypeMapper.selectIdByTypeName(subjectDTO.getSubjectTypeName()));
+            voteSubjectMapper.insert(voteSubject);
+            if (null == subjectDTO.getItem() || 0 == subjectDTO.getItem() .size()) {
+                throw new AppException(VoteError.VOTE_SUBJECT_NOT_EXIST.getMsg(), VoteError.VOTE_SUBJECT_NOT_EXIST.getCode());
+            }
+            for(ItemDTO itemDTO : subjectDTO.getItem() ){
+                //跳过空索引导致的null
+                if(StringUtils.isEmpty(itemDTO.getItemTitle())){
+                    continue;
+                }
+                VoteItem voteItem = new VoteItem();
+                voteItem.setVoteSubjectId(voteSubject.getId());
+                voteItem.setContent(itemDTO.getItemTitle());
+                voteItemMapper.insert(voteItem);
+            }
+        }
     }
 }

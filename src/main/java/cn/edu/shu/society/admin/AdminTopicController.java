@@ -1,6 +1,8 @@
 package cn.edu.shu.society.admin;
 
 
+import cn.edu.shu.society.dto.AdminUserDTO;
+import cn.edu.shu.society.dto.TopicDTO;
 import cn.edu.shu.society.dto.VoteTopicDTO;
 import cn.edu.shu.society.dto.VoteTypeDTO;
 import cn.edu.shu.society.enums.VoteError;
@@ -55,20 +57,20 @@ public class AdminTopicController {
     public ModelAndView add(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/admin/vote/add");
         List<VoteTypeDTO> voteTypeDTOList = voteTypeService.selectAll();
-        request.setAttribute("voteTypeList",voteTypeDTOList);
+        request.setAttribute("voteTypeList", voteTypeDTOList);
         return modelAndView;
     }
 
     /**
      * 投票增加方法
      *
-     * @param typeName
-     * @param parentName
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView add(@RequestParam("typeName") String typeName, @RequestParam("parentName") String parentName) {
+    public ModelAndView add(TopicDTO topicDTO, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/topic/check/page/1");
+        AdminUserDTO adminUserDTO = (AdminUserDTO)request.getSession().getAttribute("adminUser");
+        voteTopicService.saveTopic(topicDTO,adminUserDTO.getUserId());
         return modelAndView;
     }
 
@@ -78,7 +80,7 @@ public class AdminTopicController {
      * @return
      */
     @RequestMapping(value = "/add/{voteTopicId}", method = RequestMethod.GET)
-    public ModelAndView update(@PathVariable(value = "voteTopicId") Long voteTopicId,HttpServletRequest request) {
+    public ModelAndView update(@PathVariable(value = "voteTopicId") Long voteTopicId, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/admin/vote/update");
         VoteTopicDTO voteTopicDTO = voteTopicService.selectListByPrimaryKey(voteTopicId);
         if (null == voteTopicDTO) {
