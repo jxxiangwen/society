@@ -17,6 +17,7 @@
             <jsp:include page="../left.jsp"/>
             <div class="col-md-9">
                 <form id="topicFrom" action="/admin/topic/add" method="post">
+                    <input type="hidden" name="token" value="${sessionScope.token}"/>
                     <div class="form-group">
                         <label>问卷名<span class="text-danger">*</span></label>
                         <input type="text" class="form-control validate[required]" name="topicTitle"

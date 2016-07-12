@@ -15,7 +15,8 @@
                     <thead>
                     <tr>
                         <th>投票名称</th>
-                        <th>发布时间</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,7 +32,8 @@
                                             value="${list.title}"/></a></td>
                                     <%--<td><fmt:formatNumber value="${list.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>--%>
                                     <%--<td><%=sdf.format(list.createTime)%></td>--%>
-                                    <td><c:out value="${sdf.format(list.createTime * 1000 )}"/></td>
+                                    <td><c:out value="${sdf.format(list.startTime * 1000 )}"/></td>
+                                    <td><c:out value="${sdf.format(list.endTime * 1000 )}"/></td>
                                 </tr>
                             </c:forEach>
                         </c:when>

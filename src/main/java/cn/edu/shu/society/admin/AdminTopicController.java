@@ -1,15 +1,15 @@
 package cn.edu.shu.society.admin;
 
 
-import cn.edu.shu.society.dto.AdminUserDTO;
-import cn.edu.shu.society.dto.TopicDTO;
-import cn.edu.shu.society.dto.VoteTopicDTO;
-import cn.edu.shu.society.dto.VoteTypeDTO;
+import cn.edu.shu.society.annotation.Token;
+import cn.edu.shu.society.dto.*;
 import cn.edu.shu.society.enums.VoteError;
 import cn.edu.shu.society.exception.AppViewException;
+import cn.edu.shu.society.service.VoteSubjectTypeService;
 import cn.edu.shu.society.service.VoteTopicService;
 import cn.edu.shu.society.service.VoteTypeService;
 import cn.edu.shu.society.util.ConstantUtil;
+import cn.edu.shu.society.util.MapUtil;
 import com.github.pagehelper.PageInfo;
 import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Api(value = "vote", description = "投票操作相关API")
 @RestController
@@ -33,6 +35,9 @@ public class AdminTopicController {
 
     @Autowired
     VoteTypeService voteTypeService;
+
+    @Autowired
+    VoteSubjectTypeService voteSubjectTypeService;
 
     /**
      * 查看投票方法
@@ -53,6 +58,7 @@ public class AdminTopicController {
      *
      * @return
      */
+    @Token(save = true)
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView add(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/admin/vote/add");
@@ -66,11 +72,12 @@ public class AdminTopicController {
      *
      * @return
      */
+    @Token(remove = true)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView add(TopicDTO topicDTO, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/topic/check/page/1");
         AdminUserDTO adminUserDTO = (AdminUserDTO)request.getSession().getAttribute("adminUser");
-        voteTopicService.saveTopic(topicDTO,adminUserDTO.getUserId());
+        voteTopicService.saveOrUpdate(topicDTO,adminUserDTO.getUserId(),null);
         return modelAndView;
     }
 
@@ -79,7 +86,8 @@ public class AdminTopicController {
      *
      * @return
      */
-    @RequestMapping(value = "/add/{voteTopicId}", method = RequestMethod.GET)
+    @Token(save = true)
+    @RequestMapping(value = "/update/{voteTopicId}", method = RequestMethod.GET)
     public ModelAndView update(@PathVariable(value = "voteTopicId") Long voteTopicId, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/admin/vote/update");
         VoteTopicDTO voteTopicDTO = voteTopicService.selectListByPrimaryKey(voteTopicId);
@@ -87,20 +95,27 @@ public class AdminTopicController {
             throw new AppViewException(VoteError.VOTE_NOT_EXIST.getMsg(), VoteError.VOTE_NOT_EXIST.getCode());
         }
         modelAndView.addObject("voteTopic", voteTopicDTO);
+        List<VoteTypeDTO> voteTypeDTOList = voteTypeService.selectAll();
+        request.setAttribute("voteTypeList", voteTypeDTOList);
+        List<VoteSubjectTypeDTO> voteSubjectTypeDTOList = voteSubjectTypeService.selectAll();
+        request.setAttribute("voteSubjectTypeList", voteSubjectTypeDTOList);
         return modelAndView;
     }
 
     /**
      * 投票修改方法
-     *
-     * @param typeId
-     * @param typeName
-     * @param parentName
+     * @param topicDTO
+     * @param request
      * @return
      */
+    @Token(remove = true)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ModelAndView update(@RequestParam("typeId") Long typeId, @RequestParam("typeName") String typeName, @RequestParam("parentName") String parentName) {
+    public ModelAndView update(TopicDTO topicDTO, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/topic/check/page/1");
+        VoteTopicDTO voteTopicDTO = voteTopicService.selectListByPrimaryKey(topicDTO.getTopicId());
+        Map<String,Set<Long>> IdMap = MapUtil.getIdMapByTopic(voteTopicDTO);
+        AdminUserDTO adminUserDTO = (AdminUserDTO)request.getSession().getAttribute("adminUser");
+        voteTopicService.saveOrUpdate(topicDTO,adminUserDTO.getUserId(),IdMap);
         return modelAndView;
     }
 

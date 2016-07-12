@@ -6,6 +6,8 @@ import cn.edu.shu.society.dto.VoteTopicDTO;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface VoteTopicService {
     /**
@@ -86,5 +88,5 @@ public interface VoteTopicService {
     /**
      * @param topicDTO
      */
-    void saveTopic(TopicDTO topicDTO, Long userId);
+    void saveOrUpdate(TopicDTO topicDTO, Long userId, Map<String, Set<Long>> idMap);
 }

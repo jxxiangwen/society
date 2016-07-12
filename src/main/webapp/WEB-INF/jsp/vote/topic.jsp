@@ -83,9 +83,6 @@
                                                           class="form-control validate[required]" rows="3"
                                                           placeholder="请输入内容"></textarea>
                                             </c:if>
-                                                <%--<input type="password" class="form-control validate[required]"--%>
-                                                <%--id="voteSubject${status}" name="password" placeholder="密码" value="">--%>
-                                            <%--<li class="divider"></li>--%>
                                         </div>
                                     </c:forEach>
                                 </c:when>

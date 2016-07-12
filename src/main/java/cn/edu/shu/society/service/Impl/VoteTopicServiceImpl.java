@@ -236,44 +236,80 @@ public class VoteTopicServiceImpl implements VoteTopicService {
     }
 
     /**
-     * 保存结果
+     * 保存或者结果
+     *
      * @param topicDTO
      * @param userId
+     * @param idMap
      */
     @Override
-    public void saveTopic(TopicDTO topicDTO,Long userId){
+    public void saveOrUpdate(TopicDTO topicDTO, Long userId, Map<String, Set<Long>> idMap) {
+        Set<Long> subjectIdSet = null;
+        Set<Long> itemIdSet = null;
+        if (null != idMap) {
+            subjectIdSet = idMap.get("subjectId");
+            itemIdSet = idMap.get("itemId");
+        }
         VoteTopic voteTopic = new VoteTopic();
         voteTopic.setUserId(userId);
         voteTopic.setVoteTypeId(voteTypeMapper.getTypeIdByTypeName(topicDTO.getTopicTypeName()));
         voteTopic.setStartTime(topicDTO.getTopicStartTime().getTime());
         voteTopic.setEndTime(topicDTO.getTopicEndTime().getTime());
         voteTopic.setTitle(topicDTO.getTopicTitle());
-        voteTopicMapper.insert(voteTopic);
+        if(null == topicDTO.getTopicId()){
+            voteTopicMapper.insert(voteTopic);
+        }else {
+            voteTopicMapper.updateByPrimaryKey(voteTopic);
+        }
         if (null == topicDTO.getSubject() || 0 == topicDTO.getSubject().size()) {
             throw new AppException(VoteError.VOTE_SUBJECT_NOT_EXIST.getMsg(), VoteError.VOTE_SUBJECT_NOT_EXIST.getCode());
         }
-        for(SubjectDTO subjectDTO : topicDTO.getSubject()){
+        for (SubjectDTO subjectDTO : topicDTO.getSubject()) {
             //跳过空索引导致的null
-            if(StringUtils.isEmpty(subjectDTO.getSubjectTitle())){
+            if (StringUtils.isEmpty(subjectDTO.getSubjectTitle())) {
                 continue;
             }
             VoteSubject voteSubject = new VoteSubject();
             voteSubject.setTitle(subjectDTO.getSubjectTitle());
             voteSubject.setVoteTopicId(voteTopic.getId());
             voteSubject.setVoteSubjectTypeId(voteSubjectTypeMapper.selectIdByTypeName(subjectDTO.getSubjectTypeName()));
-            voteSubjectMapper.insert(voteSubject);
-            if (null == subjectDTO.getItem() || 0 == subjectDTO.getItem() .size()) {
+            if(null == subjectDTO.getSubjectId()){
+                voteSubjectMapper.insert(voteSubject);
+            }else {
+                voteSubjectMapper.updateByPrimaryKey(voteSubject);
+                if(null != subjectIdSet){
+                    subjectIdSet.remove(subjectDTO.getSubjectId());
+                }
+            }
+            if (null == subjectDTO.getItem() || 0 == subjectDTO.getItem().size()) {
                 throw new AppException(VoteError.VOTE_SUBJECT_NOT_EXIST.getMsg(), VoteError.VOTE_SUBJECT_NOT_EXIST.getCode());
             }
-            for(ItemDTO itemDTO : subjectDTO.getItem() ){
+            for (ItemDTO itemDTO : subjectDTO.getItem()) {
                 //跳过空索引导致的null
-                if(StringUtils.isEmpty(itemDTO.getItemTitle())){
+                if (StringUtils.isEmpty(itemDTO.getItemTitle())) {
                     continue;
                 }
                 VoteItem voteItem = new VoteItem();
                 voteItem.setVoteSubjectId(voteSubject.getId());
                 voteItem.setContent(itemDTO.getItemTitle());
-                voteItemMapper.insert(voteItem);
+                if(null == itemDTO.getItemId()){
+                    voteItemMapper.insert(voteItem);
+                }else {
+                    voteItemMapper.updateByPrimaryKey(voteItem);
+                    if(null != subjectIdSet){
+                        itemIdSet.remove(itemDTO.getItemId());
+                    }
+                }
+            }
+        }
+        if(null != subjectIdSet){
+            for (Long id : subjectIdSet){
+                voteSubjectMapper.deleteByPrimaryKey(id);
+            }
+        }
+        if(null != itemIdSet){
+            for (Long id : itemIdSet){
+                voteItemMapper.deleteByPrimaryKey(id);
             }
         }
     }

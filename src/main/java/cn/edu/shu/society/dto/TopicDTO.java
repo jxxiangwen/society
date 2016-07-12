@@ -10,6 +10,8 @@ import java.util.List;
 public class TopicDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private Long topicId;
+
     private String topicTitle;
 
     private String topicTypeName;
@@ -19,6 +21,14 @@ public class TopicDTO implements Serializable {
     private Date topicEndTime;
 
     List<SubjectDTO> subject;
+
+    public Long getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(Long topicId) {
+        this.topicId = topicId;
+    }
 
     public String getTopicTitle() {
         return topicTitle;
