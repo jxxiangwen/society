@@ -51,9 +51,8 @@ public class AdminVoteTypeController {
      * @throws Exception
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView add(@RequestParam("typeName") String typeName, @RequestParam("parentName") String parentName)
-            throws Exception {
-        ModelAndView modelAndView = new ModelAndView("redirect:/admin/vote");
+    public ModelAndView add(@RequestParam("typeName") String typeName, @RequestParam("parentName") String parentName) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/admin/vote/type/get");
         VoteTypeDTO voteTypeDTO = new VoteTypeDTO();
         voteTypeDTO.setTypeName(typeName);
         voteTypeDTO.setParentTypeName(parentName);
@@ -69,9 +68,8 @@ public class AdminVoteTypeController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public ModelAndView update(@RequestParam("typeId") Long typeId, @RequestParam("typeName") String typeName, @RequestParam("parentName") String parentName)
-            throws Exception {
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ModelAndView update(@RequestParam("typeId") Long typeId, @RequestParam("typeName") String typeName, @RequestParam("parentName") String parentName) {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/vote");
         VoteTypeDTO voteTypeDTO = voteTypeService.selectByPrimaryKey(typeId);
         voteTypeDTO.setTypeName(typeName);
@@ -87,11 +85,11 @@ public class AdminVoteTypeController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{voteTypeId}", method = RequestMethod.GET)
     @ResponseBody
-    public String delete(@RequestBody Long voteTypeId)
-            throws Exception {
+    public ModelAndView delete(@PathVariable(value = "voteTypeId") Long voteTypeId) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/admin/vote/type/get");
         voteTypeService.deleteByPrimaryKey(voteTypeId);
-        return "success";
+        return modelAndView;
     }
 }

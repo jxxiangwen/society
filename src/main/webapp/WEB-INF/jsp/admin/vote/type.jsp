@@ -32,9 +32,9 @@
 
                                             </c:when>
                                             <c:otherwise>
-                                                <button class="form-control" type="button" onclick="deleteType(this)">
+                                                <a href="/admin/vote/type/delete/${list.id}" class="form-control" type="button">
                                                     删除
-                                                </button>
+                                                </a>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
@@ -54,67 +54,27 @@
         </div>
     </div>
     <script id="typeTemplate" type="text/html">
-        <form>
+        <form id="typeFrom" action="/admin/vote/type/add" method="post">
             <div class="=form-group">
                 <label>名称 </label>
                 <input type="text" class="form-control validate[required]"
-                       name="userId" placeholder="学号" value="">
+                       name="typeName" id="typeName" placeholder="类别名" value="">
             </div>
             <div class="=form-group">
-                <select class="form-control validate[required]">
+                <label>所属类别 </label>
+                <select id="parentName" class="form-control validate[required]" name="parentName">
                     <option value="不记名投票">不记名投票</option>
                     <option value="记名投票">记名投票</option>
                 </select>
             </div>
             <div class="=form-group">
-                <input type="submit" class="btn" value="登录" onclick="addToTable()">
+                <input type="submit" class="btn" value="确认">
                 <input type="reset" class="btn" value="重置">
             </div>
 
         </form>
     </script>
     <script>
-        function addToTable() {
-            var data = {};
-            data['voteTypeId'] = id;
-            $.ajax({
-                type: 'POST',
-                url: 'admin/vote/type/add',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                dataType: 'json', //ajax返回值设置为text（json格式也可用它返回，可打印出结果，也可设置成json）
-                success: function (json) {
-                    return ajaxReturnHandle(json, function (jsonData) {
-                        $('tr td').remove('td[id=' + id + ']');
-                        layer.alert('恭喜您删除成功');
-                    });
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    layer.alert(textStatus, {icon: 2});
-                }
-            });
-        }
-        function deleteType(obj) {
-            var id = $(obj).parent().attr('id');
-            var data = {};
-            data['voteTypeId'] = id;
-            $.ajax({
-                type: 'POST',
-                url: 'admin/vote/type/delete',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                dataType: 'json', //ajax返回值设置为text（json格式也可用它返回，可打印出结果，也可设置成json）
-                success: function (json) {
-                    return ajaxReturnHandle(json, function (jsonData) {
-                        $('tr td').remove('td[id=' + id + ']');
-                        layer.alert('恭喜您删除成功');
-                    });
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    layer.alert(textStatus, {icon: 2});
-                }
-            });
-        }
         function addType() {
             $('#addPlace').html('');
             var template = $('#typeTemplate').html();

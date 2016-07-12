@@ -106,7 +106,7 @@ public class VoteController {
     }
 
     /**
-     * 投票保存
+     * 获取投票结果
      *
      * @return
      */
