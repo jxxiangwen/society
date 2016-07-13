@@ -30,7 +30,6 @@ public interface ResponseService {
     List<ResponseDTO> selectAll();
 
     /**
-     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -42,4 +41,11 @@ public interface ResponseService {
      * @return
      */
     int updateByPrimaryKey(ResponseDTO record);
+
+    List<ResponseDTO> selectByMessageId(Long messageId);
+
+    List<ResponseDTO> selectResAndNameByMessageId(Long messageId);
+
+    int deleteByMessageId(Long messageId);
+
 }

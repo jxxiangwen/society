@@ -12,7 +12,7 @@
     <!-- 配置 Spring -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:config/spring/spring-context.xml</param-value>
+        <param-value>classpath*:config/spring/spring-context.xml</param-value>
     </context-param>
     <!-- 编码过滤器 -->
     <filter>

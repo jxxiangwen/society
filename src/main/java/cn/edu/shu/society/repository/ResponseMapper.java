@@ -1,6 +1,8 @@
 package cn.edu.shu.society.repository;
 
 import cn.edu.shu.society.entity.Response;
+import cn.edu.shu.society.entity.ResponseWithName;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,4 +48,10 @@ public interface ResponseMapper {
      * @mbggenerated Thu Jun 23 22:16:17 CST 2016
      */
     int updateByPrimaryKey(Response record);
+
+    List<Response> selectByMessageId(@Param("messageId") Long messageId);
+
+    int deleteByMessageId(@Param("messageId") Long messageId);
+
+    List<ResponseWithName> selectResAndNameByMessageId(@Param("messageId") Long messageId);
 }

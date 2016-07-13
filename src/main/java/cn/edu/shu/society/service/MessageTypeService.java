@@ -30,7 +30,6 @@ public interface MessageTypeService {
     List<MessageTypeDTO> selectAll();
 
     /**
-     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -42,4 +41,14 @@ public interface MessageTypeService {
      * @return
      */
     int updateByPrimaryKey(MessageTypeDTO record);
+
+    /**
+     * 根据留言类别ID查找回答接受者ID
+     *
+     * @param userId
+     * @return
+     */
+    List<MessageTypeDTO> selectByUserId(Long userId);
+
+    List<MessageTypeDTO> selectByMessageTypeName(String typeName);
 }

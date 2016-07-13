@@ -1,6 +1,7 @@
 package cn.edu.shu.society.repository;
 
 import cn.edu.shu.society.entity.Message;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,4 +47,12 @@ public interface MessageMapper {
      * @mbggenerated Thu Jun 23 22:16:17 CST 2016
      */
     int updateByPrimaryKey(Message record);
+
+    List<Message> selectByMessageTypeIdAndPassStatus(@Param("messageTypeId") Long messageTypeId, @Param("passStatusArr") boolean[] passStatusArr);
+
+    Long selectCountByMessageTypeIdAndPassStatus(@Param("messageTypeId") Long messageTypeId, @Param("passStatusArr") boolean[] passStatusArr);
+
+    List<Message> selectByUserIdAndPassStatus(@Param("userId") Long userId, @Param("passStatusArr") boolean[] passStatusArr);
+
+    int updateIsPassed(@Param("messageId") Long messageId, @Param("isPassed") boolean isPassed);
 }

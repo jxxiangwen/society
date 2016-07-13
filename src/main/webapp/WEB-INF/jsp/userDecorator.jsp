@@ -19,6 +19,7 @@
     <link href="/css/bootstrap-switch.min.css" rel="stylesheet">
     <link href="/validation/validationEngine.jquery.css" rel="stylesheet">
     <link href="/laypage/skin/laypage.css" rel="stylesheet">
+    <link href="/css/message.css" rel="stylesheet">
     <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/bootstrap-switch.min.js"></script>
@@ -32,7 +33,7 @@
     <script src="/js/dnncore.js"></script>
     <script>
         var _hmt = _hmt || [];
-        (function() {
+        (function () {
             var hm = document.createElement("script");
             hm.src = "//hm.baidu.com/hm.js?ebd6d1267b144441d74ce109cab9d914";
             var s = document.getElementsByTagName("script")[0];

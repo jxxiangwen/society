@@ -30,16 +30,24 @@ public interface MessageService {
     List<MessageDTO> selectAll();
 
     /**
-     *
      * @param pageNum
      * @param pageSize
      * @return
      */
-    public PageInfo<MessageDTO> selectByPage(int pageNum, int pageSize);
+    PageInfo<MessageDTO> selectByPage(int pageNum, int pageSize);
 
     /**
      * @param record
      * @return
      */
     int updateByPrimaryKey(MessageDTO record);
+
+    PageInfo<MessageDTO> selectByMessageTypeIdAndPassStatus(int pageNum, int pageSize, Long messageTypeId, boolean[] passStatusArr);
+
+    Long selectCountByMessageTypeIdAndPassStatus(Long messageTypeId, boolean[] passStatusArr);
+
+    PageInfo<MessageDTO> selectByUserIdAndPassStatus(int pageNum, int pageSize, Long userId, boolean[] passStatusArr);
+
+    int updateIsPassed(Long messageId, boolean isPassed);
+
 }

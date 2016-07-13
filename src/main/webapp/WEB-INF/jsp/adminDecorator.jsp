@@ -19,6 +19,7 @@
     <link href="/css/bootstrap-switch.min.css" rel="stylesheet">
     <link href="/validation/validationEngine.jquery.css" rel="stylesheet">
     <link href="/laypage/skin/laypage.css" rel="stylesheet">
+    <link href="/css/message.css" rel="stylesheet">
     <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/bootstrap-switch.min.js"></script>

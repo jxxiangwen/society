@@ -1,3 +1,4 @@
+/*
 package cn.edu.shu.society.service.Impl;
 
 import cn.edu.shu.society.dto.UserDTO;
@@ -15,9 +16,11 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
+*/
 /**
  * Created by jxxia on 2016/6/29 0029.
- */
+ *//*
+
 @RunWith(SpringJUnit4ClassRunner.class)        //表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = {"classpath:/config/spring/spring-context.xml"})
 public class VoteSubjectTypeServiceImplTest {
@@ -79,4 +82,4 @@ public class VoteSubjectTypeServiceImplTest {
         System.out.println(userDTO);
     }
 
-}
+}*/

@@ -73,6 +73,18 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user/logout">注销</a></li>
+                                    <li>
+                                    <li class="dropdownc">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                           data-hover="dropdown">
+                                            我的留言 <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/message/list/user/page/1/1">已审核</a></li>
+                                            <li><a href="/message/list/user/page/1/0">未审核</a></li>
+                                        </ul>
+                                    </li>
+                                    </li>
                                 </ul>
                             </li>
                         </c:when>

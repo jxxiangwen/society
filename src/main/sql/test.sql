@@ -437,7 +437,7 @@ CREATE TABLE response (
   COMMENT '主键'                               AUTO_INCREMENT,
   `user_id`     BIGINT(20) UNSIGNED          DEFAULT 0
   COMMENT '回复发送者学号',
-  `title`       VARCHAR(255)        NOT NULL DEFAULT ''
+  `title`       VARCHAR(255)        DEFAULT ''
   COMMENT '回复标题',
   `content`     VARCHAR(1000)       NOT NULL DEFAULT ''
   COMMENT '回复内容',

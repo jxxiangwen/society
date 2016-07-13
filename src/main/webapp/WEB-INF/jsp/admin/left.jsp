@@ -26,16 +26,10 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                       href="#collapseTwo">
-                        留言<b class="caret"></b>
+                    <a href="/admin/messageType/list">
+                        留言管理
                     </a>
                 </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/vote/topic/2/page/1">留言</a></li>
-                </ul>
             </div>
         </div>
         <div class="panel panel-default">

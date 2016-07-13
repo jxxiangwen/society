@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+
 @Service
 public class MessageTypeServiceImpl implements MessageTypeService {
     private static Logger logger = LoggerFactory.getLogger(MessageTypeServiceImpl.class);
@@ -52,12 +53,7 @@ public class MessageTypeServiceImpl implements MessageTypeService {
      */
     public List<MessageTypeDTO> selectAll() {
         List<MessageType> messageTypeList = messageTypeMapper.selectAll();
-        Iterator<MessageType> iterator = messageTypeList.iterator();
-        List<MessageTypeDTO> messageTypeDTOLinkedList = new LinkedList<>();
-        while (iterator.hasNext()) {
-            messageTypeDTOLinkedList.add(BeanUtility.beanCopy(iterator.next(), MessageTypeDTO.class));
-        }
-        return messageTypeDTOLinkedList;
+        return BeanUtility.convertOtherBeanList(messageTypeList, MessageTypeDTO.class);
     }
 
     /**
@@ -80,11 +76,18 @@ public class MessageTypeServiceImpl implements MessageTypeService {
         return page1;
     }
 
-    /**
-     * @param record
-     * @return
-     */
+    @Override
     public int updateByPrimaryKey(MessageTypeDTO record) {
         return messageTypeMapper.updateByPrimaryKey(BeanUtility.beanCopy(record, MessageType.class));
+    }
+
+    @Override
+    public List<MessageTypeDTO> selectByUserId(Long userId) {
+        return BeanUtility.convertOtherBeanList(messageTypeMapper.selectByUserId(userId), MessageTypeDTO.class);
+    }
+
+    @Override
+    public List<MessageTypeDTO> selectByMessageTypeName(String typeName) {
+        return BeanUtility.convertOtherBeanList(messageTypeMapper.selectByMessageTypeName(typeName), MessageTypeDTO.class);
     }
 }

@@ -1,6 +1,7 @@
 package cn.edu.shu.society.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class MessageDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -16,6 +17,8 @@ public class MessageDTO implements Serializable {
     private Boolean isPassed;
 
     private Long messageTypeId;
+
+    private List<ResponseDTO> responseDTOList;
 
     private Long createTime;
 
@@ -67,6 +70,22 @@ public class MessageDTO implements Serializable {
 
     public void setMessageTypeId(Long messageTypeId) {
         this.messageTypeId = messageTypeId;
+    }
+
+    public Boolean getPassed() {
+        return isPassed;
+    }
+
+    public void setPassed(Boolean passed) {
+        isPassed = passed;
+    }
+
+    public List<ResponseDTO> getResponseDTOList() {
+        return responseDTOList;
+    }
+
+    public void setResponseDTOList(List<ResponseDTO> responseDTOList) {
+        this.responseDTOList = responseDTOList;
     }
 
     public Long getCreateTime() {
