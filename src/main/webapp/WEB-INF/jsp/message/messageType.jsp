@@ -28,7 +28,7 @@
                             </c:forEach>
                         </c:when>
                         <c:otherwise>
-                            暂时没有投票
+                            暂时没有留言
                         </c:otherwise>
                     </c:choose>
                     </tbody>

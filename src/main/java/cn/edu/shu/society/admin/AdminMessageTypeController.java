@@ -1,5 +1,6 @@
 package cn.edu.shu.society.admin;
 
+import cn.edu.shu.society.dto.AdminUserDTO;
 import cn.edu.shu.society.dto.MessageDTO;
 import cn.edu.shu.society.dto.MessageTypeDTO;
 import cn.edu.shu.society.dto.UserDTO;
@@ -49,8 +50,8 @@ public class AdminMessageTypeController {
         } else {
             MessageType messageType = new MessageType();
             messageType.setTypeName(messageTypeDTO.getTypeName());
-            UserDTO userDTO=(UserDTO) session.getAttribute("user");
-           messageType.setUserId(userDTO.getUserId());
+            AdminUserDTO adminUserDTO=(AdminUserDTO) session.getAttribute("adminUser");
+           messageType.setUserId(adminUserDTO.getUserId());
             messageTypeService.insert(BeanUtility.beanCopy(messageType, MessageTypeDTO.class));
         }
         return modelAndView;

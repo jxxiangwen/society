@@ -1,5 +1,6 @@
 package cn.edu.shu.society.admin;
 
+import cn.edu.shu.society.dto.AdminUserDTO;
 import cn.edu.shu.society.dto.ResponseDTO;
 import cn.edu.shu.society.dto.UserDTO;
 import cn.edu.shu.society.service.MessageService;
@@ -25,8 +26,8 @@ public class AdminResponseController {
     public ModelAndView response(@PathVariable("pageNum") Integer pageNum, @PathVariable("currMessageTypeId") Long currMessageTypeId, @PathVariable("isPassed") Long isPassed, ResponseDTO responseDTO, HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin/message/list/" + currMessageTypeId + "/page/" + pageNum + "/" + isPassed);
-        UserDTO userDTO = (UserDTO) httpSession.getAttribute("user");
-        responseDTO.setUserId(userDTO.getUserId());
+        AdminUserDTO adminUserDTO = (AdminUserDTO) httpSession.getAttribute("adminUser");
+        responseDTO.setUserId(adminUserDTO  .getUserId());
         responseDTO.setTitle("");
         responseService.insert(responseDTO);
         messageService.updateIsPassed(responseDTO.getMessageId(), true);
