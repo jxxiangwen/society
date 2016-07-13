@@ -33,9 +33,9 @@
                                     <td>
                                         <div class="btn-group" role="group" aria-label="oprations">
                                             <a href="/admin/message/list/${list.id}/page/1/1" role="button"
-                                               class="btn btn-default">已审核</a>
+                                               class="btn btn-default">查看已审核留言</a>
                                             <a href="/admin/message/list/${list.id}/page/1/0" role="button"
-                                               class="btn btn-default">未审核</a>
+                                               class="btn btn-default">查看未审核留言</a>
                                             <a data-toggle="modal" data-target="#updateModal"
                                                onclick="$('#updateMessageTypeId').val(${list.id})" role="button"
                                                class="btn btn-default">更新</a>
