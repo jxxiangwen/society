@@ -75,7 +75,7 @@ public class VoteSubjectTypeServiceImplTest {
 
     @Test
     public void testUser() {
-        UserDTO userDTO = userService.selectByUserId(14721198L);
+        UserDTO userDTO = userService.selectByUserId(10000L);
         System.out.println(userDTO);
     }
 

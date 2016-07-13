@@ -57,7 +57,7 @@ SELECT NOW();
 
 INSERT INTO user (user_id, user_name, password, college, major, create_time, update_time)
   VALUE
-  (14721198, '邹祥文', 'YmNiMTVmODIxNDc5YjRkNTc3MmJkMGNhODY2YzAwYWQ1ZjkyNmUzNTgwNzIwNjU5Y2M4MGQzOWM5ZDA5ODAyYQ==', '计算机',
+  (10000, 'zxw', 'YmNiMTVmODIxNDc5YjRkNTc3MmJkMGNhODY2YzAwYWQ1ZjkyNmUzNTgwNzIwNjU5Y2M4MGQzOWM5ZDA5ODAyYQ==', '计算机',
    '计算机', unix_timestamp(now()), unix_timestamp(now()));
 
 SELECT NOW();
@@ -89,7 +89,7 @@ SELECT NOW();
 
 INSERT INTO admin_user (user_id, user_name, password, college, major, create_time, update_time)
   VALUE
-  (14721198, '邹祥文', 'YmNiMTVmODIxNDc5YjRkNTc3MmJkMGNhODY2YzAwYWQ1ZjkyNmUzNTgwNzIwNjU5Y2M4MGQzOWM5ZDA5ODAyYQ==', '计算机',
+  (10000, 'zxw', 'YmNiMTVmODIxNDc5YjRkNTc3MmJkMGNhODY2YzAwYWQ1ZjkyNmUzNTgwNzIwNjU5Y2M4MGQzOWM5ZDA5ODAyYQ==', '计算机',
    '计算机', unix_timestamp(now()), unix_timestamp(now()));
 
 SELECT NOW();
@@ -146,13 +146,13 @@ CREATE TABLE vote_topic (
 SELECT NOW();
 
 INSERT INTO vote_topic (user_id, title, start_time, end_time, vote_type_id, create_time, update_time)
-  VALUE (14721198, '计算机学院调查记名投票', curdate(), '2017-4-19 00:00:00',
+  VALUE (10000, '计算机学院调查记名投票', curdate(), '2017-4-19 00:00:00',
          (SELECT id
           FROM vote_type
           WHERE type_name = '记名投票'),
          unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_topic (user_id, title, start_time, end_time, vote_type_id, create_time, update_time)
-  VALUE (14721198, '计算机学院调查不记名投票', curdate(), '2017-4-19 00:00:00',
+  VALUE (10000, '计算机学院调查不记名投票', curdate(), '2017-4-19 00:00:00',
          (SELECT id
           FROM vote_type
           WHERE type_name = '不记名投票'),
