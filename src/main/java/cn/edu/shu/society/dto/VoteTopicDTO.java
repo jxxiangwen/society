@@ -1,6 +1,7 @@
 package cn.edu.shu.society.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class VoteTopicDTO implements Serializable {
@@ -12,9 +13,9 @@ public class VoteTopicDTO implements Serializable {
 
     private String title;
 
-    private Long startTime;
+    private Date startTime;
 
-    private Long endTime;
+    private Date endTime;
 
     private Long voteTypeId;
 
@@ -48,19 +49,19 @@ public class VoteTopicDTO implements Serializable {
         this.title = title == null ? null : title.trim();
     }
 
-    public Long getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Long startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Long getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Long endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

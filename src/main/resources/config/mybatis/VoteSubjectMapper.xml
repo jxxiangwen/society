@@ -54,7 +54,7 @@
         update vote_subject
         set title = #{title,jdbcType=VARCHAR},
         vote_subject_type_id = #{voteSubjectTypeId,jdbcType=BIGINT},
-        vote_topic_id = #{voteTopicId,jdbcType=BIGINT}
+        vote_topic_id = #{voteTopicId,jdbcType=BIGINT},
         update_time = unix_timestamp(now())
         where id = #{id,jdbcType=BIGINT}
     </update>

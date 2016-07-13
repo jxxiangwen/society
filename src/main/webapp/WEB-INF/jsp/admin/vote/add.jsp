@@ -29,7 +29,7 @@
                             <c:when test="${null ne voteTypeList and 0 ne voteTypeList.size()}">
                                 <select id="typeId" class="form-control validate[required]" name="topicTypeName">
                                     <c:forEach var="list" items="${voteTypeList}">
-                                        <option value=${list.id}>${list.typeName}</option>
+                                        <option value=${list.typeName}>${list.typeName}</option>
                                     </c:forEach>
                                 </select>
                             </c:when>
@@ -44,7 +44,7 @@
                         <input id="topicStartTime"
                                name="topicStartTime"
                                class="form-control form_datetime validate[required,custom[date],dateRange[grp1]]"
-                               type="datetime"
+                               type="date"
                                placeholder="开始日期"
                                data-date-format="yyyy-mm-dd">
                     </div>
@@ -57,7 +57,7 @@
                         <input id="topicEndTime"
                                name="topicEndTime"
                                class="form-control form_datetime validate[required,custom[date],dateRange[grp1]]"
-                               type="datetime"
+                               type="date"
                                placeholder="结束日期"
                                data-date-format="yyyy-mm-dd">
                     </div>
@@ -157,6 +157,7 @@
         /* 日期选择插件*/
         $('.form_datetime').datetimepicker({
             language : 'zh-CN',
+            format: 'yyyy-mm-dd',
             weekStart : 1,
             todayBtn : 1,
             autoclose : 1,

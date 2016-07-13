@@ -253,12 +253,13 @@ public class VoteTopicServiceImpl implements VoteTopicService {
         VoteTopic voteTopic = new VoteTopic();
         voteTopic.setUserId(userId);
         voteTopic.setVoteTypeId(voteTypeMapper.getTypeIdByTypeName(topicDTO.getTopicTypeName()));
-        voteTopic.setStartTime(topicDTO.getTopicStartTime().getTime());
-        voteTopic.setEndTime(topicDTO.getTopicEndTime().getTime());
+        voteTopic.setStartTime(topicDTO.getTopicStartTime());
+        voteTopic.setEndTime(topicDTO.getTopicEndTime());
         voteTopic.setTitle(topicDTO.getTopicTitle());
         if(null == topicDTO.getTopicId()){
             voteTopicMapper.insert(voteTopic);
         }else {
+            voteTopic.setId(topicDTO.getTopicId());
             voteTopicMapper.updateByPrimaryKey(voteTopic);
         }
         if (null == topicDTO.getSubject() || 0 == topicDTO.getSubject().size()) {
@@ -276,13 +277,15 @@ public class VoteTopicServiceImpl implements VoteTopicService {
             if(null == subjectDTO.getSubjectId()){
                 voteSubjectMapper.insert(voteSubject);
             }else {
+                voteSubject.setId(subjectDTO.getSubjectId());
                 voteSubjectMapper.updateByPrimaryKey(voteSubject);
                 if(null != subjectIdSet){
                     subjectIdSet.remove(subjectDTO.getSubjectId());
                 }
             }
             if (null == subjectDTO.getItem() || 0 == subjectDTO.getItem().size()) {
-                throw new AppException(VoteError.VOTE_SUBJECT_NOT_EXIST.getMsg(), VoteError.VOTE_SUBJECT_NOT_EXIST.getCode());
+                //主观题
+                continue;
             }
             for (ItemDTO itemDTO : subjectDTO.getItem()) {
                 //跳过空索引导致的null
@@ -295,6 +298,7 @@ public class VoteTopicServiceImpl implements VoteTopicService {
                 if(null == itemDTO.getItemId()){
                     voteItemMapper.insert(voteItem);
                 }else {
+                    voteItem.setId(itemDTO.getItemId());
                     voteItemMapper.updateByPrimaryKey(voteItem);
                     if(null != subjectIdSet){
                         itemIdSet.remove(itemDTO.getItemId());

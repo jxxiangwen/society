@@ -20,10 +20,6 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <%
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        request.setAttribute("sdf", sdf); //request域
-                    %>
                     <c:choose>
                         <c:when test="${null ne pageInfo.list and 0 ne pageInfo.list.size()}">
                             <c:forEach var="list" items="${pageInfo.list}">
@@ -32,8 +28,8 @@
                                             value="${list.title}"/></a></td>
                                     <%--<td><fmt:formatNumber value="${list.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>--%>
                                     <%--<td><%=sdf.format(list.createTime)%></td>--%>
-                                    <td><c:out value="${sdf.format(list.startTime * 1000 )}"/></td>
-                                    <td><c:out value="${sdf.format(list.endTime * 1000 )}"/></td>
+                                    <td><fmt:formatDate value="${list.startTime}" pattern="yyyy年MM月dd日 E"/></td>
+                                    <td><fmt:formatDate value="${list.endTime}" pattern="yyyy年MM月dd日 E"/></td>
                                 </tr>
                             </c:forEach>
                         </c:when>

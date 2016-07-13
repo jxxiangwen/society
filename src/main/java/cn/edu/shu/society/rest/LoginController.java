@@ -33,44 +33,48 @@ public class LoginController {
 
     /**
      * 登录
+     *
      * @param request
      * @param response
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam(value="userId") Long userId, @RequestParam(value="password") String password, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView login(@RequestParam(value = "userId") Long userId, @RequestParam(value = "password") String password, HttpServletRequest request, HttpServletResponse response) {
         UserDTO userDTO = userService.selectByUserId(userId);
-        if(null == userDTO || !StringUtil.getEncryptPassword(password).equals(userDTO.getPassword())){
-            request.setAttribute("errorMsg","用户名或密码错误");
+        if (null == userDTO || !StringUtil.getEncryptPassword(password).equals(userDTO.getPassword())) {
+            request.setAttribute("errorMsg", "用户名或密码错误");
             return new ModelAndView(LoginEnums.LOGIN_HOME.getMsg());
         }
-        request.getSession().setAttribute("user",userDTO);
-        String redirect = "redirect:" + LoginEnums.REDIRECT_HOME.getMsg();
-        if(redirect.contains("login")){
-            redirect = "redirect:/vote/topic/1/page/1";
-        }
+        request.getSession().setAttribute("user", userDTO);
+//        String redirect = "redirect:" + LoginEnums.REDIRECT_HOME.getMsg();
+//        if(redirect.contains("login")){
+//            redirect = "redirect:/vote/topic/1/page/1";
+//        }
+        String redirect = "redirect:/vote/topic/1/page/1";
         System.out.println(redirect);
         return new ModelAndView(redirect);
     }
 
     /**
      * 登录
+     *
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(){
+    public ModelAndView login() {
         return new ModelAndView(LoginEnums.LOGIN_HOME.getMsg());
     }
 
     /**
      * 退出登录
+     *
      * @param request
      * @return
      */
     @RequestMapping(value = "/logout")
-    public ModelAndView logout(HttpServletRequest request){
+    public ModelAndView logout(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView(LoginEnums.LOGIN_HOME.getMsg());
-        request.getSession().setAttribute("user",null);
+        request.getSession().setAttribute("user", null);
         return modelAndView;
     }
 

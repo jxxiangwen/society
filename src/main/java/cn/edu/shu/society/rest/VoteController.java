@@ -77,10 +77,10 @@ public class VoteController {
         if (null == voteTopicDTO) {
             throw new AppViewException(VoteError.VOTE_NOT_EXIST.getMsg(), VoteError.VOTE_NOT_EXIST.getCode());
         }
-        if (new Date().getTime() > voteTopicDTO.getEndTime() * 1000) {
+        if (new Date().getTime() > voteTopicDTO.getEndTime().getTime()) {
             throw new AppViewException(VoteError.VOTE_HAVE_OVERTIME.getMsg(), VoteError.VOTE_HAVE_OVERTIME.getCode());
         }
-        if (new Date().getTime() < voteTopicDTO.getStartTime() * 1000) {
+        if (new Date().getTime() < voteTopicDTO.getStartTime().getTime()) {
             throw new AppViewException(VoteError.VOTE_NOT_BEGIN.getMsg(), VoteError.VOTE_NOT_BEGIN.getCode());
         }
         modelAndView.addObject("voteTopic", voteTopicDTO);

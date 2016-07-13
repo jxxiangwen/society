@@ -9,11 +9,21 @@ import java.util.List;
 public class SubjectDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private Long subjectId;
+
     private String subjectTitle;
 
     private String subjectTypeName;
 
     List<ItemDTO> item;
+
+    public Long getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Long subjectId) {
+        this.subjectId = subjectId;
+    }
 
     public String getSubjectTitle() {
         return subjectTitle;

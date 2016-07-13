@@ -15,13 +15,14 @@ import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -61,7 +62,7 @@ public class AdminTopicController {
      *
      * @return
      */
-    @Token(save = true)
+//    @Token(save = true)
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView add(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/admin/vote/add");
@@ -75,7 +76,7 @@ public class AdminTopicController {
      *
      * @return
      */
-    @Token(remove = true)
+//    @Token(remove = true)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView add(TopicDTO topicDTO, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/topic/check/page/1");
@@ -89,7 +90,7 @@ public class AdminTopicController {
      *
      * @return
      */
-    @Token(save = true)
+//    @Token(save = true)
     @RequestMapping(value = "/update/{voteTopicId}", method = RequestMethod.GET)
     public ModelAndView update(@PathVariable(value = "voteTopicId") Long voteTopicId, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("/admin/vote/update");
@@ -111,7 +112,7 @@ public class AdminTopicController {
      * @param request
      * @return
      */
-    @Token(remove = true)
+//    @Token(remove = true)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ModelAndView update(TopicDTO topicDTO, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/topic/check/page/1");
@@ -133,5 +134,10 @@ public class AdminTopicController {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/topic/check/page/1");
         voteTopicService.deleteByPrimaryKey(voteTopicId);
         return modelAndView;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
     }
 }

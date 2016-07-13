@@ -21,9 +21,9 @@ public class VoteResultOutDTO implements Serializable{
     //投票标题
     private String topicTitle;
     //开始时间
-    private Long startTime;
+    private Date startTime;
     //结束时间
-    private Long endTime;
+    private Date endTime;
     //投票项目标题
     private String subjectTitle;
     //投票项目类别
@@ -79,19 +79,19 @@ public class VoteResultOutDTO implements Serializable{
         this.topicTitle = topicTitle;
     }
 
-    public Long getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Long startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Long getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Long endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

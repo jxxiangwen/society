@@ -127,9 +127,9 @@ CREATE TABLE vote_topic (
   COMMENT '创建者学号',
   `title`        VARCHAR(255)        NOT NULL DEFAULT ''
   COMMENT '投票主题',
-  `start_time`   BIGINT(20) UNSIGNED NOT NULL DEFAULT 0
+  `start_time`   DATE NOT NULL
   COMMENT '开始时间',
-  `end_time`     BIGINT(20) UNSIGNED NOT NULL DEFAULT 0
+  `end_time`     DATE NOT NULL
   COMMENT '结束时间',
   `vote_type_id` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0
   COMMENT '投票类别表ID',
@@ -146,13 +146,13 @@ CREATE TABLE vote_topic (
 SELECT NOW();
 
 INSERT INTO vote_topic (user_id, title, start_time, end_time, vote_type_id, create_time, update_time)
-  VALUE (14721198, '计算机学院调查记名投票', unix_timestamp(now()), unix_timestamp('2017-4-19 12:00:00'),
+  VALUE (14721198, '计算机学院调查记名投票', curdate(), '2017-4-19 00:00:00',
          (SELECT id
           FROM vote_type
           WHERE type_name = '记名投票'),
          unix_timestamp(now()), unix_timestamp(now()));
 INSERT INTO vote_topic (user_id, title, start_time, end_time, vote_type_id, create_time, update_time)
-  VALUE (14721198, '计算机学院调查不记名投票', unix_timestamp(now()), unix_timestamp('2017-4-19 12:00:00'),
+  VALUE (14721198, '计算机学院调查不记名投票', curdate(), '2017-4-19 00:00:00',
          (SELECT id
           FROM vote_type
           WHERE type_name = '不记名投票'),

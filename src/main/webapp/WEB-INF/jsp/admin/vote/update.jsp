@@ -16,8 +16,8 @@
             <script src="/js/bootstrap-datetimepicker.zh-CN.js"></script>
             <jsp:include page="../left.jsp"/>
             <div class="col-md-9">
-                <form id="topicFrom" action="/admin/topic/add" method="post">
-                    <input type="hidden" name="token" value="${sessionScope.token}"/>
+                <form id="topicFrom" action="/admin/topic/update" method="post">
+                    <%--<input type="hidden" name="token" value="${sessionScope.token}"/>--%>
                     <c:choose>
                         <c:when test="${null ne voteTopic}">
                             <input type="hidden" name="topicId" value="${voteTopic.id}">
@@ -30,10 +30,10 @@
                                 <label>所属类别<span class="text-danger">*</span></label>
                                 <c:choose>
                                     <c:when test="${null ne voteTypeList and 0 ne voteTypeList.size()}">
-                                        <select id="typeId" class="form-control validate[required]"
+                                        <select id="topicTypeName" class="form-control validate[required]"
                                                 name="topicTypeName">
                                             <c:forEach var="list" items="${voteTypeList}">
-                                                <option value=${list.id} <c:if
+                                                <option value=${list.typeName} <c:if
                                                         test="${voteTopic.voteTypeId eq list.id}"> selected="selected"</c:if>>${list.typeName}</option>
                                             </c:forEach>
                                         </select>
@@ -43,20 +43,16 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <%
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                request.setAttribute("sdf", sdf); //request域
-                            %>
                             <div class="form-group">
                                 <label for="topicStartTime" class="col-sm-3 control-label">开始日期 <span
                                         class="text-danger">*</span></label>
                                 <input id="topicStartTime"
                                        name="topicStartTime"
                                        class="form-control form_datetime validate[required,custom[date],dateRange[grp1]]"
-                                       type="datetime"
+                                       type="date"
                                        placeholder="开始日期"
                                        data-date-format="yyyy-mm-dd"
-                                       value="<c:out value="${sdf.format(voteTopic.startTime * 1000 )}"/>">
+                                       value="<fmt:formatDate value="${voteTopic.startTime}" pattern="yyyy-MM-dd"/>">
                             </div>
 
                             <!-- 开始日期 end -->
@@ -67,10 +63,10 @@
                                 <input id="topicEndTime"
                                        name="topicEndTime"
                                        class="form-control form_datetime validate[required,custom[date],dateRange[grp1]]"
-                                       type="datetime"
+                                       type="date"
                                        placeholder="结束日期"
                                        data-date-format="yyyy-mm-dd"
-                                       value="<c:out value="${sdf.format(voteTopic.endTime * 1000 )}"/>">
+                                       value="<fmt:formatDate value="${voteTopic.endTime}" pattern="yyyy-MM-dd"/>">
                             </div>
                             <c:choose>
                                 <c:when test="${null ne voteTopic.voteSubjectList and 0 ne voteTopic.voteSubjectList.size()}">
