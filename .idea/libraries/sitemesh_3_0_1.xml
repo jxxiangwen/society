@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="sitemesh-3.0.1">
     <CLASSES>
-      <root url="jar://F:/下载/sitemesh-3.0.1.jar!/" />
+      <root url="jar://$USER_HOME$/util/sitemesh-3.0.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

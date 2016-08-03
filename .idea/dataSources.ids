@@ -1,540 +1,1092 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - society@localhost" uuid="5183dfc9-bef4-4e96-9ca6-7156a38be78f">
-    <database-info product="MySQL" version="5.7.12" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+  <data-source name="MySQL - society@localhost" uuid="4362efab-905e-4f3a-9a16-38cd72e6f16c">
+    <database-info product="MySQL" version="5.7.13-0ubuntu0.16.04.2" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
-    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
-      <schema id="1" name="society"/>
-      <table id="2" parent="1" name="message">
-        <comment>留言表</comment>
-      </table>
-      <table id="3" parent="1" name="message_type">
-        <comment>留言类别表</comment>
-      </table>
-      <table id="4" parent="1" name="response">
-        <comment>回复表</comment>
-      </table>
-      <table id="5" parent="1" name="vote_item">
-        <comment>项目选项表</comment>
-      </table>
-      <table id="6" parent="1" name="vote_subject">
-        <comment>投票项目表</comment>
-      </table>
-      <table id="7" parent="1" name="vote_subject_result">
-        <comment>项目结果表</comment>
-      </table>
-      <table id="8" parent="1" name="vote_subject_type">
-        <comment>投票项目类别表</comment>
-      </table>
-      <table id="9" parent="1" name="vote_topic_number">
-        <comment>投票数目表</comment>
-      </table>
-      <table id="10" parent="1" name="vote_type">
-        <comment>投票类别表</comment>
-      </table>
-      <table id="11" parent="1" name="admin_user">
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+      <schema id="1" name="society">
+        <visible>1</visible>
+      </schema>
+      <schema id="2" name="information_schema"/>
+      <schema id="3" name="mysql"/>
+      <schema id="4" name="performance_schema"/>
+      <schema id="5" name="sys"/>
+      <schema id="6" name="msdb"/>
+      <table id="7" parent="1" name="admin_user">
         <comment>管理员表</comment>
       </table>
-      <table id="12" parent="1" name="user">
+      <table id="8" parent="1" name="message">
+        <comment>留言表</comment>
+      </table>
+      <table id="9" parent="1" name="message_type">
+        <comment>留言类别表</comment>
+      </table>
+      <table id="10" parent="1" name="response">
+        <comment>回复表</comment>
+      </table>
+      <table id="11" parent="1" name="user">
         <comment>用户表</comment>
       </table>
-      <table id="13" parent="1" name="vote_topic">
+      <table id="12" parent="1" name="vote_item">
+        <comment>项目选项表</comment>
+      </table>
+      <table id="13" parent="1" name="vote_subject">
+        <comment>投票项目表</comment>
+      </table>
+      <table id="14" parent="1" name="vote_subject_result">
+        <comment>项目结果表</comment>
+      </table>
+      <table id="15" parent="1" name="vote_subject_type">
+        <comment>投票项目类别表</comment>
+      </table>
+      <table id="16" parent="1" name="vote_topic">
         <comment>投票主题表</comment>
       </table>
-      <column id="14" parent="2" name="id">
+      <table id="17" parent="1" name="vote_topic_number">
+        <comment>投票数目表</comment>
+      </table>
+      <table id="18" parent="1" name="vote_type">
+        <comment>投票类别表</comment>
+      </table>
+      <column id="19" parent="7" name="id">
         <comment>主键</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="15" parent="2" name="user_id">
-        <comment>消息发送者学号</comment>
-        <data-type>bigint(20) unsigned</data-type>
+      <column id="20" parent="7" name="user_id">
+        <comment>学号</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="16" parent="2" name="title">
+      <column id="21" parent="7" name="user_name">
+        <comment>姓名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="22" parent="7" name="password">
+        <comment>密码</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="23" parent="7" name="college">
+        <comment>学院</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="24" parent="7" name="major">
+        <comment>专业</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="25" parent="7" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="26" parent="7" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="27" parent="7" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="28" parent="8" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="29" parent="8" name="user_id">
+        <comment>消息发送者学号</comment>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="30" parent="8" name="title">
         <comment>消息标题</comment>
         <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
+        <data-type>varchar(255)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="17" parent="2" name="content">
+      <column id="31" parent="8" name="content">
         <comment>消息内容</comment>
         <mandatory>1</mandatory>
-        <data-type>varchar(1000)</data-type>
+        <data-type>varchar(1000)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="18" parent="2" name="is_passed">
+      <column id="32" parent="8" name="is_passed">
         <comment>是否通过</comment>
         <mandatory>1</mandatory>
-        <data-type>tinyint(1) unsigned</data-type>
+        <data-type>tinyint(1) unsigned|0</data-type>
         <default-expression>&apos;1&apos;</default-expression>
       </column>
-      <column id="19" parent="2" name="message_type_id">
+      <column id="33" parent="8" name="message_type_id">
         <comment>留言类别表ID</comment>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="20" parent="2" name="create_time">
+      <column id="34" parent="8" name="create_time">
         <comment>创建时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="21" parent="2" name="update_time">
+      <column id="35" parent="8" name="update_time">
         <comment>更新时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="22" parent="2" name="PRIMARY">
+      <key id="36" parent="8" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="23" parent="3" name="id">
+      <column id="37" parent="9" name="id">
         <comment>主键</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="24" parent="3" name="user_id">
+      <column id="38" parent="9" name="user_id">
         <comment>消息接受者学号</comment>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="25" parent="3" name="type_name">
+      <column id="39" parent="9" name="type_name">
         <comment>消息类别名</comment>
         <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
+        <data-type>varchar(255)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="26" parent="3" name="create_time">
+      <column id="40" parent="9" name="create_time">
         <comment>创建时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="27" parent="3" name="update_time">
+      <column id="41" parent="9" name="update_time">
         <comment>更新时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="28" parent="3" name="PRIMARY">
+      <key id="42" parent="9" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="29" parent="4" name="id">
+      <column id="43" parent="10" name="id">
         <comment>主键</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="30" parent="4" name="user_id">
+      <column id="44" parent="10" name="user_id">
         <comment>回复发送者学号</comment>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="31" parent="4" name="title">
+      <column id="45" parent="10" name="title">
         <comment>回复标题</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
+        <data-type>varchar(255)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="32" parent="4" name="content">
+      <column id="46" parent="10" name="content">
         <comment>回复内容</comment>
         <mandatory>1</mandatory>
-        <data-type>varchar(1000)</data-type>
+        <data-type>varchar(1000)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="33" parent="4" name="message_id">
+      <column id="47" parent="10" name="message_id">
         <comment>留言表ID</comment>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="34" parent="4" name="create_time">
+      <column id="48" parent="10" name="create_time">
         <comment>创建时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="35" parent="4" name="update_time">
+      <column id="49" parent="10" name="update_time">
         <comment>更新时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="36" parent="4" name="PRIMARY">
+      <key id="50" parent="10" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="37" parent="5" name="id">
+      <column id="51" parent="11" name="id">
         <comment>主键</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="38" parent="5" name="content">
+      <column id="52" parent="11" name="user_id">
+        <comment>学号</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="53" parent="11" name="user_name">
+        <comment>姓名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="54" parent="11" name="password">
+        <comment>密码</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="55" parent="11" name="college">
+        <comment>学院</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="56" parent="11" name="major">
+        <comment>专业</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="57" parent="11" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="58" parent="11" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="59" parent="11" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="60" parent="12" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="61" parent="12" name="content">
         <comment>项目内容</comment>
         <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
+        <data-type>varchar(255)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="39" parent="5" name="vote_subject_id">
+      <column id="62" parent="12" name="vote_subject_id">
         <comment>投票项目表ID</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="40" parent="5" name="create_time">
+      <column id="63" parent="12" name="create_time">
         <comment>创建时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="41" parent="5" name="update_time">
+      <column id="64" parent="12" name="update_time">
         <comment>更新时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="42" parent="5" name="PRIMARY">
+      <key id="65" parent="12" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="43" parent="6" name="id">
+      <column id="66" parent="13" name="id">
         <comment>主键</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="44" parent="6" name="title">
+      <column id="67" parent="13" name="title">
         <comment>项目主题</comment>
         <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
+        <data-type>varchar(255)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="45" parent="6" name="vote_subject_type_id">
+      <column id="68" parent="13" name="vote_subject_type_id">
         <comment>投票项目类别表ID</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="46" parent="6" name="vote_topic_id">
+      <column id="69" parent="13" name="vote_topic_id">
         <comment>投票项目属于的主题ID</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="47" parent="6" name="create_time">
+      <column id="70" parent="13" name="create_time">
         <comment>创建时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="48" parent="6" name="update_time">
+      <column id="71" parent="13" name="update_time">
         <comment>更新时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="49" parent="6" name="PRIMARY">
+      <key id="72" parent="13" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="50" parent="7" name="id">
+      <column id="73" parent="14" name="id">
         <comment>主键</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="51" parent="7" name="user_id">
+      <column id="74" parent="14" name="user_id">
         <comment>投票者学号</comment>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="52" parent="7" name="result_vote_item_id">
+      <column id="75" parent="14" name="result_vote_item_id">
         <comment>客观题结果</comment>
-        <data-type>bigint(1) unsigned</data-type>
+        <data-type>bigint(1) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="53" parent="7" name="content_result">
+      <column id="76" parent="14" name="content_result">
         <comment>主观题结果</comment>
-        <data-type>varchar(1000)</data-type>
+        <data-type>varchar(1000)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="54" parent="7" name="vote_subject_id">
+      <column id="77" parent="14" name="vote_subject_id">
         <comment>投票项目表ID</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="55" parent="7" name="create_time">
+      <column id="78" parent="14" name="create_time">
         <comment>创建时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="56" parent="7" name="update_time">
+      <column id="79" parent="14" name="update_time">
         <comment>更新时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="57" parent="7" name="PRIMARY">
+      <key id="80" parent="14" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="58" parent="8" name="id">
+      <column id="81" parent="15" name="id">
         <comment>主键</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="59" parent="8" name="type_name">
+      <column id="82" parent="15" name="type_name">
         <comment>类别名</comment>
         <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
+        <data-type>varchar(255)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="60" parent="8" name="create_time">
+      <column id="83" parent="15" name="create_time">
         <comment>创建时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="61" parent="8" name="update_time">
+      <column id="84" parent="15" name="update_time">
         <comment>更新时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="62" parent="8" name="PRIMARY">
+      <key id="85" parent="15" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="63" parent="9" name="id">
+      <column id="86" parent="16" name="id">
         <comment>主键</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="64" parent="9" name="vote_topic_id">
-        <comment>投票项目属于的主题ID</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="65" parent="9" name="vote_topic_vote_number">
-        <comment>主题ID总投票数</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="66" parent="9" name="create_time">
-        <comment>创建时间</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="67" parent="9" name="update_time">
-        <comment>更新时间</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <key id="68" parent="9" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="69" parent="10" name="id">
-        <comment>主键</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="70" parent="10" name="type_name">
-        <comment>类别名</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="71" parent="10" name="parent_type_name">
-        <comment>父类别名</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="72" parent="10" name="create_time">
-        <comment>创建时间</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="73" parent="10" name="update_time">
-        <comment>更新时间</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <key id="74" parent="10" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="75" parent="11" name="id">
-        <comment>主键</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="76" parent="11" name="user_id">
-        <comment>学号</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="77" parent="11" name="user_name">
-        <comment>姓名</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="78" parent="11" name="password">
-        <comment>密码</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="79" parent="11" name="college">
-        <comment>学院</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="80" parent="11" name="major">
-        <comment>专业</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="81" parent="11" name="create_time">
-        <comment>创建时间</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="82" parent="11" name="update_time">
-        <comment>更新时间</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <key id="83" parent="11" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="84" parent="12" name="id">
-        <comment>主键</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="85" parent="12" name="user_id">
-        <comment>学号</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="86" parent="12" name="user_name">
-        <comment>姓名</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="87" parent="12" name="password">
-        <comment>密码</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="88" parent="12" name="college">
-        <comment>学院</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="89" parent="12" name="major">
-        <comment>专业</comment>
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-        <default-expression>&apos;&apos;</default-expression>
-      </column>
-      <column id="90" parent="12" name="create_time">
-        <comment>创建时间</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <column id="91" parent="12" name="update_time">
-        <comment>更新时间</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
-      </column>
-      <key id="92" parent="12" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="93" parent="13" name="id">
-        <comment>主键</comment>
-        <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="94" parent="13" name="user_id">
+      <column id="87" parent="16" name="user_id">
         <comment>创建者学号</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="95" parent="13" name="title">
+      <column id="88" parent="16" name="title">
         <comment>投票主题</comment>
         <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
+        <data-type>varchar(255)|0</data-type>
         <default-expression>&apos;&apos;</default-expression>
       </column>
-      <column id="96" parent="13" name="start_time">
+      <column id="89" parent="16" name="start_time">
         <comment>开始时间</comment>
         <mandatory>1</mandatory>
-        <data-type>date</data-type>
+        <data-type>date|0</data-type>
       </column>
-      <column id="97" parent="13" name="end_time">
+      <column id="90" parent="16" name="end_time">
         <comment>结束时间</comment>
         <mandatory>1</mandatory>
-        <data-type>date</data-type>
+        <data-type>date|0</data-type>
       </column>
-      <column id="98" parent="13" name="vote_type_id">
+      <column id="91" parent="16" name="vote_type_id">
         <comment>投票类别表ID</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="99" parent="13" name="create_time">
+      <column id="92" parent="16" name="create_time">
         <comment>创建时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="100" parent="13" name="update_time">
+      <column id="93" parent="16" name="update_time">
         <comment>更新时间</comment>
         <mandatory>1</mandatory>
-        <data-type>bigint(20) unsigned</data-type>
+        <data-type>bigint(20) unsigned|0</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <key id="101" parent="13" name="PRIMARY">
+      <key id="94" parent="16" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="95" parent="17" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="96" parent="17" name="vote_topic_id">
+        <comment>投票项目属于的主题ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="97" parent="17" name="vote_topic_vote_number">
+        <comment>主题ID总投票数</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="98" parent="17" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="99" parent="17" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="100" parent="17" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="101" parent="18" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="102" parent="18" name="type_name">
+        <comment>类别名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="103" parent="18" name="parent_type_name">
+        <comment>父类别名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="104" parent="18" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="105" parent="18" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="106" parent="18" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
+  </data-source>
+  <data-source name="MySQL - society1@localhost" uuid="4905800e-7d46-4477-bc4b-ce8125770cb6">
+    <database-info product="MySQL" version="5.7.13-0ubuntu0.16.04.2" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+      <schema id="1" name="society1">
+        <visible>1</visible>
+      </schema>
+      <schema id="2" name="information_schema"/>
+      <schema id="3" name="mysql"/>
+      <schema id="4" name="performance_schema"/>
+      <schema id="5" name="society"/>
+      <schema id="6" name="sys"/>
+      <table id="7" parent="1" name="admin_user">
+        <comment>管理员表</comment>
+      </table>
+      <table id="8" parent="1" name="message">
+        <comment>留言表</comment>
+      </table>
+      <table id="9" parent="1" name="message_type">
+        <comment>留言类别表</comment>
+      </table>
+      <table id="10" parent="1" name="response">
+        <comment>回复表</comment>
+      </table>
+      <table id="11" parent="1" name="user">
+        <comment>用户表</comment>
+      </table>
+      <table id="12" parent="1" name="vote_item">
+        <comment>项目选项表</comment>
+      </table>
+      <table id="13" parent="1" name="vote_subject">
+        <comment>投票项目表</comment>
+      </table>
+      <table id="14" parent="1" name="vote_subject_result">
+        <comment>项目结果表</comment>
+      </table>
+      <table id="15" parent="1" name="vote_subject_type">
+        <comment>投票项目类别表</comment>
+      </table>
+      <table id="16" parent="1" name="vote_topic">
+        <comment>投票主题表</comment>
+      </table>
+      <table id="17" parent="1" name="vote_topic_number">
+        <comment>投票数目表</comment>
+      </table>
+      <table id="18" parent="1" name="vote_type">
+        <comment>投票类别表</comment>
+      </table>
+      <column id="19" parent="7" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="20" parent="7" name="user_id">
+        <comment>学号</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="21" parent="7" name="user_name">
+        <comment>姓名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="22" parent="7" name="password">
+        <comment>密码</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="23" parent="7" name="college">
+        <comment>学院</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="24" parent="7" name="major">
+        <comment>专业</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="25" parent="7" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="26" parent="7" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="27" parent="7" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="28" parent="8" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="29" parent="8" name="user_id">
+        <comment>消息发送者学号</comment>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="30" parent="8" name="title">
+        <comment>消息标题</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="31" parent="8" name="content">
+        <comment>消息内容</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(1000)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="32" parent="8" name="is_passed">
+        <comment>是否通过</comment>
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1) unsigned|0</data-type>
+        <default-expression>&apos;1&apos;</default-expression>
+      </column>
+      <column id="33" parent="8" name="message_type_id">
+        <comment>留言类别表ID</comment>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="34" parent="8" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="35" parent="8" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="36" parent="8" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="37" parent="9" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="38" parent="9" name="user_id">
+        <comment>消息接受者学号</comment>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="39" parent="9" name="type_name">
+        <comment>消息类别名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="40" parent="9" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="41" parent="9" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="42" parent="9" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="43" parent="10" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="44" parent="10" name="user_id">
+        <comment>回复发送者学号</comment>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="45" parent="10" name="title">
+        <comment>回复标题</comment>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="46" parent="10" name="content">
+        <comment>回复内容</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(1000)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="47" parent="10" name="message_id">
+        <comment>留言表ID</comment>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="48" parent="10" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="49" parent="10" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="50" parent="10" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="51" parent="11" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="52" parent="11" name="user_id">
+        <comment>学号</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="53" parent="11" name="user_name">
+        <comment>姓名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="54" parent="11" name="password">
+        <comment>密码</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="55" parent="11" name="college">
+        <comment>学院</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="56" parent="11" name="major">
+        <comment>专业</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="57" parent="11" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="58" parent="11" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="59" parent="11" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="60" parent="12" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="61" parent="12" name="content">
+        <comment>项目内容</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="62" parent="12" name="vote_subject_id">
+        <comment>投票项目表ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="63" parent="12" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="64" parent="12" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="65" parent="12" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="66" parent="13" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="67" parent="13" name="title">
+        <comment>项目主题</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="68" parent="13" name="vote_subject_type_id">
+        <comment>投票项目类别表ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="69" parent="13" name="vote_topic_id">
+        <comment>投票项目属于的主题ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="70" parent="13" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="71" parent="13" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="72" parent="13" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="73" parent="14" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="74" parent="14" name="user_id">
+        <comment>投票者学号</comment>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="75" parent="14" name="result_vote_item_id">
+        <comment>客观题结果</comment>
+        <data-type>bigint(1) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="76" parent="14" name="content_result">
+        <comment>主观题结果</comment>
+        <data-type>varchar(1000)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="77" parent="14" name="vote_subject_id">
+        <comment>投票项目表ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="78" parent="14" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="79" parent="14" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="80" parent="14" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="81" parent="15" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="82" parent="15" name="type_name">
+        <comment>类别名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="83" parent="15" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="84" parent="15" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="85" parent="15" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="86" parent="16" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="87" parent="16" name="user_id">
+        <comment>创建者学号</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="88" parent="16" name="title">
+        <comment>投票主题</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="89" parent="16" name="start_time">
+        <comment>开始时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>date|0</data-type>
+      </column>
+      <column id="90" parent="16" name="end_time">
+        <comment>结束时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>date|0</data-type>
+      </column>
+      <column id="91" parent="16" name="vote_type_id">
+        <comment>投票类别表ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="92" parent="16" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="93" parent="16" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="94" parent="16" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="95" parent="17" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="96" parent="17" name="vote_topic_id">
+        <comment>投票项目属于的主题ID</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="97" parent="17" name="vote_topic_vote_number">
+        <comment>主题ID总投票数</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="98" parent="17" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="99" parent="17" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="100" parent="17" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="101" parent="18" name="id">
+        <comment>主键</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="102" parent="18" name="type_name">
+        <comment>类别名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="103" parent="18" name="parent_type_name">
+        <comment>父类别名</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)|0</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="104" parent="18" name="create_time">
+        <comment>创建时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="105" parent="18" name="update_time">
+        <comment>更新时间</comment>
+        <mandatory>1</mandatory>
+        <data-type>bigint(20) unsigned|0</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <key id="106" parent="18" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
