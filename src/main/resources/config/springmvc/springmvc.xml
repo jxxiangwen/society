@@ -59,9 +59,14 @@
         </mvc:argument-resolvers>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper">
-                    <bean class="ocean.mvc.ExObjectMapper"/>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
                 </property>
+                <!--<property name="objectMapper">-->
+                <!--<bean class="ocean.mvc.ExObjectMapper"/>-->
+                <!--</property>-->
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
